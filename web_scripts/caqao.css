@@ -1,0 +1,353 @@
+head {
+		background-color: #fefefe;
+	}
+
+body {
+		background-color: #e4e4e4;
+		width: 950px;
+        font-family: "Lato", sans-serif;
+
+	}
+.MainTable {
+		border-collapse: collapse;
+		width: 100%;
+	}
+.MainTable th {
+	    border: 1px solid #ddd;
+		height: 40px;
+		background-color: #9f9f9f;
+		font-style: Arial;
+	}
+.MainTable td {
+	    border: 1px solid #ddd;
+		text-align: left;
+		padding: 4px;
+	}
+
+.MainTable tr:nth-child(even){background-color: #f2f2f2}
+
+.MainTable tr:not(.header):hover {background-color: #ddd}
+
+.ResultsHeaderTable {
+    width: 100%;
+}
+
+.ResultsHeaderTable td{
+    text-align: center;
+}
+
+#header td {
+	border: 0px;
+}
+
+    /*
+    *
+    *
+    result widgets
+    *
+    *
+    */
+
+#good {
+    background-color: chartreuse;
+}
+
+#bad {
+    background-color: red;
+}
+
+#repaired {
+    background-color: orange;
+}
+
+#absent {
+    background-color: teal;
+}
+
+#good_c {
+    background-color: chartreuse;
+    text-decoration: underline;
+    /*font-weight: bold;*/
+}
+
+#bad_c {
+    background-color: red;
+    text-decoration: underline;
+}
+
+#repaired_c {
+    background-color: orange;
+    text-decoration: underline;
+}
+
+#absent_c {
+    background-color: teal;
+    text-decoration: underline;
+}
+
+
+    /*
+    *
+    *
+    Tooltip
+    *
+    *
+    */
+
+.ui-tooltip, .arrow:after {
+    background: black;
+    /*background: #555555;*/
+    border: 2px solid white;
+}
+.ui-tooltip {
+    padding: 10px 20px;
+    color: white;
+    border-radius: 20px;
+    font: 14px "Helvetica Neue", Sans-Serif;
+    /*text-transform: uppercase;*/
+    box-shadow: 0 0 7px black;
+}
+.arrow {
+    width: 70px;
+    height: 16px;
+    overflow: hidden;
+    position: absolute;
+    left: 50%;
+    margin-left: -35px;
+    bottom: -16px;
+
+}
+.arrow.top {
+    top: -16px;
+    bottom: auto;
+}
+.arrow.left {
+left: 20%   ;
+}
+.arrow:after {
+    content: "";
+    position: absolute;
+    left: 20px;
+    top: -20px;
+    width: 25px;
+    height: 25px;
+    box-shadow: 6px 5px 9px -9px black;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+.arrow.top:after {
+    bottom: -20px;
+    top: auto;
+}
+
+    /*
+    *
+    *
+   InputWidgets
+    *
+    *
+    */
+
+.conformButtonLabel, .nonConformButtonLabel{
+    width: 50%;
+    /*height: 30px;*/
+}
+
+
+.conformButtonLabel.ui-state-active {
+    background: #00CC00;
+    color: #005500;
+}
+
+.nonConformButtonLabel.ui-state-active {
+    background: #CC0000;
+    color: #550000;
+}
+
+.CustomCheckBox span.ui-button-text{
+    height: 14px;
+    border-color: inherit;
+    border-style: solid;
+    border-width: 2px;
+
+}
+
+.CustomCheckBox.valid span.ui-button-text{
+    border-color: inherit;
+
+}
+
+
+.CustomCheckBox.checked_and_invalid span.ui-button-text{
+    border-color: #FFD329;
+}
+
+.Tab_a.valid {
+    background-color: #00CC00;
+}
+
+
+
+.CustomMeasureBox{
+    margin: 0 17px 0 0 ;
+    width:218px;
+    height: 24px;
+    border-style: solid;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+    border-color: #f0f0f0;
+    background-color: #f0f0f0;
+}
+
+.CustomMeasureBox.valid{
+    border-color: #00CC00;
+    color: #005500;
+
+}
+
+.CustomMeasureBox.checked_and_invalid{
+    border-color: #ffd329;
+    color: #999900;
+}
+
+.CustomMeasureBox.invalid{
+    border-style: solid;
+    border-radius: 5px;
+    border-color: #CC0000;
+    color: #550000;
+
+}
+
+
+.CustomTextBox {
+    height: 24px;
+    width: 96%;
+    border-style: solid;
+    border-radius: 5px;
+    border-color: inherit;
+    border-width: 3px;
+
+}
+
+.CustomTextBox.valid{
+    border-color: #00CC00;
+    color: #005500;
+}
+
+.CustomTextBox.checked_and_invalid{
+    border-color: #ffd329;
+    color: #999900;
+}
+
+.CustomTextBox.invalid{
+    border-style: solid;
+    border-radius: 5px;
+    border-color: #CC0000;
+    color: #550000;
+}
+
+.CommentInput {
+    height: 24px;
+    width: 96%;
+}
+
+.TabValidationDiv {
+    margin: auto;
+    text-align: center;
+    padding-top: 15px;
+}
+
+.TabValidationInput span.ui-button-text{
+    border-style:outset;
+}
+
+#tabs {
+    white-space: nowrap;
+}
+.TitleTd {
+    width: 150%;
+}
+.ScrollableTabs a{
+    font-size: x-small;
+    text-align: center;
+    vertical-align: middle;
+    height: 100%;
+
+}
+.ScrollableTabs ul{
+    height: 70px;
+    white-space: nowrap;
+}
+.ScrollableTabs li{
+    height: 96%;
+    display: inline-block;
+    width: 11.85%;
+}
+
+.PageValidationDiv {
+    margin: auto;
+    text-align: center;
+    padding-top: 15px;
+}
+.XScrollTableDiv {
+    width: 60%;
+    overflow-x: auto;
+    margin-left: 40%;
+
+}
+
+.XScrollTableDiv td{
+    margin: 0;
+    overflow: hidden;
+    color: inherit;
+    min-width: 90px;
+    height: 30px;
+
+}
+.InspectionScrollTableLabel{
+    width:50%;
+    height: 30px;
+}
+.ScrollTableLabel {
+    height: 30px;
+    position: absolute;
+    width: 38%;
+    left: 2%;
+}
+.ScrollBox {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+.ScrollText {
+    /*width: 100%;*/
+    /*height: 100%;*/
+    position: absolute;
+    white-space: nowrap;
+}
+.ConformCell {
+    background-color: #00CC00;
+}
+.NonConformCell {
+    background-color: #CC0000;
+}
+.CorrectedCell .ConformCell {
+    background-color: orange;
+}
+
+    /*
+    *
+    *
+    Select
+    *
+    */
+.SectorSelectItem{
+    font-weight: bolder;
+}
+
+.DetectorSelectItem{
+    font-weight: lighter;
+}
+
