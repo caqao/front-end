@@ -1,5 +1,21 @@
 /*
  *
+ *
+ *
+ * GLOBAL_FUNCTIONS
+ *
+ *
+ * */
+function redirect(u){
+    var hr = "[href='" + u + "']";
+    console.log(hr);
+    // $(hr).click();
+    window.location.href = u;
+}
+
+
+/*
+ *
   *
   *
   * INSPECTION_PAGE
@@ -215,18 +231,24 @@ function validate_single_page() {
 function validate_tab(tabid) {
 
     var tab = document.getElementById(tabid);
-
     var i1 = $(tab).find('.CustomCheckBox');
     var i2 = $(tab).find('.CustomTextBox');
     var i3 = $(tab).find('.CustomMeasureBox');
     var i4 = $(tab).find('.CustomSelectorBox');
-    var valid_tab = validate_by_types(i1,i2,i3,i4);
+    if (i1.length > 0 ||
+        i2.length > 0 ||
+        i3.length > 0 ||
+        i4.length > 0) {
+        var valid_tab = validate_by_types(i1, i2, i3, i4);
 
-    $(tab).toggleClass("valid", valid_tab);
-    var num = tab.id.charAt(tab.id.length-1);
-    anchor = document.getElementById("ui-id-"+num);
-    $(anchor).toggleClass("valid", valid_tab);
-
+        $(tab).toggleClass("valid", valid_tab);
+        var num = tab.id.charAt(tab.id.length - 1);
+        anchor = document.getElementById("ui-id-" + num);
+        $(anchor).toggleClass("valid", valid_tab);
+    }
+    else{
+        valid_tab = true;
+    }
     return valid_tab
 }
 

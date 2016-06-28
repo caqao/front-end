@@ -125,8 +125,10 @@ $(function () {
 
     $( window ).load(function () {
         init_all_inputs();
-        document.getElementById('tabPickerSubmit').disabled = false;
-
+        var pickerSubmit = document.getElementById('tabPickerSubmit');
+        if (pickerSubmit != null){
+            pickerSubmit.disabled = false;
+        }
     });
 
 //    $(document).ready(function () {
