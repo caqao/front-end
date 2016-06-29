@@ -5,15 +5,79 @@ function closeNav() {
 function submit_page() {
     document.getElementById('submit_inspection').submit();
 }
-/*
- *
-  *
-  *
-  * INSPECTION_RESULT
-  *
-  *
-  * *
-  * */
+function generic_update(widget) {
+    var csrftoken = getCookie('csrftoken');
+    var wid_info = widget.id.split('_');
+    var tab, element_id, datatype = wid_info;
+    //TODO read value properly according to datatype, send data
+    $.ajax({
+        url: window.location.href,
+        type: 'POST',
+        data: {
+            csrfmiddlewaretoken: csrftoken,
+            post_action: 'generic_update'
+
+
+
+            //TODO add the rest
+            
+        },
+        success: function (json) {
+
+            if (json.valid == 1) {
+                console.log(json);
+                //TODO update value, add classes, remove clases
+
+            } else {
+                console.log(json);
+                //TODO update old value, display error message
+            }
+
+        },
+        error: function () {
+            console.log('didnt work');
+            alert("Erreur interne lors de la dernière modification de valeur");
+        }
+
+
+    });
+}
+
+function LoadAjaxTab(event, ui, tab) {
+    var csrftoken = getCookie('csrftoken');
+    if (tab===null){
+        var tabref = ui.newTab.attr("aria-controls");
+        tab = tabref.substr(tabref.length-1);
+    }
+
+    $.ajax({
+        url: window.location.href,
+        type: 'GET',
+        data: {
+            csrfmiddlewaretoken: csrftoken,
+            get_action: 'load_tab',
+
+            tab: tab
+
+        },
+        success: function (json) {
+            if (json.valid===1){
+                console.log(json);
+                $(ui.panel).html(json.markup);
+
+            }else{
+                console.log(json);
+            }
+        },
+        error: function () {
+            console.log('didnt work');
+            alert("Erreur interne lors du chargement de la page");
+        }
+
+
+    });
+}
+
 function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie != '') {
@@ -46,6 +110,16 @@ $(function () {
             $(tabs).tabs( "refresh" );
             document.getElementById('tabPickerSubmit').disabled = false;
             presentTabCounter--;
+    });
+
+    $( "#AjaxTabs" ).tabs({
+       activate: function(e,ui) {
+           LoadAjaxTab(e,ui,null);
+       },
+        create: function (e,ui) {
+            LoadAjaxTab(e,ui,1);
+
+        }
     });
 
 
