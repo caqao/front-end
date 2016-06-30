@@ -5,43 +5,7 @@ function closeNav() {
 function submit_page() {
     document.getElementById('submit_inspection').submit();
 }
-function generic_update(widget) {
-    var csrftoken = getCookie('csrftoken');
-    var wid_info = widget.id.split('_');
-    var tab, element_id, datatype = wid_info;
-    //TODO read value properly according to datatype, send data
-    $.ajax({
-        url: window.location.href,
-        type: 'POST',
-        data: {
-            csrfmiddlewaretoken: csrftoken,
-            post_action: 'generic_update'
 
-
-
-            //TODO add the rest
-            
-        },
-        success: function (json) {
-
-            if (json.valid == 1) {
-                console.log(json);
-                //TODO update value, add classes, remove clases
-
-            } else {
-                console.log(json);
-                //TODO update old value, display error message
-            }
-
-        },
-        error: function () {
-            console.log('didnt work');
-            alert("Erreur interne lors de la dernière modification de valeur");
-        }
-
-
-    });
-}
 
 function LoadAjaxTab(event, ui, tab) {
     var csrftoken = getCookie('csrftoken');
@@ -62,8 +26,9 @@ function LoadAjaxTab(event, ui, tab) {
         },
         success: function (json) {
             if (json.valid===1){
-                console.log(json);
                 $(ui.panel).html(json.markup);
+                enable_live_widgets(ui.panel)
+
 
             }else{
                 console.log(json);
@@ -121,7 +86,6 @@ $(function () {
 
         }
     });
-
 
     $( ".SideBarAccordion").accordion({
         heightStyle: "content",
@@ -204,6 +168,8 @@ $(function () {
             pickerSubmit.disabled = false;
         }
     });
+
+
 
 //    $(document).ready(function () {
 //        console.log('ready');
