@@ -150,6 +150,12 @@ LiveWidgets
 .LiveText {
     width:96%;
 }
+.LiveSelect {
+    width:100%;
+}
+.LiveNumber {
+    width: 3em;
+}
 
     /*
     *

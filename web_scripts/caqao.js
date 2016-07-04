@@ -13,6 +13,7 @@ function LoadAjaxTab(event, ui, tab) {
         var tabref = ui.newTab.attr("aria-controls");
         tab = tabref.substr(tabref.length-1);
     }
+    var tab_object = document.getElementById('tabs-'+tab);
 
     $.ajax({
         url: window.location.href,
@@ -20,15 +21,13 @@ function LoadAjaxTab(event, ui, tab) {
         data: {
             csrfmiddlewaretoken: csrftoken,
             get_action: 'load_tab',
-
             tab: tab
 
         },
         success: function (json) {
             if (json.valid===1){
-                $(ui.panel).html(json.markup);
-                enable_live_widgets(ui.panel)
-
+                $(tab_object).html(json.markup);
+                enable_live_widgets(tab_object);
 
             }else{
                 console.log(json);

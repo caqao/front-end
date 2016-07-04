@@ -1,38 +1,87 @@
 function enable_live_widgets(tab) {
-    $(tab.find('.LiveCheckBox')).each(function(){
+    $($(tab).find('.LiveCheckBox')).each(function(){
         enable_live_checkbox(this);});
-    $(tab.find('.LiveText')).each(function(){
+    $($(tab).find('.LiveText')).each(function(){
         enable_live_text(this);});
-    $(tab.find('.LiveNumber')).each(function(){
+    $($(tab).find('.LiveNumber')).each(function(){
         enable_live_number(this);});
-
+    $($(tab).find('.LiveTextArea')).each(function(){
+        enable_live_textarea(this);});
+    $($(tab).find('.LiveSelect')).each(function(){
+        enable_live_select(this);});
+    $($(tab).find('.NewEntryButton')).each(function(){
+        enable_add_entry(this, tab);});
 }
 
 function enable_live_checkbox(chk){
     $(chk).bind('edit', function (e) {
         generic_update(chk, chk.checked);
-
     });
-
     $(chk).change(function (e) {
         $(chk).trigger('edit');
     })
 }
 
 function enable_live_text(text){
-    $(text).blur(function () {
+    $(text).bind('edit', function (e) {
         generic_update(text, text.value);
+    })
+    .blur(function () {
+        $(text).trigger('edit');
+    })
+    .keypress(function (e) {
+        if (e.which == 13){
+            $(text).trigger('edit');
+        }
     })
 }
 
 function enable_live_number(num_text){
     $(num_text).spinner({
-
     })
-        .blur(function () {
+    .bind('edit', function (e) {
         generic_update(num_text, num_text.value);
     })
+    .blur(function () {
+        $(num_text).trigger('edit');
+    })
+    .keypress(function (e) {
+        if (e.which == 13){
+            $(num_text).trigger('edit');
+        }
+    })
 }
+
+function enable_live_textarea(textarea){
+    $(textarea).bind('edit', function (e) {
+        generic_update(textarea, textarea.value);
+    })
+        .blur(function () {
+            $(textarea).trigger('edit');
+        });
+}
+
+function enable_live_select(sel){
+    $(sel).selectmenu({
+        change: function (event, ui) {
+            $(sel).trigger('edit');
+        }
+    })
+    .bind('edit', function (e) {
+        generic_update(sel, sel.value);
+    });
+}
+
+function enable_add_entry(but, tab){
+    $(but).button()
+        .click(function (event) {
+            $(but).trigger('add_entry');
+        })
+        .bind('add_entry', function(e){
+        add_entry(tab);
+    })
+}
+
 
 function reset_previous_value(widget, prev_val){
     widget.value = prev_val;
@@ -50,7 +99,6 @@ function generic_update(widget, new_value) {
             tab: wid_info[0],
             id: wid_info[1],
             new_value: new_value
-            //TODO add the rest
 
         },
         success: function (json) {
@@ -64,13 +112,34 @@ function generic_update(widget, new_value) {
                 $(widget).toggleClass(json.invalid_class, true);
                 reset_previous_value(widget, json.previous_value)
             }
-
         },
         error: function () {
             console.log('didnt work');
             alert("Erreur interne lors de la dernière modification de valeur");
         }
+    });
+}
 
-
+function add_entry(tab_object) {
+    var csrftoken = getCookie('csrftoken');
+    $.ajax({
+        url: window.location.href,
+        type: 'POST',
+        data: {
+            csrfmiddlewaretoken: csrftoken,
+            post_action: 'add_entry',
+            tab: tab_object.id.split('-')[1]
+        },
+        success: function (json) {
+            if (json.valid===1){
+                $(tab_object).html(json.markup);
+                enable_live_widgets(tab_object);
+            }else{
+                console.log(json);
+            }
+        },
+        error: function () {
+            alert("Erreur interne lors de la création du nouvel élément");
+        }
     });
 }
