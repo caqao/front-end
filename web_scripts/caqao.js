@@ -159,6 +159,9 @@ $(function () {
         alert(event.target);
     });
 
+    $(".SinglePage").ready(function (event) {
+        enable_live_widgets(this);
+    });
 
     $( window ).load(function () {
         init_all_inputs();

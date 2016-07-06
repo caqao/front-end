@@ -1,10 +1,12 @@
 head {
 		background-color: #fefefe;
-	}
+        max-width: 1200px;
+
+}
 
 body {
 		background-color: #e4e4e4;
-		width: 950px;
+		max-width: 1200px;
         font-family: "Lato", sans-serif;
 
 	}
@@ -17,10 +19,11 @@ body {
 		height: 40px;
 		background-color: #9f9f9f;
 		font-style: Arial;
+
 	}
 .MainTable td {
 	    border: 1px solid #ddd;
-		text-align: left;
+		/*text-align: left;*/
 		padding: 4px;
 	}
 
@@ -38,6 +41,7 @@ body {
 
 #header td {
 	border: 0px;
+
 }
 
     /*
