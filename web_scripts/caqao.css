@@ -152,13 +152,16 @@ LiveWidgets
 *
 */
 .LiveText {
-    width:96%;
+    width:94%;
+    /*text-align:center;*/
 }
 .LiveSelect {
     width:100%;
 }
 .LiveNumber {
-    width: 3em;
+    /*width: 3em;*/
+    width: 90%;
+
 }
 
     /*

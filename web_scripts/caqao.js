@@ -163,6 +163,7 @@ $(function () {
         enable_live_widgets(this);
     });
 
+
     $( window ).load(function () {
         init_all_inputs();
         var pickerSubmit = document.getElementById('tabPickerSubmit');

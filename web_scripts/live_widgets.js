@@ -9,6 +9,10 @@ function enable_live_widgets(tab) {
         enable_live_textarea(this);});
     $($(tab).find('.LiveSelect')).each(function(){
         enable_live_select(this);});
+    // $($(tab).find('.RangeSlider')).each(function(){
+    //     enable_range_slider(this);});
+    $($(tab).find('.MinMaxTd')).each(function(){
+        enable_range_td(this);});
     $($(tab).find('.NewEntryButton')).each(function(){
         enable_add_entry(this, tab);});
 }
@@ -55,6 +59,26 @@ function enable_live_number(num_text){
     })
 }
 
+function enable_live_limit_number(num_text){
+    $(num_text).spinner({
+    })
+        .bind('edit', function (e) {
+            update_limit(num_text);
+            // generic_update(num_text, num_text.value);
+        })
+        .change( function () {
+            $(num_text).trigger('edit');
+        })
+        .blur(function () {
+            $(num_text).trigger('edit');
+        })
+        .keypress(function (e) {
+            if (e.which == 13){
+                $(num_text).trigger('edit');
+            }
+        })
+}
+
 function enable_live_textarea(textarea){
     $(textarea).bind('edit', function (e) {
         generic_update(textarea, textarea.value);
@@ -75,6 +99,43 @@ function enable_live_select(sel){
     });
 }
 
+function enable_range_td(td){
+    var min_inp = $(td).find('.MinLimit')[0];
+    var max_inp = $(td).find('.MaxLimit')[0];
+    // console.log(min_inp);
+    enable_live_limit_number(min_inp);
+    enable_live_limit_number(max_inp);
+}
+
+function update_limit(spinner){
+    var td = $(spinner).parent().parent()[0];
+    var min_inp = $(td).find('.MinLimit')[0];
+    var max_inp = $(td).find('.MaxLimit')[0];
+    var results = [$(min_inp).val(), $(max_inp).val()];
+    generic_update(td, results);
+    //
+    // console.log($(min_inp));
+    // console.log($(max_inp).val());
+
+}
+// function enable_range_slider(slider){
+//     var inp = document.getElementById(slider.id+"-text");
+//     var val = $(inp).val().split(" - ");
+//     var min = val[0];
+//     var max = val[1];
+//     $(slider).slider({
+//         range: true,
+//         min:0,
+//         max:1000,
+//         values: [min, max],
+//         slide: function (event, ui) {
+//             $(inp).val( ui.values[0] + ' - ' + ui.values[1] )
+//         }
+//     })
+//
+//
+// }
+
 function enable_add_entry(but, tab){
     $(but).button()
         .click(function (event) {
@@ -83,17 +144,21 @@ function enable_add_entry(but, tab){
         .bind('add_entry', function(e){
         // add_entry(tab);
         //     console.log(but.id.split('_')[1]);
-            var table = $(tab).find('.MainTable')[0];
-            console.log($(but).parent().parent()[0]);
-            var button_row = $(but).parent().parent()[0];
-
-            // $(button_row).remove();
-            // $(table).append(button_row);
-
-            // $(table).remove($(but).parent().parent()[0]);
-
-            add_entry(table, but.id.split('_')[1], button_row);
+            var table = $(tab).find('.MainTable');
+            if (table.length > 0){
+                var table_id = but.id.split('_')[2];
+                table = $(table).find('#'+table_id)[0];
+            }else{
+                table = table[0];
+            }
+            console.log(table);
+            add_entry(table, but.id.split('_')[1], but.id);
     })
+}
+function update_row(row_id, markup) {
+    var row = document.getElementById(row_id);
+    $(row).html(markup);
+    enable_live_widgets(row);
 }
 
 
@@ -119,6 +184,9 @@ function generic_update(widget, new_value) {
             if (json.valid == 1) {
                 $(widget).toggleClass(json.valid_class, true);
                 $(widget).toggleClass(json.invalid_class, false);
+                if (json.update_row){
+                    update_row(json.update_row.row, json.update_row.markup);
+                }
             }
             else {
                 console.log(json);
@@ -134,8 +202,7 @@ function generic_update(widget, new_value) {
     });
 }
 
-function add_entry(table_object, tab_id, button_row) {
-
+function add_entry(table_object, tab_id, button_id) {
     var csrftoken = getCookie('csrftoken');
     $.ajax({
         url: window.location.href,
@@ -143,13 +210,14 @@ function add_entry(table_object, tab_id, button_row) {
         data: {
             csrfmiddlewaretoken: csrftoken,
             post_action: 'add_entry',
-            tab: tab_id
+            tab: tab_id,
+            button_id: button_id
         },
         success: function (json) {
             if (json.valid===1){
-                $(button_row).remove();
+                // $(button_row).remove();
                 $(table_object).append(json.markup);
-                $(table_object).append(button_row);
+                // $(table_object).append(button_row);
 
                 enable_live_widgets(table_object);
             }else{
