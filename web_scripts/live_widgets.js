@@ -219,10 +219,7 @@ function add_entry(table_object, tab_id, button_id) {
         },
         success: function (json) {
             if (json.valid===1){
-                // $(button_row).remove();
                 $(table_object).append(json.markup);
-                // $(table_object).append(button_row);
-
                 enable_live_widgets(table_object);
             }else{
                 console.log(json);
