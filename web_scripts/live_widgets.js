@@ -111,12 +111,17 @@ function update_limit(spinner){
     var td = $(spinner).parent().parent()[0];
     var min_inp = $(td).find('.MinLimit')[0];
     var max_inp = $(td).find('.MaxLimit')[0];
-    var results = [$(min_inp).val(), $(max_inp).val()];
-    generic_update(td, results);
-    //
-    // console.log($(min_inp));
-    // console.log($(max_inp).val());
-
+    var min_val = $(min_inp).val();
+    var max_val = $(max_inp).val();
+    if (parseFloat(min_val) < parseFloat(max_val)) {
+        $(min_inp).toggleClass('invalid', false);
+        $(max_inp).toggleClass('invalid', false);
+        generic_update(td, min_val + "&" + max_val);
+    }
+    else {
+        $(min_inp).toggleClass('invalid', true);
+        $(max_inp).toggleClass('invalid', true);
+    }
 }
 // function enable_range_slider(slider){
 //     var inp = document.getElementById(slider.id+"-text");
@@ -142,16 +147,15 @@ function enable_add_entry(but, tab){
             $(but).trigger('add_entry');
         })
         .bind('add_entry', function(e){
-        // add_entry(tab);
-        //     console.log(but.id.split('_')[1]);
             var table = $(tab).find('.MainTable');
-            if (table.length > 0){
+            if (table.length > 1){
                 var table_id = but.id.split('_')[2];
-                table = $(table).find('#'+table_id)[0];
+                table = $(table).find('#'+table_id);
+                console.log(table);
+
             }else{
                 table = table[0];
             }
-            console.log(table);
             add_entry(table, but.id.split('_')[1], but.id);
     })
 }
@@ -176,7 +180,7 @@ function generic_update(widget, new_value) {
             csrfmiddlewaretoken: csrftoken,
             post_action: 'generic_update',
             tab: wid_info[0],
-            id: wid_info[1],
+            id: wid_info[1],    
             new_value: new_value
 
         },

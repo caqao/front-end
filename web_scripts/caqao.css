@@ -161,6 +161,15 @@ LiveWidgets
 .LiveNumber {
     /*width: 3em;*/
     width: 90%;
+}
+.MinLimit, .MaxLimit{
+    background-color: #FFFFFF;
+    width: 3em;
+}
+
+.MinLimit.invalid, .MaxLimit.invalid{
+    /*background-color: #CC0000;*/
+    background-color: #ff5968;
 
 }
 
