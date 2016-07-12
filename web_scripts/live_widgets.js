@@ -13,6 +13,8 @@ function enable_live_widgets(tab) {
     //     enable_range_slider(this);});
     $($(tab).find('.MinMaxTd')).each(function(){
         enable_range_td(this);});
+    $($(tab).find('.LinkButton')).each(function(){
+        enable_link_button(this, tab);});
     $($(tab).find('.NewEntryButton')).each(function(){
         enable_add_entry(this, tab);});
 }
@@ -99,12 +101,17 @@ function enable_live_select(sel){
     });
 }
 
+
 function enable_range_td(td){
     var min_inp = $(td).find('.MinLimit')[0];
     var max_inp = $(td).find('.MaxLimit')[0];
     // console.log(min_inp);
     enable_live_limit_number(min_inp);
     enable_live_limit_number(max_inp);
+}
+
+function enable_link_button(butt){
+    $(butt).button();
 }
 
 function update_limit(spinner){
