@@ -57,8 +57,23 @@ function getCookie(name) {
     }
     return cookieValue;
 }
+function init_nav_panels(panel){
+    var active_panel = $(panel).find('.active')[0];
+    var sel_app_id = active_panel.id.split('_')[0];
+    var sel_app_nav = document.getElementById(sel_app_id);
+    hide_show_nav_panels(sel_app_nav);
+}
 
-
+function hide_show_nav_panels(sel_app_nav) {
+    console.log(sel_app_nav);
+    $(document.getElementsByClassName('PageNav')).each(function(){
+        if ($(this).hasClass(sel_app_nav.id)){
+            $(this).show()
+        }else{
+            $(this).hide()
+        }
+    })
+}
 
 $(function () {
 
@@ -164,7 +179,19 @@ $(function () {
     });
 
 
+    // $("#navbar_list").ready(function(){
+    //     console.log(this);
+    //     init_nav_panels(this);
+    // });
+
+    $('.AppNav').click(function (event) {
+        event.preventDefault();
+        hide_show_nav_panels(this);
+    });
+
+
     $( window ).load(function () {
+        init_nav_panels(document.getElementById('navbar_list'));
         init_all_inputs();
         var pickerSubmit = document.getElementById('tabPickerSubmit');
         if (pickerSubmit != null){

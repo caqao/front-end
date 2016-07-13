@@ -1,15 +1,28 @@
 head {
-		background-color: #fefefe;
-        max-width: 1200px;
+    background-color: #fefefe;
+    max-width: 1200px;
 
 }
 
 body {
-		background-color: #e4e4e4;
-		max-width: 1200px;
-        font-family: "Lato", sans-serif;
+    padding-top: 50px;
+    background-color: #e4e4e4;
+    width: 100%;
+    font-family: "Lato", sans-serif;
+    height: 100%;
 
-	}
+}
+
+#main_content{
+    margin: auto;
+    padding: 20px 20px 0 20px;
+    background-color: white;
+    max-width: 1200px;
+    min-height: 100vh;
+
+}
+
+
 .MainTable {
 		border-collapse: collapse;
 		width: 100%;
