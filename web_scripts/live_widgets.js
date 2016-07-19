@@ -187,7 +187,7 @@ function generic_update(widget, new_value) {
             csrfmiddlewaretoken: csrftoken,
             post_action: 'generic_update',
             tab: wid_info[0],
-            id: wid_info[1],    
+            id: wid_info[1],
             new_value: new_value
 
         },
