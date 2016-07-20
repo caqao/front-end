@@ -63,11 +63,21 @@ body {
 
 }
 
-.panel-default {
-    padding: 5px;
+.panel {
+    /*padding: 10px;*/
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
-
+.panelButtons.right{
+    text-align: right;
+}
+.panelButtons.left{
+    text-align: left;
+}
+.panelButtons.center{
+    text-align: center;
+}
 
     /*
     *
