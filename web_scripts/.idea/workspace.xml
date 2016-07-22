@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6d864820-eb23-46b3-b334-7138b2ccf466" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/panel-ctrl.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/page-ctrl.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/caqao.css" afterPath="$PROJECT_DIR$/caqao.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ng-caqao-app.js" afterPath="$PROJECT_DIR$/ng-caqao-app.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/panel-ctrl.js" afterPath="$PROJECT_DIR$/panel-ctrl.js" />
     </list>
     <ignored path="web_scripts.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -36,21 +36,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ng-caqao-app.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ng-caqao-app.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ng-caqao-app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1188">
-              <caret line="66" column="56" selection-start-line="66" selection-start-column="56" selection-end-line="66" selection-end-column="56" />
+            <state relative-caret-position="198">
+              <caret line="11" column="48" selection-start-line="11" selection-start-column="48" selection-end-line="11" selection-end-column="48" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="panel-ctrl.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="panel-ctrl.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/panel-ctrl.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="108">
-              <caret line="6" column="29" selection-start-line="6" selection-start-column="29" selection-end-line="6" selection-end-column="29" />
+            <state relative-caret-position="324">
+              <caret line="18" column="44" selection-start-line="18" selection-start-column="44" selection-end-line="18" selection-end-column="44" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="page-ctrl.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/page-ctrl.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="185">
+              <caret line="47" column="2" selection-start-line="47" selection-start-column="2" selection-end-line="47" selection-end-column="2" />
               <folding />
             </state>
           </provider>
@@ -118,9 +128,10 @@
         <option value="$PROJECT_DIR$/angular_widgets.js" />
         <option value="$PROJECT_DIR$/live_widgets.js" />
         <option value="$PROJECT_DIR$/angular_http.js" />
-        <option value="$PROJECT_DIR$/ng-caqao-app.js" />
-        <option value="$PROJECT_DIR$/panel-ctrl.js" />
         <option value="$PROJECT_DIR$/caqao.css" />
+        <option value="$PROJECT_DIR$/panel-ctrl.js" />
+        <option value="$PROJECT_DIR$/page-ctrl.js" />
+        <option value="$PROJECT_DIR$/ng-caqao-app.js" />
       </list>
     </option>
   </component>
@@ -341,7 +352,7 @@
       <workItem from="1468418302399" duration="17165000" />
       <workItem from="1468850759199" duration="21472000" />
       <workItem from="1469020807764" duration="19528000" />
-      <workItem from="1469103315868" duration="36538000" />
+      <workItem from="1469103315868" duration="46713000" />
     </task>
     <task id="LOCAL-00001" summary="added style+icons">
       <created>1467047135184</created>
@@ -441,11 +452,18 @@
       <option name="project" value="LOCAL" />
       <updated>1469052187862</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="enabled controller prototype inheritance&#10;next: page controllers">
+      <created>1469213571823</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1469213571823</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="198094000" />
+    <option name="totallyTimeSpent" value="208269000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="3839" y="312" width="1368" height="768" extended-state="6" />
@@ -494,23 +512,14 @@
     <MESSAGE value="added bootstrap files" />
     <MESSAGE value="relocated bootstrap files, navbar functions" />
     <MESSAGE value="big updates, made angularjs app &#10;next changes: add field, then inherit many methods" />
-    <option name="LAST_COMMIT_MESSAGE" value="big updates, made angularjs app &#10;next changes: add field, then inherit many methods" />
+    <MESSAGE value="enabled controller prototype inheritance&#10;next: page controllers" />
+    <option name="LAST_COMMIT_MESSAGE" value="enabled controller prototype inheritance&#10;next: page controllers" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/insp_cq.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4950">
-          <caret line="282" column="50" selection-start-line="282" selection-start-column="50" selection-end-line="282" selection-end-column="50" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/insp_cq_results.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1476">
@@ -840,14 +849,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ng-caqao-app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1188">
-          <caret line="66" column="56" selection-start-line="66" selection-start-column="56" selection-end-line="66" selection-end-column="56" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/live_widgets.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3276">
@@ -866,8 +867,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/panel-ctrl.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="6" column="29" selection-start-line="6" selection-start-column="29" selection-end-line="6" selection-end-column="29" />
+        <state relative-caret-position="324">
+          <caret line="18" column="44" selection-start-line="18" selection-start-column="44" selection-end-line="18" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/page-ctrl.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="185">
+          <caret line="47" column="2" selection-start-line="47" selection-start-column="2" selection-end-line="47" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ng-caqao-app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="11" column="48" selection-start-line="11" selection-start-column="48" selection-end-line="11" selection-end-column="48" />
           <folding />
         </state>
       </provider>
