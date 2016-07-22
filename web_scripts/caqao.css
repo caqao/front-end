@@ -63,10 +63,33 @@ body {
 
 }
 
+input[type='checkbox'] {
+    /*-moz-transform: scale(2); !* FF *!*/
+    /*-moz-transform: rotate(45deg); !* FF *!*/
+
+}
+
 .panel {
     /*padding: 10px;*/
     margin-top: 10px;
     margin-bottom: 10px;
+    transition: all 0.5s ease 0s;
+    /*background-color: orange;*/
+
+
+}
+
+.panel .panel-success-add{
+    background-color: orange;
+
+}
+
+.panel-success-add, .panel-success-remove,
+.panel-danger-add, .panel-danger-remove,
+.panel-warning-add, .panel-warning-remove{
+    transition: background-color 1000ms linear;
+    /*-moz-transform: rotate(45deg); !* FF *!*/
+    /*background-color: pink;*/
 }
 
 .panelButtons.right{
