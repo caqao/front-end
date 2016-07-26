@@ -5,7 +5,7 @@ head {
 }
 
 body {
-    padding-top: 50px;
+    padding-top: 40px;
     background-color: #e4e4e4;
     width: 100%;
     font-family: "Lato", sans-serif;
@@ -37,7 +37,7 @@ body {
 	    border: 1px solid #ddd;
 		height: 40px;
 		background-color: #9f9f9f;
-		font-style: Arial;
+		font-style: normal;
 
 	}
 .MainTable td {
@@ -60,7 +60,6 @@ body {
 
 #header td {
 	border: 0px;
-
 }
 
 input[type='checkbox'] {
@@ -69,37 +68,88 @@ input[type='checkbox'] {
 
 }
 
+textarea{
+    font-family: "Lucida Console", Monaco, monospace;
+    width: 100%;
+    max-width: 1125px;
+    /*min-height: 100px;*/
+    height: 100%;
+}
+
+#top_affix{
+    padding: 0px 40px 0px 0px;
+    max-width: 1200px;
+    width: 100%;
+    /*background-color: white;*/
+}
+/*#main_tabs{*/
+    /*background-color: pink;*/
+    /*height: 500px;*/
+/*}*/
+
+/*#main_tabs.ng-hide{*/
+    /*height: 0;*/
+/*}*/
+
+/*.tab-content{*/
+    /*padding: 130px 0 0 0;*/
+    /*padding: 80px;*/
+/*}*/
+.tab-pane{
+    max-width: 1200px;
+    width: 100%;
+
+}
+/*.ng-dirty{*/
+    /*background-color: cyan;*/
+/*}*/
+
 .panel {
-    /*padding: 10px;*/
     margin-top: 10px;
     margin-bottom: 10px;
     transition: all 0.5s ease 0s;
-    /*background-color: orange;*/
-
-
 }
 
 .panel .panel-success-add{
     background-color: orange;
-
 }
 
-.panel-success-add, .panel-success-remove,
-.panel-danger-add, .panel-danger-remove,
-.panel-warning-add, .panel-warning-remove{
-    transition: background-color 1000ms linear;
-    /*-moz-transform: rotate(45deg); !* FF *!*/
-    /*background-color: pink;*/
+/*.panel-success-add, .panel-success-remove,*/
+/*.panel-danger-add, .panel-danger-remove,*/
+/*.panel-warning-add, .panel-warning-remove{*/
+    /*transition: background-color 1000ms linear;*/
+    /*!*-moz-transform: rotate(45deg); !* FF *!*!*/
+    /*!*background-color: pink;*!*/
+/*}*/
+/*.panelButtons {*/
+    /*display: inline;*/
+/*}*/
+.panel-heading{
+    text-align: center;
 }
-
 .panelButtons.right{
+    /*display: inline;*/
+
     text-align: right;
 }
 .panelButtons.left{
+    /*display: inline;*/
+
     text-align: left;
 }
 .panelButtons.center{
+    /*display: inline;*/
+
     text-align: center;
+}
+.ControlPanelHeader{
+    width: 100%;
+}
+.ControlPanelHeader td{
+    width:20%;
+}
+.ControlPanelHeader td:nth-child(2){
+    width: 60%;
 }
 
     /*
@@ -147,61 +197,6 @@ input[type='checkbox'] {
     text-decoration: underline;
 }
 
-
-    /*
-    *
-    *
-    Tooltip
-    *
-    *
-    */
-
-.ui-tooltip, .arrow:after {
-    background: black;
-    /*background: #555555;*/
-    border: 2px solid white;
-}
-.ui-tooltip {
-    padding: 10px 20px;
-    color: white;
-    border-radius: 20px;
-    font: 14px "Helvetica Neue", Sans-Serif;
-    /*text-transform: uppercase;*/
-    box-shadow: 0 0 7px black;
-}
-.arrow {
-    width: 70px;
-    height: 16px;
-    overflow: hidden;
-    position: absolute;
-    left: 50%;
-    margin-left: -35px;
-    bottom: -16px;
-
-}
-.arrow.top {
-    top: -16px;
-    bottom: auto;
-}
-.arrow.left {
-left: 20%   ;
-}
-.arrow:after {
-    content: "";
-    position: absolute;
-    left: 20px;
-    top: -20px;
-    width: 25px;
-    height: 25px;
-    box-shadow: 6px 5px 9px -9px black;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
-}
-.arrow.top:after {
-    bottom: -20px;
-    top: auto;
-}
 /*
 *
 *
@@ -442,3 +437,56 @@ LiveWidgets
 }
 
 
+@media (max-width: 1500px){
+    .BigScreenLi{
+        display: none!important;
+    }
+    .BigScreenLi2{
+        display: none!important;
+    }
+    .divider-vertical{
+        display: none!important;
+    }
+
+}
+@media (min-width: 1500px){
+    .LilScreenLi{
+        display: none!important;
+    }
+
+}
+@media (min-width: 768px){
+    .TinyScreenLi, .TinyScreenLi2{
+        display: none!important;
+    }
+}
+@media (max-width: 768px){
+    .navbar-header{
+        display: none!important;
+    }
+    .LilScreenLi{
+        display: none!important;
+    }
+}
+.TinyScreenLia{
+    color: #9D9D9D;
+}
+.TinyScreenLia:hover{
+    color: white;
+    text-decoration: none;
+}
+.TinyScreenMenu{
+    width: 50px;
+    text-align:center;
+}
+
+.navbar-nav>li, .navbar-nav {
+    float: left !important;
+}
+
+.navbar-nav.navbar-right:last-child {
+    margin-right: -15px !important;
+}
+.navbar-right {
+    float: right!important;
+}

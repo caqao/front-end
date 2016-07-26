@@ -1,24 +1,42 @@
 var ng_app = angular.module('caqao_app', []);
-ng_app.config(
-    ['$httpProvider', function($httpProvider) {
-            $httpProvider.defaults.xsrfCookieName = 'csrftoken';
-            $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
-    }]);
-ng_app.controller('Page', ['$rootScope', '$scope', '$http', '$interval', '$timeout',
-    function($rootScope, $scope, $http, $interval, $timeout) {
-        $rootScope.g = new PageCtrl($rootScope, $scope, $http, $interval, $timeout);
-        $scope.g = $rootScope.g;
-        $scope.g.get_data();
-        //TODO create service to load data first
+ng_app.config(['$httpProvider', function($httpProvider) {
+    $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+    $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+}]);
+ng_app.service('PageData', function($http, $interval, $timeout){
+    this.g = new PageCtrl($http, $interval, $timeout);
+});
+ng_app.service('NavData', function($http){
+    this.g = new NavCtrl($http);
+});
+ng_app.controller('NavBar', ['$scope', '$http', 'NavData',
+    function($scope, $http, NavData) {
+        $scope.g = NavData.g;
+        $scope.g.get_navs();
 
-        $scope.assign_values = function(response){
-            alert('assign data');
-            $rootScope.values_list = response.data.elements.values_list;
-            console.log($rootScope);
-            $rootScope.sectors = response.data.elements.sectors;
-            $rootScope.rounds = response.data.elements.rounds;
-            $rootScope.columns_list = response.data.elements.columns_list;
+        $scope.$watch('g.navs', function(newData){
+            if (newData !== null){
+                $scope.navs = newData;
+            }
+        }, true);
+    }
+
+]);
+ng_app.controller('Page', ['$scope', '$http', '$interval', '$timeout', 'PageData',
+    function($scope, $http, $interval, $timeout, PageData) {
+        $scope.g = PageData.g;
+        $scope.g.get_data();
+        $scope.show_tabs = $scope.g.count_if_show_tabs();
+
+        $scope.update_scope_data = function(newVal){
+            if (newVal !== null) {
+                $scope.sectors = newVal.sectors;
+                $scope.rounds = newVal.rounds;
+            }
         };
+        $scope.$watch('g.last_update_time', function(){
+            $scope.update_scope_data($scope.g.last_data);
+        }, true);
         $scope.$watch('g.changes_buffer', function(newVal, oldVal){
             $scope.g.watch_changes_buffer(newVal, oldVal);
         }, true);
@@ -26,30 +44,112 @@ ng_app.controller('Page', ['$rootScope', '$scope', '$http', '$interval', '$timeo
                 $scope.g.watch_unsaved_changes(newVal, oldVal);
             }, true
         );
-    }]);
-ng_app.controller('DetectorsPanel', ['$rootScope', '$scope', '$http', '$interval', '$timeout',
-    function($rootScope, $scope, $http, $interval, $timeout) {
-    $scope.g = $rootScope.g;
-    $scope.p = new PanelCtrl($rootScope, $scope, $http, $interval, $timeout);
-    $scope.object_type = 'Detector';
-        alert('la');
-    $scope.values = $rootScope.values_list[0];
-    $scope.columns = $rootScope.columns_list[0];
+    }
+]);
+ng_app.controller('DetectorsPanel', ['$scope', '$http', '$interval', '$timeout', 'PageData',
+    function($scope, $http, $interval, $timeout, PageData) {
+        $scope.g = PageData.g;
+        $scope.p = new PanelCtrl($scope, $http, $interval, $timeout);
+        $scope.object_type = 'Detector';
+        $scope.page_number = 0;
 
-}]);
-ng_app.controller('SectorsPanel', ['$rootScope', '$scope', '$http', '$interval', '$timeout',
-    function($rootScope, $scope, $http, $interval, $timeout) {
-    $scope.g = $rootScope.g;
-    $scope.p = new PanelCtrl($rootScope, $scope, $http, $interval, $timeout);
-    $scope.object_type = 'Sector';
-    $scope.values = $rootScope.values_list[0];
-    $scope.columns = $rootScope.columns_list[0];
-    $scope.redirect_wrapper = ['/insp_cq/','/sector'];
-}]);
-ng_app.controller('RoundsPanel', ['$rootScope', '$scope', '$http', '$interval', '$timeout',
-function($rootScope, $scope, $http, $interval, $timeout) {
-    $scope.g = $rootScope.g;
-    $scope.p = new PanelCtrl($rootScope, $scope, $http, $interval, $timeout);
-    $scope.object_type = 'Round';
-    $scope.redirect_wrapper = ['/prod/','/round'];
-}]);
+        $scope.update_scope_data = function(newVal){
+            if (newVal !== null) {
+                $scope.p.update_panel_data(newVal);
+                $scope.sectors = newVal.sectors;
+                $scope.rounds = newVal.rounds;
+            }
+        };
+        $scope.$watch('g.last_update_time', function(){
+            $scope.update_scope_data($scope.g.last_data);
+        }, true);
+    }
+]);
+ng_app.controller('SectorsPanel', ['$scope', '$http', '$interval', '$timeout', 'PageData',
+    function($scope, $http, $interval, $timeout, PageData) {
+        $scope.g = PageData.g;
+        $scope.p = new PanelCtrl($scope, $http, $interval, $timeout);
+        $scope.object_type = 'Sector';
+        $scope.page_number = 0;
+
+        $scope.update_scope_data = function(newVal){
+            if (newVal !== null) {
+                $scope.p.update_panel_data(newVal);
+                $scope.sectors = newVal.sectors;
+                $scope.rounds = newVal.rounds;
+            }
+        };
+        $scope.$watch('g.last_update_time', function(){
+            $scope.update_scope_data($scope.g.last_data);
+        }, true);
+        $scope.redirect_wrapper = ['/insp_cq/','/sector'];
+    }
+]);
+ng_app.controller('RoundsPanel', ['$scope', '$http', '$interval', '$timeout', 'PageData',
+    function($scope, $http, $interval, $timeout, PageData) {
+        $scope.g = PageData.g;
+        $scope.p = new PanelCtrl($scope, $http, $interval, $timeout);
+        $scope.object_type = 'Round';
+        $scope.page_number = 0;
+
+        $scope.update_scope_data = function(newVal){
+            if (newVal !== null) {
+                $scope.p.update_panel_data(newVal);
+                $scope.sectors = newVal.sectors;
+                $scope.rounds = newVal.rounds;
+            }
+        };
+        $scope.$watch('g.last_update_time', function(){
+            $scope.update_scope_data($scope.g.last_data);
+        }, true);
+        $scope.redirect_wrapper = ['/prod/','/round'];
+    }
+]);
+ng_app.controller('RoundNotesPanel', ['$scope', '$http', '$interval', '$timeout', 'PageData',
+    function($scope, $http, $interval, $timeout, PageData) {
+        $scope.g = PageData.g;
+        $scope.p = new PanelCtrl($scope, $http, $interval, $timeout);
+        $scope.object_type = 'Round';
+        $scope.page_number = 0;
+        $scope.notes_height = 40;
+
+
+        $scope.update_scope_data = function(newVal){
+            if (newVal !== null) {
+                $scope.p.update_panel_data(newVal);
+            }
+        };
+        $scope.set_scope_height = function () {
+            if ($scope.values !== undefined) {
+                $scope.notes_height = 24+22*(($scope.values[0].display.match(/\n/g) || []).length + 1);
+                console.log('phall');
+                console.log($scope.notes_height);
+
+            }
+
+        };
+        $scope.$watch('g.last_update_time', function(){
+            $scope.update_scope_data($scope.g.last_data);
+            $scope.set_scope_height();
+        }, true);
+    }
+]);
+ng_app.controller('RoundParametresPanel', ['$scope', '$http', '$interval', '$timeout', 'PageData',
+    function($scope, $http, $interval, $timeout, PageData) {
+        $scope.g = PageData.g;
+        $scope.p = new PanelCtrl($scope, $http, $interval, $timeout);
+        $scope.object_type = 'ProdParametre';
+        $scope.page_number = 1;
+
+
+        $scope.$watch('g.last_update_time', function(){
+            $scope.p.update_default_scope_data($scope.g.last_data);
+        }, true);
+    }
+]);
+ng_app.controller('BlankPanel', ['$scope', '$http', '$interval', '$timeout', 'PageData',
+    function($scope, $http, $interval, $timeout, PageData) {
+        $scope.g = PageData.g;
+        $scope.p = new PanelCtrl($scope, $http, $interval, $timeout);
+    }
+]);

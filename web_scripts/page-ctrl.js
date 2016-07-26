@@ -1,6 +1,4 @@
-function PageCtrl(rootscope, scope, http, interval, timeout){
-    this.root_scope = rootscope;
-    this.scope = scope;
+function PageCtrl(http, interval, timeout){
     this.http = http;
     this.interval = interval;
     this.timeout = timeout;
@@ -9,9 +7,14 @@ function PageCtrl(rootscope, scope, http, interval, timeout){
     this.changes_buffer = [];
     this.previous_archive = [];
     this.panel_class = 'panel-default';
-
+    this.last_data = null;
+    this.last_update_time = null;
+    this.tabs_data = null;
+    // this.navs = null;
+    this.sectors = [];
+    this.rounds = [];
+    this.data_types = [];
 }
-
 PageCtrl.prototype.update_buffer = function(obj_id, col, oldVal, newVal, model) {
     var archive_dict = {
         model: model,
@@ -22,7 +25,7 @@ PageCtrl.prototype.update_buffer = function(obj_id, col, oldVal, newVal, model) 
     var present_index = this.check_array_presence(archive_dict, this.previous_archive);
     if (present_index===false){
         this.previous_archive.push(archive_dict);
-        var new_update = {model: this.scope.object_type, id: obj_id, at: col, new_value: newVal};
+        var new_update = {model: model, id: obj_id, at: col, new_value: newVal};
         this.changes_buffer.push(new_update);
     }else{
         var buff_index = this.check_array_presence(archive_dict, this.changes_buffer);
@@ -48,28 +51,32 @@ PageCtrl.prototype.check_array_presence = function(new_up, check_array) {
 };
 PageCtrl.prototype.get_data = function() {
     var t = this;
-    var s = this.scope;
     this.http.get(this.url,
         {
-            // params: {action: 'load_panel_elements', panel_id: this.scope.panel_id}
             params: {action: 'load_all_elements'}
         }).then(
         function(response){
-            s.assign_values(response);
+            t.update_last_data(response.data.elements, response.data.last_update_time);
         },
         function(response){
             t.show_failure();
         }
     );
 };
-
+PageCtrl.prototype.update_last_data = function(new_data, update_time){
+    this.last_update_time = update_time;
+    this.last_data = new_data;
+    this.sectors = new_data.sectors || this.sectors;
+    this.rounds = new_data.rounds || this.rounds;
+    this.data_types = new_data.data_types || this.data_types;
+};
 PageCtrl.prototype.cancel_update = function() {
     this.changes_buffer = [];
     this.request_update();
 };
 PageCtrl.prototype.submit_changes = function() {
     var t = this;
-    this.http.put(this.url+'/', {update_list: this.changes_buffer})
+    this.http.put(this.url, {update_list: this.changes_buffer})
         .then(
             function(response){
                 t.cancel_update();
@@ -78,7 +85,6 @@ PageCtrl.prototype.submit_changes = function() {
             },
             function(response){
                 t.show_failure();
-
             }
         );
 };
@@ -110,7 +116,7 @@ PageCtrl.prototype.watch_unsaved_changes = function(newVal, oldVal) {
 };
 PageCtrl.prototype.post_add_element = function(model){
     var t = this;
-    this.http.post(this.url+'/',
+    this.http.post(this.url,
         {
             action: 'add_element',
             model: model
@@ -128,11 +134,9 @@ PageCtrl.prototype.post_add_element = function(model){
     );
 };
 PageCtrl.prototype.show_success = function() {
-    alert('worked!');
     this.temp_color_change('panel-success')
 };
 PageCtrl.prototype.show_failure = function() {
-    alert('did not work!');
     this.temp_color_change('panel-danger')
 };
 PageCtrl.prototype.temp_color_change = function(panel_type) {
@@ -146,4 +150,8 @@ PageCtrl.prototype.reset_color = function() {
     if (this.unsaved_changes===false) {
         this.panel_class = 'panel-default';
     }
+};
+PageCtrl.prototype.count_if_show_tabs = function() {
+    return document.getElementsByClassName('TabPill').length > 1;
+    // return true;
 };
