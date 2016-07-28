@@ -27,6 +27,7 @@ ng_app.controller('Page', ['$scope', '$http', '$interval', '$timeout', 'PageData
         $scope.g = PageData.g;
         $scope.g.get_data();
         $scope.show_tabs = $scope.g.count_if_show_tabs();
+        $scope.loaded_page=true;
 
         $scope.update_scope_data = function(newVal){
             if (newVal !== null) {
@@ -46,10 +47,17 @@ ng_app.controller('Page', ['$scope', '$http', '$interval', '$timeout', 'PageData
         );
     }
 ]);
+ng_app.controller('BlankPanel', ['$scope', '$http', '$interval', '$timeout', 'PageData',
+    function($scope, $http, $interval, $timeout, PageData) {
+        $scope.g = PageData.g;
+        $scope.p = new PanelCtrl($scope, $interval, $timeout);
+        $scope.p.loaded = true;
+    }
+]);
 ng_app.controller('DetectorsPanel', ['$scope', '$http', '$interval', '$timeout', 'PageData',
     function($scope, $http, $interval, $timeout, PageData) {
         $scope.g = PageData.g;
-        $scope.p = new PanelCtrl($scope, $http, $interval, $timeout);
+        $scope.p = new PanelCtrl($scope, $interval, $timeout);
         $scope.object_type = 'Detector';
         $scope.page_number = 0;
 
@@ -68,7 +76,7 @@ ng_app.controller('DetectorsPanel', ['$scope', '$http', '$interval', '$timeout',
 ng_app.controller('SectorsPanel', ['$scope', '$http', '$interval', '$timeout', 'PageData',
     function($scope, $http, $interval, $timeout, PageData) {
         $scope.g = PageData.g;
-        $scope.p = new PanelCtrl($scope, $http, $interval, $timeout);
+        $scope.p = new PanelCtrl($scope, $interval, $timeout);
         $scope.object_type = 'Sector';
         $scope.page_number = 0;
 
@@ -85,48 +93,23 @@ ng_app.controller('SectorsPanel', ['$scope', '$http', '$interval', '$timeout', '
         $scope.redirect_wrapper = ['/insp_cq/','/sector'];
     }
 ]);
-ng_app.controller('RoundsPanel', ['$scope', '$http', '$interval', '$timeout', 'PageData',
-    function($scope, $http, $interval, $timeout, PageData) {
-        $scope.g = PageData.g;
-        $scope.p = new PanelCtrl($scope, $http, $interval, $timeout);
-        $scope.object_type = 'Round';
-        $scope.page_number = 0;
-
-        $scope.update_scope_data = function(newVal){
-            if (newVal !== null) {
-                $scope.p.update_panel_data(newVal);
-                $scope.sectors = newVal.sectors;
-                $scope.rounds = newVal.rounds;
-            }
-        };
-        $scope.$watch('g.last_update_time', function(){
-            $scope.update_scope_data($scope.g.last_data);
-        }, true);
-        $scope.redirect_wrapper = ['/prod/','/round'];
-    }
-]);
 ng_app.controller('RoundNotesPanel', ['$scope', '$http', '$interval', '$timeout', 'PageData',
     function($scope, $http, $interval, $timeout, PageData) {
         $scope.g = PageData.g;
-        $scope.p = new PanelCtrl($scope, $http, $interval, $timeout);
+        $scope.p = new PanelCtrl($scope, $interval, $timeout);
         $scope.object_type = 'Round';
         $scope.page_number = 0;
         $scope.notes_height = 40;
-
-
         $scope.update_scope_data = function(newVal){
             if (newVal !== null) {
                 $scope.p.update_panel_data(newVal);
+                $scope.g.page_title = "Ronde d'opération "+$scope.values[0].title;
             }
         };
         $scope.set_scope_height = function () {
             if ($scope.values !== undefined) {
                 $scope.notes_height = 24+22*(($scope.values[0].display.match(/\n/g) || []).length + 1);
-                console.log('phall');
-                console.log($scope.notes_height);
-
             }
-
         };
         $scope.$watch('g.last_update_time', function(){
             $scope.update_scope_data($scope.g.last_data);
@@ -134,22 +117,23 @@ ng_app.controller('RoundNotesPanel', ['$scope', '$http', '$interval', '$timeout'
         }, true);
     }
 ]);
-ng_app.controller('RoundParametresPanel', ['$scope', '$http', '$interval', '$timeout', 'PageData',
+ng_app.controller('DefaultPanel', ['$scope', '$http', '$interval', '$timeout', 'PageData',
     function($scope, $http, $interval, $timeout, PageData) {
         $scope.g = PageData.g;
-        $scope.p = new PanelCtrl($scope, $http, $interval, $timeout);
-        $scope.object_type = 'ProdParametre';
-        $scope.page_number = 1;
-
-
+        $scope.p = new PanelCtrl($scope, $interval, $timeout);
         $scope.$watch('g.last_update_time', function(){
-            $scope.p.update_default_scope_data($scope.g.last_data);
+            if ($scope.g.last_data !== null) {
+                $scope.p.update_panel_data($scope.g.last_data);
+                console.log($scope.object_type);
+                console.log($scope.values);
+            }
         }, true);
-    }
-]);
-ng_app.controller('BlankPanel', ['$scope', '$http', '$interval', '$timeout', 'PageData',
-    function($scope, $http, $interval, $timeout, PageData) {
-        $scope.g = PageData.g;
-        $scope.p = new PanelCtrl($scope, $http, $interval, $timeout);
+        $scope.init = function(page_number, obj_type, kwargs){
+            $scope.page_number = page_number;
+            $scope.object_type = obj_type;
+            if ( kwargs.redirect_wrapper !== undefined){
+                $scope.redirect_wrapper = kwargs.redirect_wrapper.split('~');
+            }
+        };
     }
 ]);

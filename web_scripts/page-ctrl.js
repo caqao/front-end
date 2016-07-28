@@ -7,6 +7,7 @@ function PageCtrl(http, interval, timeout){
     this.changes_buffer = [];
     this.previous_archive = [];
     this.panel_class = 'panel-default';
+    this.page_title = '';
     this.last_data = null;
     this.last_update_time = null;
     this.tabs_data = null;

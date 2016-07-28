@@ -1,16 +1,19 @@
-function PanelCtrl(scope, http, interval, timeout){
+function PanelCtrl(scope, interval, timeout){
     this.scope = scope;
-    this.http = http; //TODO
     this.interval = interval;
     this.timeout = timeout;
     this.unsaved_changes = false;
     this.changes_buffer = [];
     this.previous_archive = [];
     this.panel_class = 'panel-default';
+    this.loaded = false;
 }
 PanelCtrl.prototype.update_panel_data = function (new_values) {
     this.scope.values = new_values.values_list_list[this.scope.page_number];
-    this.scope.columns = new_values.columns_list_list[this.scope.page_number];
+    if (new_values.columns_list_list !== undefined) {
+        this.scope.columns = new_values.columns_list_list[this.scope.page_number];
+    }
+    this.loaded = true;
 };
 PanelCtrl.prototype.add_element = function(){
     this.scope.g.post_add_element(this.scope.object_type);
@@ -19,12 +22,21 @@ PanelCtrl.prototype.valid_change = function(oldVal, newVal, object, col){
     if (newVal==undefined || (typeof newVal === 'number' && newVal < 0)){
         $(object).attr(col, oldVal);
     }
-    else if (col==='notes'){
-        alert('aasdsdf s')
-    }
     else{
         this.scope.g.update_buffer($(object).attr('id'), col, oldVal, newVal, this.scope.object_type);
     }
+};
+PanelCtrl.prototype.valid_min_change = function(oldVal, newVal, object, col){
+    if (newVal>$(object).attr(col.replace('in', 'ax'))){
+        newVal = undefined;
+    }
+    this.valid_change(oldVal, newVal, object, col);
+};
+PanelCtrl.prototype.valid_max_change = function(oldVal, newVal, object, col){
+    if (newVal<$(object).attr(col.replace('ax', 'in'))){
+        newVal = undefined;
+    }
+        this.valid_change(oldVal, newVal, object, col);
 };
 PanelCtrl.prototype.valid_notes_change = function(oldValue, newDisplay, object){
     console.log('change');
