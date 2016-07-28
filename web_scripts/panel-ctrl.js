@@ -7,6 +7,8 @@ function PanelCtrl(scope, interval, timeout){
     this.previous_archive = [];
     this.panel_class = 'panel-default';
     this.loaded = false;
+    this.show_alert = false;
+    this.collapsed = true;
 }
 PanelCtrl.prototype.update_panel_data = function (new_values) {
     this.scope.values = new_values.values_list_list[this.scope.page_number];
@@ -19,7 +21,8 @@ PanelCtrl.prototype.add_element = function(){
     this.scope.g.post_add_element(this.scope.object_type);
 };
 PanelCtrl.prototype.valid_change = function(oldVal, newVal, object, col){
-    if (newVal==undefined || (typeof newVal === 'number' && newVal < 0)){
+    //TODO check if negatives are allowed by checking col
+    if (newVal==undefined || (typeof newVal === 'number' && newVal < 0 && col == 'nb_meas')){
         $(object).attr(col, oldVal);
     }
     else{
@@ -62,6 +65,13 @@ PanelCtrl.prototype.update_default_scope_data = function(newVal){
     if (newVal !== null) {
         this.update_panel_data(newVal);
     }
+};
+PanelCtrl.prototype.toggle_info = function() {
+    this.show_alert = !this.show_alert;
+};
+PanelCtrl.prototype.toggle_collapse = function() {
+    this.show_alert = false;
+    this.collapsed = !this.collapsed;
 };
 
 function NavCtrl(http) {

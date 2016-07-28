@@ -119,7 +119,15 @@ textarea{
 .ControlPanelHeader td:nth-child(2){
     width: 88%;
 }
-
+.PanelHeader{
+    width: 100%;
+}
+.PanelHeader td{
+    width:10%;
+}
+.PanelHeader td:nth-child(2){
+    width: 80%;
+}
     /*
     *
     *

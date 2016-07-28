@@ -17,6 +17,7 @@ ng_app.controller('NavBar', ['$scope', '$http', 'NavData',
         $scope.$watch('g.navs', function(newData){
             if (newData !== null){
                 $scope.navs = newData;
+                console.log($scope.navs);
             }
         }, true);
     }
@@ -124,8 +125,6 @@ ng_app.controller('DefaultPanel', ['$scope', '$http', '$interval', '$timeout', '
         $scope.$watch('g.last_update_time', function(){
             if ($scope.g.last_data !== null) {
                 $scope.p.update_panel_data($scope.g.last_data);
-                console.log($scope.object_type);
-                console.log($scope.values);
             }
         }, true);
         $scope.init = function(page_number, obj_type, kwargs){
