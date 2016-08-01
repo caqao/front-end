@@ -79,6 +79,7 @@ textarea{
     padding: 0px 40px 0px 0px;
     max-width: 1200px;
     width: 100%;
+    z-index: 1;
 }
 .tab-pane{
     max-width: 1200px;
@@ -411,7 +412,6 @@ LiveWidgets
 .DetectorSelectItem{
     font-weight: lighter;
 }
-
 
 @media (max-width: 1500px){
     .BigScreenLi{

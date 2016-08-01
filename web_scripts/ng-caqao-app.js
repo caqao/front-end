@@ -117,6 +117,30 @@ ng_app.controller('RoundNotesPanel', ['$scope', '$http', '$interval', '$timeout'
         }, true);
     }
 ]);
+ng_app.controller('SectorNotesPanel', ['$scope', '$http', '$interval', '$timeout', 'PageData',
+    function($scope, $http, $interval, $timeout, PageData) {
+        $scope.g = PageData.g;
+        $scope.p = new PanelCtrl($scope, $interval, $timeout);
+        $scope.object_type = 'Sector';
+        $scope.page_number = 0;
+        $scope.notes_height = 40;
+        $scope.update_scope_data = function(newVal){
+            if (newVal !== null) {
+                $scope.p.update_panel_data(newVal);
+                $scope.g.page_title = "Secteur d'inspection "+$scope.values[0].title;
+            }
+        };
+        $scope.set_scope_height = function () {
+            if ($scope.values !== undefined) {
+                $scope.notes_height = 24+22*(($scope.values[0].display.match(/\n/g) || []).length + 1);
+            }
+        };
+        $scope.$watch('g.last_update_time', function(){
+            $scope.update_scope_data($scope.g.last_data);
+            $scope.set_scope_height();
+        }, true);
+    }
+]);
 ng_app.controller('DefaultPanel', ['$scope', '$http', '$interval', '$timeout', 'PageData',
     function($scope, $http, $interval, $timeout, PageData) {
         $scope.g = PageData.g;
@@ -124,6 +148,7 @@ ng_app.controller('DefaultPanel', ['$scope', '$http', '$interval', '$timeout', '
         $scope.$watch('g.last_update_time', function(){
             if ($scope.g.last_data !== null) {
                 $scope.p.update_panel_data($scope.g.last_data);
+                console.log($scope.values);
             }
         }, true);
         $scope.init = function(page_number, obj_type, kwargs){
@@ -135,3 +160,15 @@ ng_app.controller('DefaultPanel', ['$scope', '$http', '$interval', '$timeout', '
         };
     }
 ]);
+// ng_app.controller('ProductParametresPanel', ['$scope', '$http', '$interval', '$timeout', 'PageData',
+//     function($scope, $http, $interval, $timeout, PageData) {
+//         $scope.g = PageData.g;
+//         $scope.p = new PanelCtrl($scope, $interval, $timeout);
+//
+//         $scope.$watch('g.last_update_time', function(){
+//             if ($scope.g.last_data !== null) {
+//                 $scope.p.update_panel_data($scope.g.last_data);
+//             }
+//         }, true);
+//     }
+// ]);
