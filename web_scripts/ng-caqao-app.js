@@ -17,7 +17,6 @@ ng_app.controller('NavBar', ['$scope', '$http', 'NavData',
         $scope.$watch('g.navs', function(newData){
             if (newData !== null){
                 $scope.navs = newData;
-                console.log($scope.navs);
             }
         }, true);
     }
