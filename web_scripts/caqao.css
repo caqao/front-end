@@ -7,6 +7,9 @@ head {
 body {
     padding-top: 40px;
     background-color: #e4e4e4;
+    /*background-color: pink;*/
+    /*background-image: url("https://cdn.rawgit.com/caqao/front-end/master/web_scripts/logos/caqao.png");*/
+    /*transform: rotate(90deg);*/
     width: 100%;
     font-family: "Lato", sans-serif;
     height: 100%;
@@ -439,6 +442,7 @@ LiveWidgets
 @media (max-width: 768px){
     .navbar-header{
         display: none!important;
+
     }
     .LilScreenLi{
         display: none!important;
@@ -465,4 +469,8 @@ LiveWidgets
 }
 .navbar-right {
     float: right!important;
+}
+.navbar-header{
+    /*background-image: url("https://cdn.rawgit.com/caqao/front-end/master/web_scripts/logos/caqao.png");*/
+
 }
