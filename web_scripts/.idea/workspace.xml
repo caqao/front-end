@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6d864820-eb23-46b3-b334-7138b2ccf466" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/logos/apple-touch-icon-76x76.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/logos/icon-hires.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/caqao.css" afterPath="$PROJECT_DIR$/caqao.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ng-caqao-app.js" afterPath="$PROJECT_DIR$/ng-caqao-app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/page-ctrl.js" afterPath="$PROJECT_DIR$/page-ctrl.js" />
     </list>
     <ignored path="web_scripts.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -29,8 +28,8 @@
       <file leaf-file-name="caqao.css" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/caqao.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="156">
-              <caret line="22" column="15" selection-start-line="22" selection-start-column="15" selection-end-line="22" selection-end-column="15" />
+            <state relative-caret-position="66">
+              <caret line="17" column="16" selection-start-line="17" selection-start-column="16" selection-end-line="17" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -391,7 +390,7 @@
       <workItem from="1469626225005" duration="19315000" />
       <workItem from="1469709835726" duration="6585000" />
       <workItem from="1470059042065" duration="17486000" />
-      <workItem from="1470143310525" duration="24016000" />
+      <workItem from="1470143310525" duration="25317000" />
     </task>
     <task id="LOCAL-00001" summary="added style+icons">
       <created>1467047135184</created>
@@ -547,11 +546,18 @@
       <option name="project" value="LOCAL" />
       <updated>1470087123397</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="css remaster">
+      <created>1470169351724</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1470169351724</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="330176000" />
+    <option name="totallyTimeSpent" value="331477000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="3839" y="312" width="1368" height="768" extended-state="6" />
@@ -607,7 +613,8 @@
     <MESSAGE value="slight repairs" />
     <MESSAGE value="added logos + new page (sectors)" />
     <MESSAGE value="added new theme" />
-    <option name="LAST_COMMIT_MESSAGE" value="added new theme" />
+    <MESSAGE value="css remaster" />
+    <option name="LAST_COMMIT_MESSAGE" value="css remaster" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -962,8 +969,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/caqao.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="22" column="15" selection-start-line="22" selection-start-column="15" selection-end-line="22" selection-end-column="15" />
+        <state relative-caret-position="66">
+          <caret line="17" column="16" selection-start-line="17" selection-start-column="16" selection-end-line="17" selection-end-column="16" />
           <folding />
         </state>
       </provider>
