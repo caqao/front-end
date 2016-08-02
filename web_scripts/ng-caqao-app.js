@@ -9,6 +9,19 @@ ng_app.service('PageData', function($http, $interval, $timeout){
 ng_app.service('NavData', function($http){
     this.g = new NavCtrl($http);
 });
+ng_app.directive('watchResize', function(){
+    return {
+        restrict: 'A',
+        link: function(scope, elem, attr) {
+            angular.element(window).on('resize', function(){
+                scope.$apply(function(){
+                    var off = document.getElementById('top_affix').offsetHeight+30;
+                    scope.content_style = {"padding": off+"px 0 0 0"};
+                });
+            });
+        }
+    }
+});
 ng_app.controller('NavBar', ['$scope', '$http', 'NavData',
     function($scope, $http, NavData) {
         $scope.g = NavData.g;
@@ -20,14 +33,15 @@ ng_app.controller('NavBar', ['$scope', '$http', 'NavData',
             }
         }, true);
     }
-
 ]);
-ng_app.controller('Page', ['$scope', '$http', '$interval', '$timeout', 'PageData',
-    function($scope, $http, $interval, $timeout, PageData) {
+ng_app.controller('Page', ['$scope', '$http', '$interval', '$timeout', '$window', 'PageData',
+    function($scope, $http, $interval, $timeout, $window, PageData) {
         $scope.g = PageData.g;
         $scope.g.get_data();
         $scope.show_tabs = $scope.g.count_if_show_tabs();
         $scope.loaded_page=true;
+        var off = document.getElementById('top_affix').offsetHeight;
+        $scope.content_style = {"padding": off+"px 0 0 0"};
 
         $scope.update_scope_data = function(newVal){
             if (newVal !== null) {
@@ -45,6 +59,15 @@ ng_app.controller('Page', ['$scope', '$http', '$interval', '$timeout', 'PageData
                 $scope.g.watch_unsaved_changes(newVal, oldVal);
             }, true
         );
+        // $scope.$watch(
+        //     function () {
+        //         return $window.innerWidth;
+        //     },
+        //     function (value) {
+        //         var off = document.getElementById('top_affix').offsetHeight;
+        //         $scope.content_style = {"padding": off+"px 0 0 0"};
+        //     }
+        // )
     }
 ]);
 ng_app.controller('BlankPanel', ['$scope', '$http', '$interval', '$timeout', 'PageData',
@@ -99,7 +122,7 @@ ng_app.controller('RoundNotesPanel', ['$scope', '$http', '$interval', '$timeout'
         $scope.p = new PanelCtrl($scope, $interval, $timeout);
         $scope.object_type = 'Round';
         $scope.page_number = 0;
-        $scope.notes_height = 40;
+        $scope.notes_height = 60;
         $scope.update_scope_data = function(newVal){
             if (newVal !== null) {
                 $scope.p.update_panel_data(newVal);
@@ -148,7 +171,6 @@ ng_app.controller('DefaultPanel', ['$scope', '$http', '$interval', '$timeout', '
         $scope.$watch('g.last_update_time', function(){
             if ($scope.g.last_data !== null) {
                 $scope.p.update_panel_data($scope.g.last_data);
-                console.log($scope.values);
             }
         }, true);
         $scope.init = function(page_number, obj_type, kwargs){

@@ -1,35 +1,44 @@
 head {
     background-color: #fefefe;
     max-width: 1200px;
-
 }
-
 body {
     padding-top: 40px;
-    background-color: #e4e4e4;
-    /*background-color: pink;*/
-    /*background-image: url("https://cdn.rawgit.com/caqao/front-end/master/web_scripts/logos/caqao.png");*/
-    /*transform: rotate(90deg);*/
+    background-color: #f2f2f2;
     width: 100%;
-    font-family: "Lato", sans-serif;
     height: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-variant: small-caps;
+    margin: auto;
+}
+#content{
+    margin: 0 auto;
+}
+#top_affix{
+    width: 100%;
+    z-index: 1;
+    padding: 30px 0 0 0;
 
 }
-
+#control_panel{
+    box-shadow: 5px 6px 12px #cccccc;
+    background-color: #fefefe;
+    transition: all 1s ease 0s;
+}
 #main_content{
-    margin: auto;
-    padding: 20px 20px 0 20px;
     background-color: white;
-    max-width: 1200px;
     min-height: 100vh;
-
+    transition: all 1s ease 0s;
+}
+.Slim{
+    max-width: 1200px;
 }
 
 .divider-vertical {
-    height: 30px;
+    height: 40px;
     margin: 10px 0px 10px 0px;
-    border-left: 1px solid #9D9D9D;
-    border-right: 1px solid #9D9D9D;
+    border-left: 1px solid #BF2E1A;
+    border-right: 1px solid #BF2E1A;
 }
 
 .MainTable {
@@ -61,42 +70,71 @@ body {
     text-align: center;
 }
 
-#header td {
-	border: 0px;
+th {
+    font-size: Large;
+}
+td {
+    font-size: large;
+    font-variant: none;
+}
+td>h4, td>h3{
+    font-variant: small-caps;
+    font-weight: bolder;
 }
 
-input[type='checkbox'] {
-    /*-moz-transform: scale(2); !* FF *!*/
-    /*-moz-transform: rotate(45deg); !* FF *!*/
-
+.CustChk > [type='checkbox']{
+    /*display: none;*/
+    position: absolute;
+    overflow:hidden;
+    opacity:0;
+    cursor: pointer;
+    width: 1px;
 }
-
+.CustChk > [type='checkbox'] + label:before{
+    font: normal normal normal 12px/1 'Glyphicons Halflings';
+    content:"\e013";
+    font-size: 3em;
+    background-color: rgba(231, 231, 231, 0.53);
+    color: rgba(231, 231, 231, 0.53);
+    width: 100%;
+    border: 1px solid #CCC;
+    text-align: center;
+    display: block;
+}
+.CustChk > [type='checkbox']:checked + label:before {
+    color: #43AC6A;
+}
+.CustChk > [type='checkbox']:not(:checked) + label:before {
+    content:"\2212";
+    color: #222222;
+}
+.CustChk > [type='checkbox']:focus + label:before,
+.CustChk > [type='checkbox']:hover + label:before {
+    background-color: rgba(206, 206, 206, 0.53);
+}
+.CustChk > [type='checkbox']+label{
+    cursor: pointer;
+    text-align: center;
+    width:100%;
+}
+.CustChk>label{
+    text-align: center;
+    width:100%;
+}
+.LinkButton{
+    width: 100%;
+}
 textarea{
     font-family: "Lucida Console", Monaco, monospace;
     width: 100%;
-    max-width: 1125px;
     height: 100%;
-}
-
-#top_affix{
-    padding: 0px 40px 0px 0px;
-    max-width: 1200px;
-    width: 100%;
-    z-index: 1;
-}
-.tab-pane{
-    max-width: 1200px;
-    width: 100%;
+    font-variant: none;
 
 }
-/*.ng-dirty{*/
-    /*background-color: cyan;*/
-/*}*/
-
 .panel {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    transition: all 0.5s ease 0s;
+    box-shadow: 2px 3px 6px #cccccc;
+    margin: 0 10px 10px 10px;
+    transition: all 1s ease 0s;
 }
 
 .panel .panel-success-add{
@@ -104,6 +142,8 @@ textarea{
 }
 .panel-heading{
     text-align: center;
+    transition: all 1s ease 0s;
+
 }
 .panelButtons.right{
     text-align: right;
@@ -434,6 +474,12 @@ LiveWidgets
     }
 
 }
+@media (max-width: 1200px){
+    .ResizeBtn{
+        display: none!important;
+    }
+
+}
 @media (min-width: 768px){
     .TinyScreenLi, .TinyScreenLi2{
         display: none!important;
@@ -473,4 +519,15 @@ LiveWidgets
 .navbar-header{
     /*background-image: url("https://cdn.rawgit.com/caqao/front-end/master/web_scripts/logos/caqao.png");*/
 
+}
+.navbar{
+    font-weight: 900;
+    font-size: 15px;
+    background-color: #f2f2f2;
+    box-shadow: 0 0 5px #bf2e1a;
+
+}
+
+#rotate_glyph{
+    transform: rotate(45deg);
 }

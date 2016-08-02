@@ -15,6 +15,7 @@ function PageCtrl(http, interval, timeout){
     this.sectors = [];
     this.rounds = [];
     this.data_types = [];
+    this.slim = false;
 }
 PageCtrl.prototype.update_buffer = function(obj_id, col, oldVal, newVal, model) {
     var archive_dict = {
@@ -58,6 +59,8 @@ PageCtrl.prototype.get_data = function() {
         }).then(
         function(response){
             t.update_last_data(response.data.elements, response.data.last_update_time);
+
+
         },
         function(response){
             t.show_failure();
@@ -81,7 +84,7 @@ PageCtrl.prototype.submit_changes = function() {
         .then(
             function(response){
                 t.cancel_update();
-                t.show_success();
+                // t.show_success();
 
             },
             function(response){
@@ -90,8 +93,8 @@ PageCtrl.prototype.submit_changes = function() {
         );
 };
 PageCtrl.prototype.request_update = function() {
-    this.show_success();
     this.get_data();
+    this.show_success();
 };
 PageCtrl.prototype.watch_changes_buffer = function(newVal, oldVal) {
     if (newVal !== oldVal) {
@@ -155,4 +158,7 @@ PageCtrl.prototype.reset_color = function() {
 PageCtrl.prototype.count_if_show_tabs = function() {
     return document.getElementsByClassName('TabPill').length > 1;
     // return true;
+};
+PageCtrl.prototype.toggle_slim = function() {
+    this.slim = !this.slim;
 };
