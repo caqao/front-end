@@ -33,7 +33,42 @@ body {
 .Slim{
     max-width: 1200px;
 }
+.TemplatePanelContent>div{
+    padding: 5px 0 5px 0;
+}
+.lowerCase{
+    font-variant: none;
 
+}
+.validInput{
+    box-shadow: 2px 2px 3px #43AC6A;
+}
+.alreadyThere{
+    box-shadow: 2px 2px 3px #ffe116;
+}
+.center{
+    text-align: center;
+    margin: 0 auto;
+}
+.mid{
+    width: 50%;
+}
+.third{
+    width:100%
+}
+.alert{
+    font-size: larger;
+}
+.alert-success:before{
+    font: normal normal normal 12px/1 'Glyphicons Halflings';
+    font-size: larger;
+    content: '\e013  '
+}
+.alert-danger:before{
+    font: normal normal normal 12px/1 'Glyphicons Halflings';
+    font-size: larger;
+    content: '\e014  '
+}
 .divider-vertical {
     height: 40px;
     margin: 10px 0px 10px 0px;
@@ -42,9 +77,9 @@ body {
 }
 
 .MainTable {
-		border-collapse: collapse;
-		width: 100%;
-	}
+    border-collapse: collapse;
+    width: 100%;
+}
 .MainTable th {
 	    border: 1px solid #ddd;
 		height: 40px;

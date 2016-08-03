@@ -162,3 +162,6 @@ PageCtrl.prototype.count_if_show_tabs = function() {
 PageCtrl.prototype.toggle_slim = function() {
     this.slim = !this.slim;
 };
+PageCtrl.prototype.redirect = function(u){
+    window.location.href = u;
+};

@@ -9,6 +9,8 @@ function PanelCtrl(scope, interval, timeout){
     this.loaded = false;
     this.show_alert = false;
     this.collapsed = [];
+    this.success_message = false;
+    this.error_message = false;
 }
 PanelCtrl.prototype.add_collapse = function () {
   this.collapsed.push(true);
@@ -74,7 +76,12 @@ PanelCtrl.prototype.toggle_collapse = function(index) {
     this.show_alert = false;
     this.collapsed[index] = !this.collapsed[index];
 };
-
+PanelCtrl.prototype.show_success = function(message) {
+    this.success_message = message;
+};
+PanelCtrl.prototype.show_error = function(message) {
+    this.error_message = message;
+};
 function NavCtrl(http) {
     this.http = http;
     this.navs = null;
