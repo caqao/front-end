@@ -47,7 +47,7 @@ body {
     box-shadow: 2px 2px 3px #ffe116;
 }
 .userTable>div{
-    width: 40%;
+    width: 70%;
     text-align: center;
     margin: 0 auto;
 }
@@ -511,7 +511,7 @@ LiveWidgets
     font-weight: lighter;
 }
 
-@media (max-width: 1500px){
+@media (max-width: 1080px){
     .BigScreenLi{
         display: none!important;
     }
@@ -523,7 +523,7 @@ LiveWidgets
     }
 
 }
-@media (min-width: 1500px){
+@media (min-width: 1080px){
     .LilScreenLi{
         display: none!important;
     }

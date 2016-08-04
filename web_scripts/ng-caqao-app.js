@@ -9,7 +9,7 @@ ng_app.service('PageData', function($http, $interval, $timeout){
 ng_app.service('NavData', function($http){
     this.g = new NavCtrl($http);
 });
-ng_app.directive('watchResize', function(){
+ng_app.directive('watchResizeTabs', function(){
     return {
         restrict: 'A',
         link: function(scope, elem, attr) {
@@ -26,7 +26,14 @@ ng_app.controller('NavBar', ['$scope', '$http', 'NavData',
     function($scope, $http, NavData) {
         $scope.g = NavData.g;
         $scope.g.get_navs();
-
+        $scope.$watch('g.user', function(newUser){
+            if (newUser !== null){
+                $scope.admin_link = newUser.admin;
+                $scope.is_anon = newUser.anon;
+                console.log($scope.is_anon);
+                $scope.username = newUser.username;
+            }
+        }, true);
         $scope.$watch('g.navs', function(newData){
             if (newData !== null){
                 $scope.navs = newData;
