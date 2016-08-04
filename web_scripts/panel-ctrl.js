@@ -77,9 +77,11 @@ PanelCtrl.prototype.toggle_collapse = function(index) {
     this.collapsed[index] = !this.collapsed[index];
 };
 PanelCtrl.prototype.show_success = function(message) {
+    this.error_message = false;
     this.success_message = message;
 };
 PanelCtrl.prototype.show_error = function(message) {
+    this.success_message = false;
     this.error_message = message;
 };
 function NavCtrl(http) {

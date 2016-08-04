@@ -46,6 +46,17 @@ body {
 .alreadyThere{
     box-shadow: 2px 2px 3px #ffe116;
 }
+.userTable>div{
+    width: 40%;
+    text-align: center;
+    margin: 0 auto;
+}
+.userTable>div>span{
+    width: 25%;
+}
+.userTable>div>input{
+    width: 75%;
+}
 .center{
     text-align: center;
     margin: 0 auto;
@@ -54,7 +65,10 @@ body {
     width: 50%;
 }
 .third{
-    width:100%
+    width:33%
+}
+.two_thirds{
+    width:67%
 }
 .alert{
     font-size: larger;
@@ -69,29 +83,38 @@ body {
     font-size: larger;
     content: '\e014  '
 }
+.alert-info:before{
+    font: normal normal normal 12px/1 'Glyphicons Halflings';
+    font-size: larger;
+    content:"\e086 ";
+}
+.alert-warning:before{
+    font: normal normal normal 12px/1 'Glyphicons Halflings';
+    font-size: larger;
+    content:"\e101 ";
+}
 .divider-vertical {
     height: 40px;
     margin: 10px 0px 10px 0px;
     border-left: 1px solid #BF2E1A;
     border-right: 1px solid #BF2E1A;
 }
-
 .MainTable {
     border-collapse: collapse;
     width: 100%;
 }
 .MainTable th {
-	    border: 1px solid #ddd;
-		height: 40px;
-		background-color: #9f9f9f;
-		font-style: normal;
+    border: 1px solid #ddd;
+    height: 40px;
+    background-color: #9f9f9f;
+    font-style: normal;
 
-	}
+}
 .MainTable td {
-	    border: 1px solid #ddd;
-		/*text-align: left;*/
-		padding: 4px;
-	}
+    border: 1px solid #ddd;
+    /*text-align: left;*/
+    padding: 4px;
+}
 
 .MainTable tr:nth-child(even){background-color: #f2f2f2}
 
@@ -118,7 +141,6 @@ td>h4, td>h3{
 }
 
 .CustChk > [type='checkbox']{
-    /*display: none;*/
     position: absolute;
     overflow:hidden;
     opacity:0;
@@ -164,7 +186,6 @@ textarea{
     width: 100%;
     height: 100%;
     font-variant: none;
-
 }
 .panel {
     box-shadow: 2px 3px 6px #cccccc;
@@ -178,7 +199,6 @@ textarea{
 .panel-heading{
     text-align: center;
     transition: all 1s ease 0s;
-
 }
 .panelButtons.right{
     text-align: right;
