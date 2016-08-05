@@ -209,14 +209,21 @@ textarea{
 .panelButtons.center{
     text-align: center;
 }
-.ControlPanelHeader{
+.ControlPanelTable{
     width: 100%;
 }
-.ControlPanelHeader td{
+#reload_cp td{
     width:6%;
 }
-.ControlPanelHeader td:nth-child(2){
+#reload_cp td:nth-child(2){
     width: 88%;
+}
+#pick_insp_cp{
+    margin: 0 0 8px 0;
+}
+#pick_insp_cp td{
+    width: 33%;
+    margin: 0 2px 0 0;
 }
 .PanelHeader{
     width: 100%;

@@ -11,7 +11,6 @@ function PageCtrl(http, interval, timeout){
     this.last_data = null;
     this.last_update_time = null;
     this.tabs_data = null;
-    // this.navs = null;
     this.sectors = [];
     this.rounds = [];
     this.data_types = [];
@@ -59,8 +58,20 @@ PageCtrl.prototype.get_data = function() {
         }).then(
         function(response){
             t.update_last_data(response.data.elements, response.data.last_update_time);
-
-
+        },
+        function(response){
+            t.show_failure();
+        }
+    );
+};
+PageCtrl.prototype.get_custom_data = function(parametres) {
+    var t = this;
+    this.http.get(this.url,
+        {
+            params: parametres
+        }).then(
+        function(response){
+            t.update_last_data(response.data.elements, response.data.last_update_time);
         },
         function(response){
             t.show_failure();
@@ -164,4 +175,20 @@ PageCtrl.prototype.toggle_slim = function() {
 };
 PageCtrl.prototype.redirect = function(u){
     window.location.href = u;
+};
+
+PageCtrl.prototype.get_products_from_round = function(newRound) {
+    var t = this;
+    this.http.get(this.url,
+        {
+            params: {action: 'get_products_from_round', round: newRound}
+
+        }).then(
+        function(response){
+            t.product_choices = response.data.products;
+        },
+        function(response){
+            t.show_failure();
+        }
+    );
 };
