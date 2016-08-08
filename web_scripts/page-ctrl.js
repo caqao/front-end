@@ -114,7 +114,6 @@ PageCtrl.prototype.watch_changes_buffer = function(newVal, oldVal) {
         }
         else {
             this.unsaved_changes = false;
-            this.unsaved_changes = false;
             this.previous_archive = [];
         }
     }

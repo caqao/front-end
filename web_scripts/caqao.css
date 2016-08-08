@@ -16,7 +16,7 @@ body {
 }
 #top_affix{
     width: 100%;
-    z-index: 1;
+    z-index: 99;
     padding: 30px 0 0 0;
 
 }
@@ -69,6 +69,9 @@ body {
 }
 .two_thirds{
     width:67%
+}
+.fill_wid{
+    width:100%;
 }
 .alert{
     font-size: larger;
@@ -181,6 +184,18 @@ td>h4, td>h3{
 .LinkButton{
     width: 100%;
 }
+.inspectionInput{
+    width: 60%;
+
+}
+.inspectionInput>label{
+    width:33%;
+}
+/*.inspectionInput>label:nth-child(1):before{*/
+    /*font: normal normal normal 12px/1 'Glyphicons Halflings';*/
+    /*font-size: larger;*/
+    /*content: '\e013*/
+/*}*/
 textarea{
     font-family: "Lucida Console", Monaco, monospace;
     width: 100%;
@@ -222,8 +237,8 @@ textarea{
     margin: 0 0 8px 0;
 }
 #pick_insp_cp td{
-    width: 33%;
-    margin: 0 2px 0 0;
+    width: 25%;
+    margin: 0 2px 0 2px;
 }
 .PanelHeader{
     width: 100%;
