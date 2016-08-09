@@ -26,11 +26,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="caqao.css" pinned="false" current-in-tab="true">
+      <file leaf-file-name="caqao.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/caqao.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="233" column="15" selection-start-line="233" selection-start-column="15" selection-end-line="233" selection-end-column="15" />
+            <state relative-caret-position="504">
+              <caret line="49" column="35" selection-start-line="49" selection-start-column="35" selection-end-line="49" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -39,8 +39,8 @@
       <file leaf-file-name="ng-caqao-app.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ng-caqao-app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="203">
-              <caret line="69" column="29" selection-start-line="69" selection-start-column="24" selection-end-line="69" selection-end-column="29" />
+            <state relative-caret-position="0">
+              <caret line="0" column="26" selection-start-line="0" selection-start-column="26" selection-end-line="0" selection-end-column="26" />
               <folding>
                 <element signature="e#102#221#0" expanded="false" />
                 <element signature="e#288#346#0" expanded="false" />
@@ -50,12 +50,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ng-inspection.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ng-inspection.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ng-inspection.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="720">
-              <caret line="40" column="21" selection-start-line="40" selection-start-column="21" selection-end-line="40" selection-end-column="21" />
-              <folding />
+            <state relative-caret-position="144">
+              <caret line="20" column="41" selection-start-line="20" selection-start-column="41" selection-end-line="20" selection-end-column="41" />
+              <folding>
+                <element signature="e#3376#3417#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -63,7 +65,7 @@
       <file leaf-file-name="caqao.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/caqao.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="411">
+            <state relative-caret-position="676">
               <caret line="216" column="23" selection-start-line="216" selection-start-column="23" selection-end-line="216" selection-end-column="23" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
@@ -75,8 +77,8 @@
       <file leaf-file-name="panel-ctrl.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/panel-ctrl.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="34" selection-end-column="2" />
+            <state relative-caret-position="90">
+              <caret line="20" column="60" selection-start-line="20" selection-start-column="60" selection-end-line="20" selection-end-column="60" />
               <folding>
                 <element signature="e#847#909#0" expanded="false" />
               </folding>
@@ -87,14 +89,14 @@
       <file leaf-file-name="page-ctrl.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/page-ctrl.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="16" column="22" selection-start-line="16" selection-start-column="22" selection-end-line="16" selection-end-column="22" />
+            <state relative-caret-position="72">
+              <caret line="99" column="42" selection-start-line="99" selection-start-column="42" selection-end-line="99" selection-end-column="42" />
               <folding>
-                <element signature="e#587#1404#0" expanded="false" />
-                <element signature="e#1478#1783#0" expanded="false" />
-                <element signature="e#3469#3698#0" expanded="false" />
-                <element signature="e#3768#3973#0" expanded="false" />
-                <element signature="e#4912#5001#0" expanded="false" />
+                <element signature="e#609#1426#0" expanded="false" />
+                <element signature="e#1500#1805#0" expanded="false" />
+                <element signature="e#3774#4003#0" expanded="false" />
+                <element signature="e#4073#4278#0" expanded="false" />
+                <element signature="e#5217#5306#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -126,9 +128,9 @@
         <option value="$PROJECT_DIR$/ng-parametres.js" />
         <option value="$PROJECT_DIR$/ng-caqao-app.js" />
         <option value="$PROJECT_DIR$/caqao.js" />
+        <option value="$PROJECT_DIR$/caqao.css" />
         <option value="$PROJECT_DIR$/page-ctrl.js" />
         <option value="$PROJECT_DIR$/ng-inspection.js" />
-        <option value="$PROJECT_DIR$/caqao.css" />
       </list>
     </option>
   </component>
@@ -139,9 +141,9 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="3839" />
+    <option name="x" value="3840" />
     <option name="y" value="312" />
-    <option name="width" value="1368" />
+    <option name="width" value="1366" />
     <option name="height" value="768" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -169,6 +171,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -189,7 +192,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
@@ -306,7 +308,8 @@
       <workItem from="1470233414348" duration="24160000" />
       <workItem from="1470317359058" duration="15730000" />
       <workItem from="1470404599686" duration="21922000" />
-      <workItem from="1470661713123" duration="20974000" />
+      <workItem from="1470661713123" duration="32579000" />
+      <workItem from="1470765356429" duration="16770000" />
     </task>
     <task id="LOCAL-00001" summary="added style+icons">
       <created>1467047135184</created>
@@ -546,17 +549,24 @@
       <option name="project" value="LOCAL" />
       <updated>1470433799043</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="inspection controller new functions">
+      <created>1470694893238</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1470694893238</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="417648000" />
+    <option name="totallyTimeSpent" value="446023000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="3839" y="312" width="1368" height="768" extended-state="6" />
+    <frame x="3840" y="312" width="1366" height="768" extended-state="4" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24963397" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3283582" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -586,7 +596,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="ready for first deployment CQ" />
     <MESSAGE value="manage limits, ranges" />
     <MESSAGE value="working version for norms" />
     <MESSAGE value="working version for norms 1" />
@@ -611,11 +620,12 @@
     <MESSAGE value="filled ng-login" />
     <MESSAGE value="GENOCIDE" />
     <MESSAGE value="inspection controller" />
-    <option name="LAST_COMMIT_MESSAGE" value="inspection controller" />
+    <MESSAGE value="inspection controller new functions" />
+    <option name="LAST_COMMIT_MESSAGE" value="inspection controller new functions" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="7" />
+      <option name="time" value="8" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -976,40 +986,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/caqao.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="411">
-          <caret line="216" column="23" selection-start-line="216" selection-start-column="23" selection-end-line="216" selection-end-column="23" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/panel-ctrl.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="34" selection-end-column="2" />
-          <folding>
-            <element signature="e#847#909#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/page-ctrl.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="16" column="22" selection-start-line="16" selection-start-column="22" selection-end-line="16" selection-end-column="22" />
-          <folding>
-            <element signature="e#587#1404#0" expanded="false" />
-            <element signature="e#1478#1783#0" expanded="false" />
-            <element signature="e#3469#3698#0" expanded="false" />
-            <element signature="e#3768#3973#0" expanded="false" />
-            <element signature="e#4912#5001#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/login.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-7">
@@ -1018,18 +994,52 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ng-inspection.js">
+    <entry file="file://$PROJECT_DIR$/caqao.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="720">
-          <caret line="40" column="21" selection-start-line="40" selection-start-column="21" selection-end-line="40" selection-end-column="21" />
+        <state relative-caret-position="504">
+          <caret line="49" column="35" selection-start-line="49" selection-start-column="35" selection-end-line="49" selection-end-column="35" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/caqao.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="676">
+          <caret line="216" column="23" selection-start-line="216" selection-start-column="23" selection-end-line="216" selection-end-column="23" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/page-ctrl.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="99" column="42" selection-start-line="99" selection-start-column="42" selection-end-line="99" selection-end-column="42" />
+          <folding>
+            <element signature="e#609#1426#0" expanded="false" />
+            <element signature="e#1500#1805#0" expanded="false" />
+            <element signature="e#3774#4003#0" expanded="false" />
+            <element signature="e#4073#4278#0" expanded="false" />
+            <element signature="e#5217#5306#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/panel-ctrl.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="20" column="60" selection-start-line="20" selection-start-column="60" selection-end-line="20" selection-end-column="60" />
+          <folding>
+            <element signature="e#847#909#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ng-caqao-app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="69" column="29" selection-start-line="69" selection-start-column="24" selection-end-line="69" selection-end-column="29" />
+        <state relative-caret-position="0">
+          <caret line="0" column="26" selection-start-line="0" selection-start-column="26" selection-end-line="0" selection-end-column="26" />
           <folding>
             <element signature="e#102#221#0" expanded="false" />
             <element signature="e#288#346#0" expanded="false" />
@@ -1038,11 +1048,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/caqao.css">
+    <entry file="file://$PROJECT_DIR$/ng-inspection.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="233" column="15" selection-start-line="233" selection-start-column="15" selection-end-line="233" selection-end-column="15" />
-          <folding />
+        <state relative-caret-position="144">
+          <caret line="20" column="41" selection-start-line="20" selection-start-column="41" selection-end-line="20" selection-end-column="41" />
+          <folding>
+            <element signature="e#3376#3417#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -14,7 +14,8 @@ function PageCtrl(http, interval, timeout){
     this.sectors = [];
     this.rounds = [];
     this.data_types = [];
-    this.slim = false;
+    this.slim = true;
+    this.other = null;
 }
 PageCtrl.prototype.update_buffer = function(obj_id, col, oldVal, newVal, model) {
     var archive_dict = {
@@ -57,7 +58,20 @@ PageCtrl.prototype.get_data = function() {
             params: {action: 'load_all_elements'}
         }).then(
         function(response){
-            t.update_last_data(response.data.elements, response.data.last_update_time);
+            t.update_last_data(response.data);
+        },
+        function(response){
+            t.show_failure();
+        }
+    );
+};
+PageCtrl.prototype.post_custom_data = function(post_data) {
+    var t = this;
+    this.http.post(this.url,
+            post_data
+        ).then(
+        function(response){
+            t.update_last_data(response.data);
         },
         function(response){
             t.show_failure();
@@ -71,19 +85,20 @@ PageCtrl.prototype.get_custom_data = function(parametres) {
             params: parametres
         }).then(
         function(response){
-            t.update_last_data(response.data.elements, response.data.last_update_time);
+            t.update_last_data(response.data);
         },
         function(response){
             t.show_failure();
         }
     );
 };
-PageCtrl.prototype.update_last_data = function(new_data, update_time){
-    this.last_update_time = update_time;
-    this.last_data = new_data;
-    this.sectors = new_data.sectors || this.sectors;
-    this.rounds = new_data.rounds || this.rounds;
-    this.data_types = new_data.data_types || this.data_types;
+PageCtrl.prototype.update_last_data = function(data){
+    this.last_update_time = data.last_update_time;
+    this.last_data = data.elements;
+    this.sectors = data.elements.sectors || this.sectors;
+    this.rounds = data.elements.rounds || this.rounds;
+    this.data_types = data.elements.data_types || this.data_types;
+    this.other = data.other || this.other;
 };
 PageCtrl.prototype.cancel_update = function() {
     this.changes_buffer = [];
