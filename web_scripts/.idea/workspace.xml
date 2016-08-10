@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6d864820-eb23-46b3-b334-7138b2ccf466" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/plot.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/caqao.css" afterPath="$PROJECT_DIR$/caqao.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ng-inspection.js" afterPath="$PROJECT_DIR$/ng-inspection.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/page-ctrl.js" afterPath="$PROJECT_DIR$/page-ctrl.js" />
     </list>
     <ignored path="web_scripts.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -29,9 +29,41 @@
       <file leaf-file-name="caqao.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/caqao.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="504">
-              <caret line="49" column="35" selection-start-line="49" selection-start-column="35" selection-end-line="49" selection-end-column="35" />
+            <state relative-caret-position="536">
+              <caret line="249" column="13" selection-start-line="249" selection-start-column="13" selection-end-line="249" selection-end-column="13" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ng-inspection.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/ng-inspection.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="272">
+              <caret line="45" column="17" selection-start-line="45" selection-start-column="17" selection-end-line="45" selection-end-column="17" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="plot.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/plot.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="caqao.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/caqao.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="389">
+              <caret line="216" column="23" selection-start-line="216" selection-start-column="23" selection-end-line="216" selection-end-column="23" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -50,34 +82,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ng-inspection.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/ng-inspection.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="20" column="41" selection-start-line="20" selection-start-column="41" selection-end-line="20" selection-end-column="41" />
-              <folding>
-                <element signature="e#3376#3417#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="caqao.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/caqao.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="676">
-              <caret line="216" column="23" selection-start-line="216" selection-start-column="23" selection-end-line="216" selection-end-column="23" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="panel-ctrl.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/panel-ctrl.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
+            <state relative-caret-position="360">
               <caret line="20" column="60" selection-start-line="20" selection-start-column="60" selection-end-line="20" selection-end-column="60" />
               <folding>
                 <element signature="e#847#909#0" expanded="false" />
@@ -89,7 +97,7 @@
       <file leaf-file-name="page-ctrl.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/page-ctrl.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="72">
+            <state relative-caret-position="1206">
               <caret line="99" column="42" selection-start-line="99" selection-start-column="42" selection-end-line="99" selection-end-column="42" />
               <folding>
                 <element signature="e#609#1426#0" expanded="false" />
@@ -128,8 +136,9 @@
         <option value="$PROJECT_DIR$/ng-parametres.js" />
         <option value="$PROJECT_DIR$/ng-caqao-app.js" />
         <option value="$PROJECT_DIR$/caqao.js" />
-        <option value="$PROJECT_DIR$/caqao.css" />
         <option value="$PROJECT_DIR$/page-ctrl.js" />
+        <option value="$PROJECT_DIR$/caqao.css" />
+        <option value="$PROJECT_DIR$/plot.js" />
         <option value="$PROJECT_DIR$/ng-inspection.js" />
       </list>
     </option>
@@ -143,7 +152,7 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="3840" />
     <option name="y" value="312" />
-    <option name="width" value="1366" />
+    <option name="width" value="1358" />
     <option name="height" value="768" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -309,7 +318,8 @@
       <workItem from="1470317359058" duration="15730000" />
       <workItem from="1470404599686" duration="21922000" />
       <workItem from="1470661713123" duration="32579000" />
-      <workItem from="1470765356429" duration="16770000" />
+      <workItem from="1470765356429" duration="16937000" />
+      <workItem from="1470837180725" duration="11046000" />
     </task>
     <task id="LOCAL-00001" summary="added style+icons">
       <created>1467047135184</created>
@@ -556,20 +566,26 @@
       <option name="project" value="LOCAL" />
       <updated>1470694893238</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="inspection controller refractoring">
+      <created>1470785485557</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1470785485558</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="446023000" />
+    <option name="totallyTimeSpent" value="457236000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="3840" y="312" width="1366" height="768" extended-state="4" />
+    <frame x="3840" y="312" width="1358" height="768" extended-state="4" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14380531" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3283582" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -581,6 +597,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3283582" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -596,7 +613,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="manage limits, ranges" />
     <MESSAGE value="working version for norms" />
     <MESSAGE value="working version for norms 1" />
     <MESSAGE value="last version before operations" />
@@ -621,7 +637,8 @@
     <MESSAGE value="GENOCIDE" />
     <MESSAGE value="inspection controller" />
     <MESSAGE value="inspection controller new functions" />
-    <option name="LAST_COMMIT_MESSAGE" value="inspection controller new functions" />
+    <MESSAGE value="inspection controller refractoring" />
+    <option name="LAST_COMMIT_MESSAGE" value="inspection controller refractoring" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -630,13 +647,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/insp_cq_results.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1476">
-          <caret line="82" column="13" selection-start-line="82" selection-start-column="13" selection-end-line="82" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/caqao.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2970">
@@ -889,67 +899,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4151">
           <caret line="258" column="31" selection-start-line="258" selection-start-column="31" selection-end-line="258" selection-end-column="31" />
-          <folding>
-            <marker date="1470341287970" expanded="true" signature="3:67" ph="/*...*/" />
-            <marker date="1470341287970" expanded="true" signature="91:217" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="227:296" ph="/*...*/" />
-            <marker date="1470341287970" expanded="true" signature="337:446" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="500:689" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="725:870" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="814:865" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="914:1249" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="995:1119" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="1123:1244" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="1283:1441" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="1388:1435" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="1480:1891" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="1934:2019" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="1971:2013" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="2060:2141" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="2097:2135" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="2185:2269" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="2222:2263" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="2312:2395" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="2349:2389" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="2430:2747" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="2644:2701" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="2780:2963" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="2835:2894" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="2900:2958" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="2999:3239" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="3113:3171" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="3175:3234" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="3272:3320" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="3330:4426" ph="//..." />
-            <marker date="1470341287970" expanded="true" signature="4466:5492" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="4570:4714" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="4658:4702" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="4719:5487" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="4880:5261" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="4941:5248" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="5032:5231" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="5130:5210" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="5291:5330" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="5336:5478" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="5541:5930" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="5861:5901" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="5969:6237" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="6273:7009" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="6633:6929" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="6941:6980" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="7057:7426" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="7146:7393" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="7247:7280" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="7475:7505" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="7543:8120" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="7711:8115" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="7789:7861" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="7886:8100" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="7922:7981" ph="{&quot;scrollLeft&quot;: 0...}" />
-            <marker date="1470341287970" expanded="true" signature="8006:8081" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="8161:8294" ph="{...}" />
-            <marker date="1470341287970" expanded="true" signature="8241:8276" ph="{&quot;scrollLeft&quot;: 0...}" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -967,22 +916,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ng-parametres.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="28" column="51" selection-start-line="28" selection-start-column="51" selection-end-line="28" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ng-login.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
           <caret line="110" column="9" selection-start-line="85" selection-start-column="8" selection-end-line="110" selection-end-column="9" />
-          <folding>
-            <element signature="e#1628#2124#0" expanded="false" />
-            <element signature="e#2178#2672#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -990,31 +927,22 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-7">
           <caret line="75" column="24" selection-start-line="75" selection-start-column="24" selection-end-line="75" selection-end-column="24" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/caqao.css">
+    <entry file="file://$PROJECT_DIR$/panel-ctrl.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="49" column="35" selection-start-line="49" selection-start-column="35" selection-end-line="49" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/caqao.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="676">
-          <caret line="216" column="23" selection-start-line="216" selection-start-column="23" selection-end-line="216" selection-end-column="23" />
+        <state relative-caret-position="360">
+          <caret line="20" column="60" selection-start-line="20" selection-start-column="60" selection-end-line="20" selection-end-column="60" />
           <folding>
-            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#847#909#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/page-ctrl.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
+        <state relative-caret-position="1206">
           <caret line="99" column="42" selection-start-line="99" selection-start-column="42" selection-end-line="99" selection-end-column="42" />
           <folding>
             <element signature="e#609#1426#0" expanded="false" />
@@ -1026,13 +954,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/panel-ctrl.js">
+    <entry file="file://$PROJECT_DIR$/caqao.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="20" column="60" selection-start-line="20" selection-start-column="60" selection-end-line="20" selection-end-column="60" />
+        <state relative-caret-position="389">
+          <caret line="216" column="23" selection-start-line="216" selection-start-column="23" selection-end-line="216" selection-end-column="23" />
           <folding>
-            <element signature="e#847#909#0" expanded="false" />
+            <element signature="n#!!doc" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/caqao.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="536">
+          <caret line="249" column="13" selection-start-line="249" selection-start-column="13" selection-end-line="249" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1048,13 +984,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/ng-parametres.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="28" column="51" selection-start-line="28" selection-start-column="51" selection-end-line="28" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plot.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ng-inspection.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="20" column="41" selection-start-line="20" selection-start-column="41" selection-end-line="20" selection-end-column="41" />
-          <folding>
-            <element signature="e#3376#3417#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="272">
+          <caret line="45" column="17" selection-start-line="45" selection-start-column="17" selection-end-line="45" selection-end-column="17" />
+          <folding />
         </state>
       </provider>
     </entry>

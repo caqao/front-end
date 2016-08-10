@@ -50,6 +50,12 @@ body {
     box-shadow: 2px 2px 3px #ff5050;
 
 }
+.fuk>tr>td{
+    width:33%
+}
+.fuc>tr>td>button{
+    width:100%;
+}
 .userTable>div{
     width: 70%;
     text-align: center;
@@ -93,12 +99,17 @@ body {
 .alert-info:before{
     font: normal normal normal 12px/1 'Glyphicons Halflings';
     font-size: larger;
-    content:"\e086 ";
+    content:"\e086  ";
 }
 .alert-warning:before{
     font: normal normal normal 12px/1 'Glyphicons Halflings';
     font-size: larger;
     content:"\e101 ";
+}
+.timeAlert:before{
+    font: normal normal normal 12px/1 'Glyphicons Halflings';
+    font-size: larger;
+    content:"\231b  ";
 }
 .divider-vertical {
     height: 40px;
@@ -231,6 +242,12 @@ textarea{
 }
 #reload_cp td:nth-child(2){
     width: 88%;
+}
+#reload_cp_pick td{
+    width:20%;
+}
+#reload_cp_pick td:nth-child(2){
+    width: 60%;
 }
 #pick_insp_cp{
     margin: 0 0 8px 0;

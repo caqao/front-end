@@ -12,11 +12,15 @@ ng_app.controller('InspectionPanel', ['$scope', '$http', '$interval', '$timeout'
         $scope.page_number = 0;
         $scope.g.unsent_changes = 0;
         $scope.batch_id = 0;
+        $scope.g.show_delays = true;
+        $scope.g.show_results = true;
 
         $scope.setup_values_array = function () {
             $scope.g.unsent_changes = 0;
+            var d = new Date();
             for (i=0;i<$scope.values.length;i++){
                 $scope.values[i].conform = Array($scope.values[i].nb_meas).fill(null);
+                $scope.update_delay_data(i, d);
                 if ($scope.values[i].data_type === 2 || $scope.values[i].data_type === 3 ){
                     var empty_array = [];
                     for (j=0;j<$scope.values[i].nb_meas;j++){
@@ -24,6 +28,36 @@ ng_app.controller('InspectionPanel', ['$scope', '$http', '$interval', '$timeout'
                     }
                     $scope.values[i].results = empty_array;
                 }
+            }
+        };
+        $scope.update_delay_data = function(i, time){
+            if ($scope.values[i].prev_data.length<$scope.values[i].nb_meas){
+                $scope.values[i].next_deadline = time;
+                $scope.values[i].panel_class = "alert-info";
+                $scope.values[i].delay_message = "Début de lot: Inspection à faire immédiatement";
+            }
+            else{
+                var last_time = $scope.values[i].prev_data[$scope.values[i].prev_data.length - $scope.values[i].nb_meas].time;
+                $scope.values[i].next_deadline = last_time*1000 + $scope.interval_hrs*3600000;
+                var remaining_time = $scope.values[i].next_deadline - time;
+                if (remaining_time<0){
+                    $scope.values[i].panel_class = "alert-danger";
+                    $scope.values[i].delay_message = "Retard: L'inspection devait être faite à ";
+                }
+                else{
+                    if(remaining_time<900000){
+                        $scope.values[i].panel_class = "alert-warning";
+                        $scope.values[i].delay_message = "L'inspection doit être faite bientôt, soit à ";
+                }
+                    else{
+                        $scope.values[i].panel_class = "alert-success";
+                        $scope.values[i].delay_message = "Prochaine inspection dûe à ";
+                    }
+                }
+
+
+
+
             }
         };
         $scope.update_conformity = function(param_ind, sub_ind, value){
@@ -81,71 +115,6 @@ ng_app.controller('InspectionPanel', ['$scope', '$http', '$interval', '$timeout'
         $scope.$watch('g.rounds', function(newData){
             if(newData !== undefined){$scope.set_round_pick_data();}
         }, true);
-
-        // $scope.$watch('values', function (n) {
-        //     if (n) {
-        //         var change_count = 0;
-        //         for (i = 0; i < n.length; i++) {
-        //             for (j = 0; j < n[i].nb_meas; j++) {
-        //                 if (n[i].conform[j] !== null) {
-        //                     change_count++;
-        //                 }
-        //             }
-        //         }
-        //         $scope.g.unsent_changes = change_count;
-        //     }
-        // }, true);
-        // $scope.update_scope_data = function(newVal){
-        //     if (newVal !== null) {
-        //         $scope.p.update_panel_data(newVal);
-        //         if ($scope.values.length>0){
-        //             $scope.g.insp_buffer = [];
-        //             for (i = 0; i<$scope.values.length; i++){
-        //                 // var null_array = Array($scope.values[i].nb_meas).fill(null);
-        //                 $scope.g.insp_buffer.push(null);
-        //                 $scope.g.conform_buffer.push(null);
-        //             }
-        //         }
-        //         print($scope.g.insp_buffer);
-        //         if ($scope.g.lot === ''){
-        //             $scope.g.lot = newVal.lot;
-        //         }
-        //         if (newVal.product_choices !== undefined){
-        //             $scope.g.product_choices = newVal.product_choices;
-        //         }
-        //     }
-        // };
-        // $scope.$watch('g.insp_buffer', function(newBuff, oldBuff){
-        //     var change_number = 0;
-        //     for (i=0;i<newBuff.length;i++){
-        //         if (newBuff[i] !== oldBuff[i]){
-        //             var ol = oldBuff[i];
-        //             var ne = newBuff[i];
-        //             if ($scope.values[i].data_type == 3){
-        //                 $scope.moderate_number_change(ne, ol, i);
-        //                 $scope.validate_numeric_norm(i);
-        //             }
-        //         }
-        //         if (newBuff[i] !== (undefined || null)){
-        //             change_number++;
-        //         }
-        //     }
-        //     $scope.g.unsent_changes = change_number;
-        //
-        // }, true);
-        // $scope.moderate_number_change = function (ne, ol, ind) {
-        //     if (ne === undefined){
-        //         if (ol === null){
-        //             $scope.g.insp_buffer[ind] = 0;
-        //         }else{ $scope.g.insp_buffer[ind] = ol; }
-        //     }
-        // };
-        // $scope.validate_numeric_norm = function(ind){
-        //     print($scope.values[ind]);
-        //     if ($scope.g.insp_buffer[ind] !== null){
-        //
-        //     }
-        // };
         $scope.$watch('g.last_update_time', function(newVal){if (newVal != undefined || newVal != null) {
             $scope.setup_picker($scope.g.last_data);
             $scope.update_scope_data($scope.g.last_data);
@@ -167,8 +136,12 @@ ng_app.controller('InspectionPanel', ['$scope', '$http', '$interval', '$timeout'
         $scope.$watch('g.round', function(newRound){
             if (newRound !== null) {
                 $scope.g.get_products_from_round(newRound);
+                $scope.interval_hrs = $scope.g.pick_iter.filter($scope.filter_id, newRound)[0].interval;
             }
         }, true);
+        $scope.filter_id = function(array){
+            return array.id == this;
+        };
         $scope.$watch('g.rounds', function(newData){
             if(newData !== undefined){$scope.set_round_pick_data();}
         }, true);
@@ -184,6 +157,12 @@ ng_app.controller('InspectionPanel', ['$scope', '$http', '$interval', '$timeout'
                 $scope.g.pick_label = 'Secteur';
                 $scope.g.pick_iter = $scope.g.sectors;
             }
+        };
+        $scope.g.toggle_delays = function () {
+            $scope.g.show_delays = !$scope.g.show_delays;
+        };
+        $scope.g.toggle_show_results = function () {
+            $scope.g.show_results = !$scope.g.show_results;
         };
         $scope.g.toggle_ongoing = function () {
             $scope.g.ongoing = !$scope.g.ongoing;
