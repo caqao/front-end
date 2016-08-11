@@ -4,7 +4,7 @@
     <list default="true" id="6d864820-eb23-46b3-b334-7138b2ccf466" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/caqao.css" afterPath="$PROJECT_DIR$/caqao.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/plot.js" afterPath="$PROJECT_DIR$/plot.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ng-inspection.js" afterPath="$PROJECT_DIR$/ng-inspection.js" />
     </list>
     <ignored path="web_scripts.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -28,8 +28,8 @@
       <file leaf-file-name="caqao.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/caqao.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="488">
-              <caret line="87" column="31" selection-start-line="87" selection-start-column="31" selection-end-line="87" selection-end-column="31" />
+            <state relative-caret-position="464">
+              <caret line="107" column="18" selection-start-line="107" selection-start-column="18" selection-end-line="107" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -38,8 +38,8 @@
       <file leaf-file-name="ng-inspection.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ng-inspection.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1955">
-              <caret line="115" column="17" selection-start-line="115" selection-start-column="17" selection-end-line="115" selection-end-column="17" />
+            <state relative-caret-position="287">
+              <caret line="224" column="48" selection-start-line="224" selection-start-column="48" selection-end-line="224" selection-end-column="48" />
               <folding />
             </state>
           </provider>
@@ -83,8 +83,8 @@
       <file leaf-file-name="page-ctrl.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/page-ctrl.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1206">
-              <caret line="99" column="42" selection-start-line="99" selection-start-column="42" selection-end-line="99" selection-end-column="42" />
+            <state relative-caret-position="299">
+              <caret line="82" column="0" selection-start-line="82" selection-start-column="0" selection-end-line="93" selection-end-column="2" />
               <folding>
                 <element signature="e#609#1426#0" expanded="false" />
                 <element signature="e#1500#1805#0" expanded="false" />
@@ -123,9 +123,9 @@
         <option value="$PROJECT_DIR$/page-ctrl.js" />
         <option value="$PROJECT_DIR$/ng-caqao-app.js" />
         <option value="$PROJECT_DIR$/panel-ctrl.js" />
-        <option value="$PROJECT_DIR$/ng-inspection.js" />
         <option value="$PROJECT_DIR$/plot.js" />
         <option value="$PROJECT_DIR$/caqao.css" />
+        <option value="$PROJECT_DIR$/ng-inspection.js" />
       </list>
     </option>
   </component>
@@ -136,9 +136,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1920" />
-    <option name="width" value="1912" />
-    <option name="height" value="1055" />
+    <option name="x" value="3839" />
+    <option name="y" value="312" />
+    <option name="width" value="1368" />
+    <option name="height" value="768" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -306,7 +307,7 @@
       <workItem from="1470765356429" duration="16937000" />
       <workItem from="1470837180725" duration="22042000" />
       <workItem from="1470863415097" duration="10874000" />
-      <workItem from="1470923496576" duration="19555000" />
+      <workItem from="1470923496576" duration="28563000" />
     </task>
     <task id="LOCAL-00001" summary="added style+icons">
       <created>1467047135184</created>
@@ -574,19 +575,27 @@
       <option name="project" value="LOCAL" />
       <updated>1470874257059</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="plotting done, wow">
+      <created>1470944891073</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1470944891073</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="498661000" />
+    <option name="totallyTimeSpent" value="507669000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1920" y="0" width="1912" height="1055" extended-state="4" />
-    <editor active="true" />
+    <frame x="3839" y="312" width="1368" height="768" extended-state="6" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.10052356" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14055637" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3283582" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -598,7 +607,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3283582" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -614,7 +622,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="last version before operations" />
     <MESSAGE value="added bootstrap files" />
     <MESSAGE value="relocated bootstrap files, navbar functions" />
     <MESSAGE value="big updates, made angularjs app &#10;next changes: add field, then inherit many methods" />
@@ -639,7 +646,8 @@
     <MESSAGE value="inspection controller refractoring" />
     <MESSAGE value="time management" />
     <MESSAGE value="plotting, not over" />
-    <option name="LAST_COMMIT_MESSAGE" value="plotting, not over" />
+    <MESSAGE value="plotting done, wow" />
+    <option name="LAST_COMMIT_MESSAGE" value="plotting done, wow" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -787,6 +795,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
           <caret line="110" column="9" selection-start-line="85" selection-start-column="8" selection-end-line="110" selection-end-column="9" />
+          <folding>
+            <element signature="e#1628#2124#0" expanded="false" />
+            <element signature="e#2178#2672#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -803,6 +815,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="540">
           <caret line="6" column="17458" selection-start-line="6" selection-start-column="17458" selection-end-line="6" selection-end-column="17458" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -810,6 +823,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="504">
           <caret line="28" column="51" selection-start-line="28" selection-start-column="51" selection-end-line="28" selection-end-column="51" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -820,20 +834,6 @@
           <folding>
             <element signature="e#208#327#0" expanded="false" />
             <element signature="e#394#452#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/page-ctrl.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1206">
-          <caret line="99" column="42" selection-start-line="99" selection-start-column="42" selection-end-line="99" selection-end-column="42" />
-          <folding>
-            <element signature="e#609#1426#0" expanded="false" />
-            <element signature="e#1500#1805#0" expanded="false" />
-            <element signature="e#3774#4003#0" expanded="false" />
-            <element signature="e#4073#4278#0" expanded="false" />
-            <element signature="e#5217#5306#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -858,16 +858,30 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/caqao.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="488">
-          <caret line="87" column="31" selection-start-line="87" selection-start-column="31" selection-end-line="87" selection-end-column="31" />
+        <state relative-caret-position="464">
+          <caret line="107" column="18" selection-start-line="107" selection-start-column="18" selection-end-line="107" selection-end-column="18" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/page-ctrl.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="82" column="0" selection-start-line="82" selection-start-column="0" selection-end-line="93" selection-end-column="2" />
+          <folding>
+            <element signature="e#609#1426#0" expanded="false" />
+            <element signature="e#1500#1805#0" expanded="false" />
+            <element signature="e#3774#4003#0" expanded="false" />
+            <element signature="e#4073#4278#0" expanded="false" />
+            <element signature="e#5217#5306#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ng-inspection.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1955">
-          <caret line="115" column="17" selection-start-line="115" selection-start-column="17" selection-end-line="115" selection-end-column="17" />
+        <state relative-caret-position="287">
+          <caret line="224" column="48" selection-start-line="224" selection-start-column="48" selection-end-line="224" selection-end-column="48" />
           <folding />
         </state>
       </provider>

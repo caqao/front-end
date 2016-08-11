@@ -15,10 +15,10 @@ ng_app.controller('InspectionPanel', ['$scope', '$http', '$interval', '$timeout'
 
         $scope.setup_values_array = function () {
             $scope.g.unsent_changes = 0;
-            $scope.g.show_delays = true;
-            $scope.g.show_results = null;
+            $scope.g.show_results = [];
             var d = new Date();
             for (i=0;i<$scope.values.length;i++){
+                $scope.g.show_results.push(null);
                 $scope.values[i].conform = Array($scope.values[i].nb_meas).fill(null);
                 $scope.update_delay_data(i, d);
                 if ($scope.values[i].data_type === 2 || $scope.values[i].data_type === 3 ){
@@ -33,25 +33,25 @@ ng_app.controller('InspectionPanel', ['$scope', '$http', '$interval', '$timeout'
         $scope.update_delay_data = function(i, time){
             if ($scope.values[i].prev_data.length<$scope.values[i].nb_meas){
                 $scope.values[i].next_deadline = time;
-                $scope.values[i].panel_class = "alert-info";
-                $scope.values[i].delay_message = "Début de lot: Inspection à faire immédiatement";
+                $scope.values[i].panel_class = "panel-info";
+                $scope.values[i].delay_message = null;
             }
             else{
                 var last_time = $scope.values[i].prev_data[$scope.values[i].prev_data.length - $scope.values[i].nb_meas].time;
                 $scope.values[i].next_deadline = last_time*1000 + $scope.interval_hrs*3600000;
                 var remaining_time = $scope.values[i].next_deadline - time;
                 if (remaining_time<0){
-                    $scope.values[i].panel_class = "alert-danger";
-                    $scope.values[i].delay_message = "Retard: L'inspection devait être faite à ";
+                    $scope.values[i].panel_class = "panel-danger";
+                    $scope.values[i].delay_message = "Retard!";
                 }
                 else{
                     if(remaining_time<900000){
-                        $scope.values[i].panel_class = "alert-warning";
-                        $scope.values[i].delay_message = "L'inspection doit être faite bientôt, soit à ";
+                        $scope.values[i].panel_class = "panel-warning";
+                        $scope.values[i].delay_message = "Bientôt!";
                 }
                     else{
-                        $scope.values[i].panel_class = "alert-success";
-                        $scope.values[i].delay_message = "Prochaine inspection due à ";
+                        $scope.values[i].panel_class = "panel-success";
+                        $scope.values[i].delay_message = null;
                     }
                 }
             }
@@ -114,7 +114,7 @@ ng_app.controller('InspectionPanel', ['$scope', '$http', '$interval', '$timeout'
         $scope.$watch('g.rounds', function(newData){
             if(newData !== undefined){$scope.set_round_pick_data();}
         }, true);
-        $scope.$watch('g.last_update_time', function(newVal){if (newVal != undefined || newVal != null) {
+        $scope.$watch('g.last_update_time', function(newVal){if (newVal != undefined || newVal != null) { //TODO find other trigger
             $scope.setup_picker($scope.g.last_data);
             $scope.update_scope_data($scope.g.last_data);
             $scope.batch_id = $scope.g.other;
@@ -157,17 +157,12 @@ ng_app.controller('InspectionPanel', ['$scope', '$http', '$interval', '$timeout'
                 $scope.g.pick_iter = $scope.g.sectors;
             }
         };
-        $scope.g.toggle_delays = function () {
-            $scope.g.show_delays = !$scope.g.show_delays;
-        };
-        $scope.g.toggle_show_results = function () {
+        $scope.g.toggle_show_results = function (i) {
 
-            if ($scope.g.show_results===null){
-                for (i=0;i<$scope.values.length;i++){
-                    $scope.create_plot(i);
-                }
+            if ($scope.g.show_results[i]===null){
+                $scope.create_plot(i);
             }
-            $scope.g.show_results = !$scope.g.show_results;
+            $scope.g.show_results[i] = !$scope.g.show_results[i];
         };
         $scope.g.toggle_ongoing = function () {
             $scope.g.ongoing = !$scope.g.ongoing;
@@ -207,6 +202,32 @@ ng_app.controller('InspectionPanel', ['$scope', '$http', '$interval', '$timeout'
                 batch_id: $scope.batch_id
             });
         };
+        $scope.g.request_updated_data = function () {
+            $http.get($scope.g.url,
+                {
+                    params: {
+                        action: 'update_batch_data',
+                        last_time: $scope.g.last_update_time,
+                        batch_id: $scope.batch_id
+                    }
+                }).then(
+                function(response){
+                    $scope.g.update_inspection_data(response.data.inspections);
+                    $scope.g.update_detector_data(response.data.detectors);
+                },
+                function(response){
+                    $scope.g.show_failure();
+                }
+            );
+        };
+        $interval(function(){
+            if ($scope.g.unsent_changes.length == 0) {
+                $scope.g.request_updated_data();
+            }
+        }, 120000);
+        $scope.g.update_inspection_data = function(inspections){
+            print(parametres);
+        };
     }
 ]);
 ng_app.controller('DetectorInspectionPanel', ['$scope', '$http', '$interval', '$timeout', 'PageData',
@@ -228,6 +249,9 @@ ng_app.controller('DetectorInspectionPanel', ['$scope', '$http', '$interval', '$
         };
         $scope.g.get_detector_data = function () {
             return $scope.values; //TODO
-        }
+        };
+        $scope.g.update_detector_data = function(detectors){
+            print(detectors);
+        };
     }
 ]);

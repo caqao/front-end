@@ -105,12 +105,29 @@ body {
 .alert-warning:before{
     font: normal normal normal 12px/1 'Glyphicons Halflings';
     font-size: larger;
-    content:"\e101 ";
+    content:"\e107 ";
+}
+.timeAlert{
+    font-variant: small-caps;
 }
 .timeAlert:before{
     font: normal normal normal 12px/1 'Glyphicons Halflings';
-    font-size: larger;
-    content:"\231b  ";
+    font-size: large;
+    content:"\231b ";
+}
+.timeAlert>.warning:before{
+    font: normal normal normal 12px/1 'Glyphicons Halflings';
+    font-size: large;
+    content:"\e101";
+}
+.timeAlert>.danger:before{
+    font: normal normal normal 12px/1 'Glyphicons Halflings';
+    font-size: large;
+    content:"\e023";
+}
+.timeAlert:hover:after{
+    font-size: small;
+    content: "(Heure prévue de la prochaine inspection)";
 }
 .divider-vertical {
     height: 40px;
@@ -200,7 +217,8 @@ td>h4, td>h3{
     width: 100%;
 }
 .inspectionInput{
-    width: 60%;
+    width: 100%;
+    max-width: 1000px;
 
 }
 .inspectionInput>label{
@@ -265,7 +283,21 @@ textarea{
 .PanelHeader td:nth-child(2){
     width: 80%;
 }
-
+.InspPanelHeader{
+    width: 100%;
+}
+.InspPanelHeader td{
+    width:82%;
+}
+.InspPanelHeader td>h3{
+    text-align: left;
+}
+.InspPanelHeader td:nth-child(2){
+    width: 12%;
+}
+.InspPanelHeader td:nth-child(3){
+    width: 6%;
+}
 @media (max-width: 1080px){
     .BigScreenLi{
         display: none!important;
