@@ -1,13 +1,13 @@
 var ng_app = angular.module('caqao_app', []);
+// angular.element(document).ready(function() {
+//     angular.bootstrap(document, ["caqao_app"]);
+// });
 ng_app.config(['$httpProvider', function($httpProvider) {
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
 }]);
 ng_app.service('PageData', function($http, $interval, $timeout){
     this.g = new PageCtrl($http, $interval, $timeout);
-});
-ng_app.service('NavData', function($http){
-    this.g = new NavCtrl($http);
 });
 ng_app.directive('watchResizeTabs', function(){
     return {
@@ -22,24 +22,6 @@ ng_app.directive('watchResizeTabs', function(){
         }
     }
 });
-ng_app.controller('NavBar', ['$scope', '$http', 'NavData',
-    function($scope, $http, NavData) {
-        $scope.g = NavData.g;
-        $scope.g.get_navs();
-        $scope.$watch('g.user', function(newUser){
-            if (newUser !== null){
-                $scope.admin_link = newUser.admin;
-                $scope.is_anon = newUser.anon;
-                $scope.username = newUser.username;
-            }
-        }, true);
-        $scope.$watch('g.navs', function(newData){
-            if (newData !== null){
-                $scope.navs = newData;
-            }
-        }, true);
-    }
-]);
 ng_app.controller('Page', ['$scope', '$http', '$interval', '$timeout', '$window', 'PageData',
     function($scope, $http, $interval, $timeout, $window, PageData) {
         $scope.g = PageData.g;

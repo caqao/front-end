@@ -84,28 +84,3 @@ PanelCtrl.prototype.show_error = function(message) {
     this.success_message = false;
     this.error_message = message;
 };
-function NavCtrl(http) {
-    this.http = http;
-    this.navs = null;
-    this.user = null;
-    this.url = window.location.href;
-
-}
-NavCtrl.prototype.get_navs = function() {
-    var t = this;
-    this.http.get(this.url,
-        {
-            params: {action: 'load_navs'}
-        }).then(
-        function(response){
-            t.set_navs(response.data);
-        },
-        function(response){
-            alert('failed loading tab content')
-        }
-    );
-};
-NavCtrl.prototype.set_navs = function (data) {
-    this.navs = data.navs;
-    this.user = data.user;
-};
