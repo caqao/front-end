@@ -5,102 +5,183 @@ function create_op_plot(div_id, data_type, insp_data){
         switch (data_type){
             case 1:
                 data = format_scatter(insp_data, false);
-                layout = scatter_layout(insp_data);
+                layout = scatter_layout();
                 Plotly.plot(document.getElementById(div_id), data, layout);
-
                 break;
             case 2:
                 data = format_scatter(insp_data, true);
-                layout = scatter_layout(insp_data);
+                layout = scatter_layout();
                 Plotly.plot(document.getElementById(div_id), data, layout);
-
                 break;
             case 3:
-                // data = format_meas_data(insp_data);
-                // layout = meas_layout;
+                data = format_meas_data(insp_data);
+                layout = meas_layout();
+                Plotly.plot(document.getElementById(div_id), data, layout);
                 break;
         }
-        // Plotly.plot(document.getElementById(div_id), data, layout);
     }
 }
 
-var meas_layout = {};
-
-function scatter_layout(insp) {
+function meas_layout(){
     return {
-        xaxis: {
-            range: [ insp[0].time, insp[insp.length-1].time ]
-            // range: [1470843000, 1470848085 ]
-        },
         yaxis: {
-            range: [-1.5, 1.5]
+            hoverformat: '.2f',
+            title: 'Mesure'
         },
-        title: "Résultats d'inspection"
+        showlegend: true,
+        legend:{
+            x: 0,
+            y:1.5,
+            orientation: 'h',
+            font: {
+                size:20
+            }
+        }
+    }
+}
+function scatter_layout() {
+    return {
+        yaxis: {
+            showticklabels: false,
+            showgrid: false,
+            zeroline: false
+        },
+        showlegend: true,
+        legend:{
+            x: 0,
+            y:1.5,
+            orientation: 'h',
+            font: {
+                size:20
+            }
+        }
     };
 }
 
 function format_scatter(insp, text){
     var traces = [];
-
-
-    var def_collection = {
+    var sub_arrays = [
+        insp.filter(filter_true),
+        insp.filter(filter_false)
+    ];
+    if (!text){
+        sub_arrays.push(insp.filter(filter_null));
+    }
+    for (var u=0;u<sub_arrays.length;u++){
+        traces.push(base_coll(u, sub_arrays[u]));
+        for (var v=0;v<sub_arrays[u].length;v++){
+            traces[u].x.push(format_time(sub_arrays[u][v].time));
+            if (text){
+                traces[u].textposition = 'top center';
+                traces[u].text[v] = sub_arrays[u][v].insp_string + '\n' + traces[u].text[v];
+            }
+        }
+    }
+    traces[0].legendgroup = 'a';
+    return traces;
+}
+function base_coll(index, sub_insp){
+    return {
         x: [],
-        y: [],
+        y: Array(sub_insp.length).fill(0),
+        hoverinfo: 'x+text',
         mode: 'markers',
         type: 'scatter',
         marker: {
-            size: 60
-        }
-    };
-
-    for (u=0;u<2;u++){
-        traces.push(def_collection);
+            size: 40,
+            color: ['#43AC6A', '#FF1629', '#5BC0DE'][index],
+            // symbol: ['star-triangle-up-dot', 'star-triangle-down-dot', 'star-diamond'][index],
+            opacity: 0.8
+        },
+        name: ['Conforme', 'Non-Conforme', 'N/A'][index],
+        text: attr_array(sub_insp, 'user')
     }
-
-    var con_inspections = insp.filter(filter_bool, true);
-    var n_c_inspections = insp.filter(filter_bool, false);
-    for (a=0;a<con_inspections.length;a++){traces[0].x.push(con_inspections[a].time);traces[0].y.push(1);}
-    for (b=0;b<n_c_inspections.length;b++){traces[1].x.push(n_c_inspections[b].time);traces[1].y.push(-1);}
-    traces[0].marker.color = '#43AC6A';
-    traces[1].marker.color = '#481210';
-    traces[0].name = 'Conforme';
-    traces[1].name = 'Non-Conforme';
-
-    if (text){
-        traces[0].text = [];
-        traces[1].text = [];
-        for (k=0;k<con_inspections.length;k++){traces[0].text.push(con_inspections[k].insp_string)}
-        for (l=0;l<n_c_inspections.length;l++){traces[1].text.push(n_c_inspections[l].insp_string)}
-
-    }
-
-    else{
-        traces.push(def_collection);
-        var n_a_inspections = insp.filter(filter_bool, null);
-        for (c=0;c<n_a_inspections.length;c++){traces[2].x.push(n_a_inspections[c].time);traces[2].y.push(0);}
-        traces[2].y = Array(n_a_inspections.length).fill(0);
-        traces[2].marker.color = '#5BC0DE';
-        traces[2].name = 'N/A';
-
-    }
-    // print(traces[0].x);
-    print(traces[0]);
-    return traces;
 }
 function format_meas_data(insp){
-    return [];
+    var traces = [];
+    var sub_arrays = [
+        insp.filter(filter_true),
+        insp.filter(filter_false)
+    ];
+    for (var u=0;u<sub_arrays.length;u++){
+        traces.push(meas_coll(u, sub_arrays[u]));
+        for (var v=0;v<sub_arrays[u].length;v++){
+            traces[u].x.push(format_time(sub_arrays[u][v].time));
+        }
+    }
+    traces[0].legendgroup = 'a';
+    var norm_array = [
+        insp.filter(filter_norm_min),
+        insp.filter(filter_norm_max)
+    ];
+    if (norm_array[0].length>0){
+        traces.push(norm_coll(0, norm_array[0]));
+        for (var w=0;w<norm_array[0].length;w++){
+            traces[traces.length-1].x.push(format_time(norm_array[0][w].time));
+        }
+    }
+    if (norm_array[1].length>0){
+        traces.push(norm_coll(1, norm_array[1]));
+        for (var w=0;w<norm_array[0].length;w++){
+            traces[traces.length-1].x.push(format_time(norm_array[1][w].time));
+        }
+    }
+    return traces;
 }
-function filter_bool(array){
-    return array.conform == this;
+function meas_coll(index, sub_insp){
+    return {
+        x: [],
+        y: attr_array(sub_insp, 'insp_value'),
+        hoverinfo: 'y+text',
+        mode: 'markers',
+        type: 'scatter',
+        marker: {
+            size: 30,
+            color: ['#43AC6A', '#FF1629'][index],
+            opacity: 0.9
+        },
+        name: ['Conforme', 'Non-Conforme'][index],
+        text: attr_array(sub_insp, 'user')
+    }
 }
-// function format_times_array(insp){
-//     var arr = [];
-//     for (m = 0; m < insp.length; m++) {
-//         arr.push(insp[m].time)
-//     }
-//     print(arr);
-//     return arr
-// }
-function format_bool_array() {
+function norm_coll(index, sub_insp){
+    return {
+        x: [],
+        y: attr_array(sub_insp, ['insp_min', 'insp_max'][index]),
+        hoverinfo: 'y',
+        mode: 'lines',
+        type: 'scatter',
+        marker: {
+            size: 10,
+            color: '#5BC0DE',
+            opacity: 0.4
+        },
+        name: ['Norme min', 'Norme max'][index]
+    }
+}
+function filter_true(array){
+    return array.conform === true;
+}
+function filter_false(array){
+    return array.conform === false;
+}
+function filter_null(array){
+    return array.conform === null;
+}
+function filter_norm_min(array) {
+    return array.insp_min;
+}
+function filter_norm_max(array) {
+    return array.insp_max;
+}
+function format_time(t){
+    return new Date(t * 1000);
+}
+function attr_array(array, att){
+    var a = [];
+    for (var z=0;z<array.length;z++){
+        a.push($(array[z]).attr(att));
+    }
+    return a;
+}
 
-}

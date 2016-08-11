@@ -47,7 +47,7 @@ body {
     box-shadow: 2px 2px 3px #ffe116;
 }
 .validYetNonConformInput{
-    box-shadow: 2px 2px 3px #ff5050;
+    box-shadow: 2px 2px 3px #ff1629;
 
 }
 .fuk>tr>td{
@@ -85,6 +85,7 @@ body {
 }
 .alert{
     font-size: larger;
+    transition: all 1s ease 0s;
 }
 .alert-success:before{
     font: normal normal normal 12px/1 'Glyphicons Halflings';
@@ -141,7 +142,6 @@ body {
 .ResultsHeaderTable {
     width: 100%;
 }
-
 .ResultsHeaderTable td{
     text-align: center;
 }
@@ -276,11 +276,17 @@ textarea{
     .divider-vertical{
         display: none!important;
     }
+    .plotDiv{
+        width: 850px;
+    }
 
 }
 @media (min-width: 1080px){
     .LilScreenLi{
         display: none!important;
+    }
+    .plotDiv{
+        width: 1000px;
     }
 
 }
@@ -303,6 +309,15 @@ textarea{
     .LilScreenLi{
         display: none!important;
     }
+    .plotDiv{
+        width: 400px;
+    }
+}
+.plotDiv.measDiv{
+    height: 500px;
+}
+.plotDiv.scatterDiv{
+    height: 300px;
 }
 .TinyScreenLia{
     color: #9D9D9D;
