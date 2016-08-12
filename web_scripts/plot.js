@@ -132,7 +132,7 @@ function meas_coll(index, sub_insp){
     return {
         x: [],
         y: attr_array(sub_insp, 'insp_value'),
-        hoverinfo: 'y+text',
+        hoverinfo: 'x+y+text',
         mode: 'markers',
         type: 'scatter',
         marker: {
