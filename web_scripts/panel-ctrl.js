@@ -84,3 +84,55 @@ PanelCtrl.prototype.show_error = function(message) {
     this.success_message = false;
     this.error_message = message;
 };
+
+PanelCtrl.prototype.update_delay_data = function(i, time, interval_hrs){
+    print(interval_hrs);
+    if (interval_hrs == 0){
+        this.scope.values[i].panel_class = "panel-default";
+    }
+    else {
+        if (this.scope.values[i].prev_data.length < this.scope.values[i].nb_meas) {
+            this.scope.values[i].next_deadline = time;
+            this.scope.values[i].panel_class = "panel-info";
+            this.scope.values[i].delay_message = null;
+        }
+        else {
+            var last_time = this.scope.values[i].prev_data[this.scope.values[i].prev_data.length - this.scope.values[i].nb_meas].time;
+            this.scope.values[i].next_deadline = last_time * 1000 + interval_hrs * 3600000;
+            var remaining_time = this.scope.values[i].next_deadline - time;
+            if (remaining_time < 0) {
+                this.scope.values[i].panel_class = "panel-danger";
+                this.scope.values[i].delay_message = "Retard!";
+            }
+            else {
+                if (remaining_time < 900000) {
+                    this.scope.values[i].panel_class = "panel-warning";
+                    this.scope.values[i].delay_message = "Bientôt!";
+                }
+                else {
+                    this.scope.values[i].panel_class = "panel-success";
+                    this.scope.values[i].delay_message = null;
+                }
+            }
+        }
+    }
+};
+PanelCtrl.prototype.update_all_delays = function(){
+    var d = new Date();
+    for (var i=0;i<$scope.values.length;i++) {
+        this.update_delay_data(i, d);
+    }
+};
+PanelCtrl.prototype.toggle_show_results = function (i) {
+    if (this.scope.show_results[i]===null){
+        this.scope.create_plot(i);
+    }
+    this.scope.show_results[i] = !this.scope.show_results[i];
+};
+PanelCtrl.prototype.temporary_hide = function(i){
+    var t = this;
+    this.timeout(function (){
+        t.scope.create_plot(i);
+        t.scope.show_results[i] = true;
+    }, 10);
+};

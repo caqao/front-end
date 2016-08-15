@@ -3,7 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="6d864820-eb23-46b3-b334-7138b2ccf466" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/caqao.css" afterPath="$PROJECT_DIR$/caqao.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ng-inspection.js" afterPath="$PROJECT_DIR$/ng-inspection.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/panel-ctrl.js" afterPath="$PROJECT_DIR$/panel-ctrl.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/plot.js" afterPath="$PROJECT_DIR$/plot.js" />
     </list>
     <ignored path="web_scripts.iws" />
@@ -28,29 +30,31 @@
       <file leaf-file-name="caqao.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/caqao.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="518">
-              <caret line="107" column="18" selection-start-line="107" selection-start-column="18" selection-end-line="107" selection-end-column="18" />
+            <state relative-caret-position="324">
+              <caret line="234" column="27" selection-start-line="234" selection-start-column="27" selection-end-line="234" selection-end-column="27" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ng-inspection.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ng-inspection.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ng-inspection.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="431">
-              <caret line="237" column="40" selection-start-line="237" selection-start-column="40" selection-end-line="237" selection-end-column="40" />
+            <state relative-caret-position="358">
+              <caret line="251" column="33" selection-start-line="251" selection-start-column="33" selection-end-line="251" selection-end-column="33" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="plot.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="plot.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/plot.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1685">
-              <caret line="134" column="22" selection-start-line="134" selection-start-column="22" selection-end-line="134" selection-end-column="22" />
-              <folding />
+            <state relative-caret-position="196">
+              <caret line="20" column="1" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
+              <folding>
+                <element signature="e#931#948#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -71,8 +75,8 @@
       <file leaf-file-name="panel-ctrl.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/panel-ctrl.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="935">
-              <caret line="79" column="22" selection-start-line="79" selection-start-column="9" selection-end-line="79" selection-end-column="22" />
+            <state relative-caret-position="610">
+              <caret line="127" column="34" selection-start-line="127" selection-start-column="34" selection-end-line="127" selection-end-column="34" />
               <folding>
                 <element signature="e#847#909#0" expanded="false" />
               </folding>
@@ -83,8 +87,8 @@
       <file leaf-file-name="page-ctrl.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/page-ctrl.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="401">
-              <caret line="179" column="43" selection-start-line="179" selection-start-column="12" selection-end-line="179" selection-end-column="43" />
+            <state relative-caret-position="-1099">
+              <caret line="94" column="35" selection-start-line="94" selection-start-column="19" selection-end-line="94" selection-end-column="35" />
               <folding>
                 <element signature="e#609#1426#0" expanded="false" />
                 <element signature="e#1500#1805#0" expanded="false" />
@@ -122,10 +126,10 @@
         <option value="$PROJECT_DIR$/caqao.js" />
         <option value="$PROJECT_DIR$/page-ctrl.js" />
         <option value="$PROJECT_DIR$/ng-caqao-app.js" />
-        <option value="$PROJECT_DIR$/panel-ctrl.js" />
         <option value="$PROJECT_DIR$/caqao.css" />
-        <option value="$PROJECT_DIR$/plot.js" />
+        <option value="$PROJECT_DIR$/panel-ctrl.js" />
         <option value="$PROJECT_DIR$/ng-inspection.js" />
+        <option value="$PROJECT_DIR$/plot.js" />
       </list>
     </option>
   </component>
@@ -136,10 +140,9 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="3839" />
-    <option name="y" value="312" />
-    <option name="width" value="1368" />
-    <option name="height" value="768" />
+    <option name="x" value="1919" />
+    <option name="width" value="1922" />
+    <option name="height" value="1055" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -166,8 +169,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -308,7 +311,8 @@
       <workItem from="1470837180725" duration="22042000" />
       <workItem from="1470863415097" duration="10874000" />
       <workItem from="1470923496576" duration="28630000" />
-      <workItem from="1471011519919" duration="9868000" />
+      <workItem from="1471011519919" duration="9983000" />
+      <workItem from="1471267015930" duration="26529000" />
     </task>
     <task id="LOCAL-00001" summary="added style+icons">
       <created>1467047135184</created>
@@ -590,17 +594,24 @@
       <option name="project" value="LOCAL" />
       <updated>1470953921562</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="debug the auto updates in graphics">
+      <created>1471025971483</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1471025971483</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="517604000" />
+    <option name="totallyTimeSpent" value="544248000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="3839" y="312" width="1368" height="768" extended-state="6" />
+    <frame x="1919" y="0" width="1922" height="1055" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14055637" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3283582" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -630,8 +641,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="relocated bootstrap files, navbar functions" />
-    <MESSAGE value="big updates, made angularjs app &#10;next changes: add field, then inherit many methods" />
     <MESSAGE value="enabled controller prototype inheritance&#10;next: page controllers" />
     <MESSAGE value="page controllers underway&#10;needs a service to load data first" />
     <MESSAGE value="added controllers for new tabs" />
@@ -655,7 +664,9 @@
     <MESSAGE value="plotting, not over" />
     <MESSAGE value="plotting done, wow" />
     <MESSAGE value="plotting done, now dealing with auto updates" />
-    <option name="LAST_COMMIT_MESSAGE" value="plotting done, now dealing with auto updates" />
+    <MESSAGE value="debug the auto updates in graphics" />
+    <MESSAGE value="sth wrong with detector plots" />
+    <option name="LAST_COMMIT_MESSAGE" value="sth wrong with detector plots" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -837,9 +848,23 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/caqao.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="518">
-          <caret line="107" column="18" selection-start-line="107" selection-start-column="18" selection-end-line="107" selection-end-column="18" />
+        <state relative-caret-position="324">
+          <caret line="234" column="27" selection-start-line="234" selection-start-column="27" selection-end-line="234" selection-end-column="27" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/page-ctrl.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1099">
+          <caret line="94" column="35" selection-start-line="94" selection-start-column="19" selection-end-line="94" selection-end-column="35" />
+          <folding>
+            <element signature="e#609#1426#0" expanded="false" />
+            <element signature="e#1500#1805#0" expanded="false" />
+            <element signature="e#3774#4003#0" expanded="false" />
+            <element signature="e#4073#4278#0" expanded="false" />
+            <element signature="e#5217#5306#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -856,41 +881,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/panel-ctrl.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="935">
-          <caret line="79" column="22" selection-start-line="79" selection-start-column="9" selection-end-line="79" selection-end-column="22" />
+        <state relative-caret-position="610">
+          <caret line="127" column="34" selection-start-line="127" selection-start-column="34" selection-end-line="127" selection-end-column="34" />
           <folding>
             <element signature="e#847#909#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/page-ctrl.js">
+    <entry file="file://$PROJECT_DIR$/ng-inspection.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="401">
-          <caret line="179" column="43" selection-start-line="179" selection-start-column="12" selection-end-line="179" selection-end-column="43" />
-          <folding>
-            <element signature="e#609#1426#0" expanded="false" />
-            <element signature="e#1500#1805#0" expanded="false" />
-            <element signature="e#3774#4003#0" expanded="false" />
-            <element signature="e#4073#4278#0" expanded="false" />
-            <element signature="e#5217#5306#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="358">
+          <caret line="251" column="33" selection-start-line="251" selection-start-column="33" selection-end-line="251" selection-end-column="33" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/plot.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1685">
-          <caret line="134" column="22" selection-start-line="134" selection-start-column="22" selection-end-line="134" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ng-inspection.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="431">
-          <caret line="237" column="40" selection-start-line="237" selection-start-column="40" selection-end-line="237" selection-end-column="40" />
-          <folding />
+        <state relative-caret-position="196">
+          <caret line="20" column="1" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
+          <folding>
+            <element signature="e#931#948#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -13,16 +13,19 @@ ng_app.controller('InspectionPanel', ['$scope', '$http', '$interval', '$timeout'
         $scope.g.unsent_changes = 0;
         $scope.batch_id = 0;
         $scope.g.buffed_arrays = false;
+        $scope.show_results = [];
 
         $scope.setup_values_array = function () {
             $scope.g.buffed_arrays = true;
             $scope.g.unsent_changes = 0;
-            $scope.g.show_results = [];
             var d = new Date();
-            for (i=0;i<$scope.values.length;i++){
-                $scope.g.show_results.push(null);
+            for (var i=0;i<$scope.values.length;i++){
                 $scope.values[i].conform = Array($scope.values[i].nb_meas).fill(null);
-                $scope.update_delay_data(i, d);
+                $scope.p.update_delay_data(i, d, $scope.interval_hrs);
+                if ($scope.show_results[i] === true){
+                    $scope.p.temporary_hide(i);
+                }
+                $scope.show_results[i] = null;
                 if ($scope.values[i].data_type === 2 || $scope.values[i].data_type === 3 ){
                     var empty_array = [];
                     for (j=0;j<$scope.values[i].nb_meas;j++){
@@ -32,37 +35,7 @@ ng_app.controller('InspectionPanel', ['$scope', '$http', '$interval', '$timeout'
                 }
             }
         };
-        $scope.update_delay_data = function(i, time){
-            if ($scope.interval_hrs == 0){
-                $scope.values[i].panel_class = "panel-default";
-            }
-            else {
-                if ($scope.values[i].prev_data.length < $scope.values[i].nb_meas) {
-                    $scope.values[i].next_deadline = time;
-                    $scope.values[i].panel_class = "panel-info";
-                    $scope.values[i].delay_message = null;
-                }
-                else {
-                    var last_time = $scope.values[i].prev_data[$scope.values[i].prev_data.length - $scope.values[i].nb_meas].time;
-                    $scope.values[i].next_deadline = last_time * 1000 + $scope.interval_hrs * 3600000;
-                    var remaining_time = $scope.values[i].next_deadline - time;
-                    if (remaining_time < 0) {
-                        $scope.values[i].panel_class = "panel-danger";
-                        $scope.values[i].delay_message = "Retard!";
-                    }
-                    else {
-                        if (remaining_time < 900000) {
-                            $scope.values[i].panel_class = "panel-warning";
-                            $scope.values[i].delay_message = "Bientôt!";
-                        }
-                        else {
-                            $scope.values[i].panel_class = "panel-success";
-                            $scope.values[i].delay_message = null;
-                        }
-                    }
-                }
-            }
-        };
+
         $scope.update_conformity = function(param_ind, sub_ind, value){
             var prev_conf = $scope.values[param_ind].conform[sub_ind];
             if (prev_conf !== value){
@@ -123,10 +96,8 @@ ng_app.controller('InspectionPanel', ['$scope', '$http', '$interval', '$timeout'
         }, true);
         $scope.$watch('g.last_update_time', function(newVal, oldVal){
             if (newVal != undefined || newVal != null) {
-                if ($scope.g.hold_full_update !== true){
-                    $scope.update_scope_data($scope.g.last_data);
-                    $scope.batch_id = $scope.g.other;
-                }
+                $scope.update_scope_data($scope.g.last_data);
+                $scope.batch_id = $scope.g.other;
             }
         }, true);
         $scope.update_scope_data = function(newVal){
@@ -174,13 +145,6 @@ ng_app.controller('InspectionPanel', ['$scope', '$http', '$interval', '$timeout'
                 }
             }
         };
-        $scope.g.toggle_show_results = function (i) {
-
-            if ($scope.g.show_results[i]===null){
-                $scope.create_plot(i);
-            }
-            $scope.g.show_results[i] = !$scope.g.show_results[i];
-        };
         $scope.g.toggle_ongoing = function () {
             $scope.g.ongoing = !$scope.g.ongoing;
             if ($scope.g.ongoing === true){
@@ -212,7 +176,6 @@ ng_app.controller('InspectionPanel', ['$scope', '$http', '$interval', '$timeout'
             });
         };
         $scope.g.submit_inspection_data = function () {
-            print('cunt');
             $scope.g.post_custom_data({
                 action: 'op_inspection_data',
                 parametre_data: $scope.values,
@@ -231,38 +194,30 @@ ng_app.controller('InspectionPanel', ['$scope', '$http', '$interval', '$timeout'
                     }
                 }).then(
                 function(response){
-                    // print(response.data.last_update_time);
-                    $scope.g.hold_full_update = true;
                     $scope.g.last_update_time = response.data.last_update_time;
-                    $scope.g.hold_full_update = false;
-                    print('RIGHT HERE');
-                    $scope.g.update_inspection_data(response.data.inspections);
-                    $scope.g.update_detector_data(response.data.detectors);
+                    var needs_reset0 = $scope.g.update_inspection_data(response.data.inspections);
+                    var needs_reset1 = $scope.g.update_detector_data(response.data.detectors);
+                    if (needs_reset0 === true || needs_reset1 === true){
+                        $scope.g.update_external_values();
+                    }
                 },
                 function(response){
                     $scope.g.show_failure();
                 }
             );
         };
-        $scope.update_all_delays = function(){
-            var d = new Date();
-            for (var i=0;i<$scope.values.length;i++) {
-                $scope.update_delay_data(i, d);
-            }
-        };
-        // $scope.g.update_delay = 120000;
-
-        $scope.g.update_delay = 10000;
+        $scope.g.update_delay = 120000;
         $interval(function(){
             if($scope.g.ongoing === true){
-                $scope.update_all_delays();
+                $scope.p.update_all_delays();
+                $scope.g.update_det_delays();
                 if ($scope.g.unsent_changes == 0) {
                     $scope.g.request_updated_data();
                 }
             }
         }, $scope.g.update_delay);
 
-        $scope.update_external_values = function(){
+        $scope.g.update_external_values = function(){
             $scope.g.updating_foreign = true;
             $scope.send_batch_data();
             $scope.g.panel_class = 'panel-info';
@@ -273,41 +228,104 @@ ng_app.controller('InspectionPanel', ['$scope', '$http', '$interval', '$timeout'
         };
         $scope.g.update_inspection_data = function(inspections) {
             if (inspections.length !== $scope.values.length) {
-                $scope.update_external_values();
+                return true;
             }
             else {
                 for (var i = 0; i < inspections.length; i++) {
                     if (inspections[i] !== null) {
-                        $scope.update_external_values();
-                        break;
+                        return true;
                     }
                 }
             }
+            return false;
         };
     }
 ]);
-ng_app.controller('DetectorInspectionPanel', ['$scope', '$http', '$interval', '$timeout', 'PageData',
+ng_app.controller('ProdDetectorInspectionPanel', ['$scope', '$http', '$interval', '$timeout', 'PageData',
     function($scope, $http, $interval, $timeout, PageData) {
         $scope.g = PageData.g;
         $scope.p = new PanelCtrl($scope, $interval, $timeout);
         $scope.p.loaded = true;
         $scope.g.det_text = 'Détecteur';
         $scope.page_number = 1;
+        $scope.attrs_to_check = ['ccp', 'ferreux', 'nferreux', 'stainless', 'ec'];
+        $scope.show_results = [];
 
         $scope.$watch('g.last_update_time', function(){
             $scope.update_scope_data($scope.g.last_data);
         }, true);
         $scope.update_scope_data = function(newVal){
             if (newVal !== null) {
+                var t = new Date();
                 $scope.p.update_panel_data(newVal);
                 $scope.g.det_text = $scope.values.length>1 ? 'Détecteurs' : 'Détecteur';
+                for (var d in $scope.values){
+                    $scope.p.update_delay_data(d, t, $scope.values[d].op_interval);
+                    if ($scope.show_results[d] === true){
+                        $scope.p.temporary_hide(d);
+                    }
+                    $scope.show_results[d] = null;
+                    $scope.values[d].product = $scope.g.product || '';
+                    for (var a in $scope.attrs_to_check){
+                        $($scope.values[d]).attr($scope.attrs_to_check[a], 'n/a');
+                    }
+                    $scope.values[d].to_send = false;
+                }
             }
         };
         $scope.g.get_detector_data = function () {
-            return $scope.values; //TODO
+            var det_buffer = [];
+            for (var d in $scope.values){
+                if ($scope.values[d].to_send === true){
+                    det_buffer.push($scope.values[d])
+                }
+            }
+            return det_buffer;
         };
-        $scope.g.update_detector_data = function(detectors){
-            // print(detectors);
+        $scope.g.update_detector_data = function(inspections){
+            if (inspections.length !== $scope.values.length) {
+                return true;
+            }
+            else {
+                for (var i = 0; i < inspections.length; i++) {
+                    if (inspections[i] !== null) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        };
+        $scope.update_attr = function(index, att, val){
+            var prev_send = $scope.values[index].to_send;
+            $($scope.values[index]).attr(att, val);
+            var to_send = false;
+            for (var a in $scope.attrs_to_check){
+                if ($($scope.values[index]).attr($scope.attrs_to_check[a]) !== 'n/a'){
+                    to_send = true;
+                    break;
+                }
+            }
+            if (prev_send !== to_send){
+                if (to_send === true) {
+                    $scope.values[index].to_send = true;
+                    $scope.g.unsent_changes++;
+                }
+                else{
+                    $scope.values[index].to_send = false;
+                    $scope.g.unsent_changes--;
+                }
+            }
+        };
+        $scope.g.update_det_delays = function(){
+            $scope.p.update_all_delays();
+
+        };
+        $scope.create_plot = function (i) {
+            create_op_det_plot(
+                'graph_1_'+$scope.values[i].id,
+                $scope.values[i].prev_data
+            );
         };
     }
 ]);
+

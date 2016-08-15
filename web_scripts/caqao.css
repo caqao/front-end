@@ -224,6 +224,17 @@ td>h4, td>h3{
 .inspectionInput>label{
     width:33%;
 }
+.detInput{
+    width: 100%;
+    max-width: 1000px;
+
+}
+.detInput>label{
+    width:33%;
+}
+.detInput>label:nth-child(1){
+    width:34%;
+}
 textarea{
     font-family: "Lucida Console", Monaco, monospace;
     width: 100%;
@@ -297,6 +308,18 @@ textarea{
 }
 .InspPanelHeader td:nth-child(3){
     width: 6%;
+}
+.DetPanelHeader{
+    width: 100%;
+}
+.DetPanelHeader td{
+    width:88%;
+}
+.DetPanelHeader td>h3{
+    text-align: left;
+}
+.DetPanelHeader td:nth-child(2){
+    width: 12%;
 }
 @media (max-width: 1080px){
     .BigScreenLi{

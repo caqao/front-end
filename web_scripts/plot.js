@@ -6,22 +6,127 @@ function create_op_plot(div_id, data_type, insp_data){
             case 1:
                 data = format_scatter(insp_data, false);
                 layout = scatter_layout();
-                Plotly.plot(document.getElementById(div_id), data, layout);
                 break;
             case 2:
                 data = format_scatter(insp_data, true);
                 layout = scatter_layout();
-                Plotly.plot(document.getElementById(div_id), data, layout);
                 break;
             case 3:
                 data = format_meas_data(insp_data);
                 layout = meas_layout();
-                Plotly.plot(document.getElementById(div_id), data, layout);
                 break;
         }
+        trace(div_id, data, layout);
     }
 }
 
+function create_op_det_plot(div_id, insp_data){
+    if (insp_data.length > 0){
+        trace(div_id, format_op_det(insp_data), det_multi_bool_layout());
+    }
+}
+
+
+
+function trace(div_id, data, layout){
+    var div = document.getElementById(div_id);
+    Plotly.newPlot(div, data, layout);
+
+    // var xsumn = 0;
+    // var xsum = 0;
+    // for (var a in data){
+    //     xsumn = xsumn + data[a].x.length;
+    // }
+    // for (var a in div.data){
+    //     xsum = xsum + div.data[a].x.length;
+    // }
+    // print(xsum);
+    // print(xsumn);
+    //
+    // if (xsum !== xsumn){
+    //
+    //     $(div).empty();
+    //     Plotly.newPlot(div, data, layout);
+    // }
+}
+
+function format_op_det(insp){
+    var traces = [];
+    // var chk_str = ['ccp', 'detec1', 'detec2', 'detec3', 'conform_eject'];
+    // var chk_str = ['ccp', 'detec1', 'detec2', 'detec3'];
+    // var chk_str = ['detec1', 'detec2', 'detec3', 'conform_eject'];
+    var chk_str = ['ccp'];
+    var yax = ['y1', 'y2', 'y3', 'y4', 'y5' ];
+    var sub_arrays = [];
+    for (var i in chk_str){
+        sub_arrays.push(insp.filter(filter_true, chk_str[i]));
+        sub_arrays.push(insp.filter(filter_false, chk_str[i]));
+        sub_arrays.push(insp.filter(filter_null, chk_str[i]));
+    }
+    print(sub_arrays);
+    for (var u=0;u<sub_arrays.length;u++){
+        traces.push(base_coll(u%3, sub_arrays[u]));
+        traces[u].textposition = 'top center';
+        traces[u].yaxis = yax[Math.floor(u/3)];
+        // traces[u].yaxis='y1';
+        for (var v=0;v<sub_arrays[u].length;v++){
+            traces[u].x.push(format_time(sub_arrays[u][v].time));
+            // if (text){
+            traces[u].text[v] = chk_str[Math.floor(u/3)] + '\n' + traces[u].text[v];
+            // }
+        }
+    }
+    print(traces);
+    traces[0].legendgroup = 'a';
+    return traces;
+}
+function det_multi_bool_layout(){
+    return {
+        yaxis: {
+            domain: [0, 0.2],
+            // showticklabels: false,
+            // showgrid: false,
+            // zeroline: false
+        },
+        yaxis1: {
+            domain: [0.2, 0.4],
+
+            // showticklabels: false,
+            // showgrid: false,
+            // zeroline: false
+        },
+        yaxis2: {
+            domain: [0.4, 0.6],
+
+            // showticklabels: false,
+            // showgrid: false,
+            // zeroline: false
+        },
+        yaxis3: {
+            domain: [0.6, 0.8],
+
+            // showticklabels: false,
+            // showgrid: false,
+            // zeroline: false
+        },
+        yaxis4: {
+            domain: [0.8, 0.1],
+
+            // showticklabels: false,
+            // showgrid: false,
+            // zeroline: false
+        },
+        showlegend: false,
+        // legend:{
+        //     x: 0,
+        //     y:1.5,
+        //     orientation: 'h',
+        //     font: {
+        //         size:20
+        //     }
+        // }
+    };
+}
 function meas_layout(){
     return {
         yaxis: {
@@ -61,11 +166,11 @@ function scatter_layout() {
 function format_scatter(insp, text){
     var traces = [];
     var sub_arrays = [
-        insp.filter(filter_true),
-        insp.filter(filter_false)
+        insp.filter(filter_true, 'conform'),
+        insp.filter(filter_false, 'conform')
     ];
     if (!text){
-        sub_arrays.push(insp.filter(filter_null));
+        sub_arrays.push(insp.filter(filter_null, 'conform'));
     }
     for (var u=0;u<sub_arrays.length;u++){
         traces.push(base_coll(u, sub_arrays[u]));
@@ -90,7 +195,6 @@ function base_coll(index, sub_insp){
         marker: {
             size: 40,
             color: ['#43AC6A', '#FF1629', '#5BC0DE'][index],
-            // symbol: ['star-triangle-up-dot', 'star-triangle-down-dot', 'star-diamond'][index],
             opacity: 0.8
         },
         name: ['Conforme', 'Non-Conforme', 'N/A'][index],
@@ -100,8 +204,8 @@ function base_coll(index, sub_insp){
 function format_meas_data(insp){
     var traces = [];
     var sub_arrays = [
-        insp.filter(filter_true),
-        insp.filter(filter_false)
+        insp.filter(filter_true, 'conform'),
+        insp.filter(filter_false, 'conform')
     ];
     for (var u=0;u<sub_arrays.length;u++){
         traces.push(meas_coll(u, sub_arrays[u]));
@@ -160,13 +264,13 @@ function norm_coll(index, sub_insp){
     }
 }
 function filter_true(array){
-    return array.conform === true;
+    return $(array).attr(this) === true;
 }
 function filter_false(array){
-    return array.conform === false;
+    return $(array).attr(this) === false;
 }
 function filter_null(array){
-    return array.conform === null;
+    return $(array).attr(this) === null;
 }
 function filter_norm_min(array) {
     return array.insp_min;
