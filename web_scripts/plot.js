@@ -57,7 +57,9 @@ function format_op_det(insp){
         for (var v=0;v<sub_arrays[u].length;v++){
             traces[u].x.push(format_time(sub_arrays[u][v].time));
             traces[u].text[v] = show_str[third_index] + '\n' + traces[u].text[v];
-
+            if (sub_arrays[u][v].comment !== ''){
+                traces[u].text[v] = traces[u].text[v] + '\nCommentaire:\n'+sub_arrays[u][v].comment;
+            }
         }
     }
     var x_vals = [format_time(insp[0].time), format_time(insp[insp.length-1].time)];
@@ -155,6 +157,9 @@ function format_scatter(insp, text){
                 traces[u].textposition = 'top center';
                 traces[u].text[v] = sub_arrays[u][v].insp_string + '\n' + traces[u].text[v];
             }
+            if (sub_arrays[u][v].comment !== ''){
+                traces[u].text[v] = traces[u].text[v] + '\nCommentaire:\n'+sub_arrays[u][v].comment;
+            }
         }
     }
     traces[0].legendgroup = 'a';
@@ -186,6 +191,9 @@ function format_meas_data(insp){
         traces.push(meas_coll(u, sub_arrays[u]));
         for (var v=0;v<sub_arrays[u].length;v++){
             traces[u].x.push(format_time(sub_arrays[u][v].time));
+            if (sub_arrays[u][v].comment !== ''){
+                traces[u].text[v] = traces[u].text[v] + '\nCommentaire:\n'+sub_arrays[u][v].comment;
+            }
         }
     }
     traces[0].legendgroup = 'a';
@@ -211,7 +219,7 @@ function meas_coll(index, sub_insp){
     return {
         x: [],
         y: attr_array(sub_insp, 'insp_value'),
-        hoverinfo: 'x+y+text',
+        hoverinfo: 'y+text',
         mode: 'markers',
         type: 'scatter',
         marker: {

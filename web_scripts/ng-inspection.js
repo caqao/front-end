@@ -228,12 +228,9 @@ ng_app.controller('InspectionPanel', ['$scope', '$http', '$interval', '$timeout'
                 $scope.g.updating_foreign = false;
             }, 3000);
         };
-        $scope.testmoe = function (s) {
-            alert(s);
-        };
     }
 ]);
-ng_app.controller('ProdDetectorInspectionPanel', ['$scope', '$http', '$interval', '$timeout', 'PageData',
+ng_app.controller('DetectorInspectionPanel', ['$scope', '$http', '$interval', '$timeout', 'PageData',
     function($scope, $http, $interval, $timeout, PageData) {
         $scope.g = PageData.g;
         $scope.p = new PanelCtrl($scope, $interval, $timeout);
@@ -241,6 +238,10 @@ ng_app.controller('ProdDetectorInspectionPanel', ['$scope', '$http', '$interval'
         $scope.g.det_text = 'Détecteur';
         $scope.page_number = 1;
         $scope.attrs_to_check = ['ccp', 'ferreux', 'nferreux', 'stainless', 'ec'];
+        if ($scope.is_prod === false){
+            $scope.attrs_to_check.push('sens', 'adj')
+        }
+
         $scope.show_results = [];
 
         $scope.$watch('g.last_update_time', function(){
@@ -279,7 +280,8 @@ ng_app.controller('ProdDetectorInspectionPanel', ['$scope', '$http', '$interval'
             $($scope.values[index]).attr(att, val);
             var to_send = false;
             for (var a in $scope.attrs_to_check){
-                if ($($scope.values[index]).attr($scope.attrs_to_check[a]) !== 'n/a'){
+                if ($($scope.values[index]).attr($scope.attrs_to_check[a]) !== 'n/a' &&
+                    $($scope.values[index]).attr($scope.attrs_to_check[a]) !== null){
                     to_send = true;
                     break;
                 }
@@ -307,9 +309,6 @@ ng_app.controller('ProdDetectorInspectionPanel', ['$scope', '$http', '$interval'
         };
         $scope.filter_interval = function(array){
             return array.op_interval;
-        };
-        $scope.testmoe = function (s) {
-            alert(s);
         };
     }
 ]);

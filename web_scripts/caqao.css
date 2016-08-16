@@ -168,7 +168,7 @@ th {
 }
 td {
     font-size: large;
-    font-variant: none;
+    /*font-variant: none;*/
 }
 td>h4, td>h3{
     font-variant: small-caps;
@@ -222,12 +222,21 @@ td>h4, td>h3{
 
 }
 .inspectionInput>label{
-    width:33%;
+    width:33.333%;
+}
+.commentInput{
+    padding: 5px 0 0 0;
+    width: 100%;
+    max-width: 1000px;
+}
+.opDetTable{
+    width: 100%;
+    max-width: 1000px;
+    text-align: left;
 }
 .detInput{
     width: 100%;
     max-width: 1000px;
-
 }
 .detInput>label{
     width:33%;
@@ -298,15 +307,15 @@ textarea{
     width: 100%;
 }
 .InspPanelHeader td{
-    width:82%;
+    width:76%;
 }
 .InspPanelHeader td>h3{
     text-align: left;
 }
-.InspPanelHeader td:nth-child(2){
+.InspPanelHeader td:nth-child(3){
     width: 12%;
 }
-.InspPanelHeader td:nth-child(3){
+.InspPanelHeader td:nth-child(1), .InspPanelHeader td:nth-child(4){
     width: 6%;
 }
 .DetPanelHeader{

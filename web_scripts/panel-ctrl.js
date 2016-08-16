@@ -135,3 +135,11 @@ PanelCtrl.prototype.temporary_hide = function(i){
         t.scope.show_results[i] = true;
     }, 10);
 };
+PanelCtrl.prototype.toggle_comment = function(i){
+    if (this.scope.values[i].comment === undefined){
+        this.scope.values[i].comment = '';
+    }
+    else{
+        delete this.scope.values[i].comment;
+    }
+};
