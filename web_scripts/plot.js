@@ -19,112 +19,87 @@ function create_op_plot(div_id, data_type, insp_data){
         trace(div_id, data, layout);
     }
 }
-
 function create_op_det_plot(div_id, insp_data){
     if (insp_data.length > 0){
         trace(div_id, format_op_det(insp_data), det_multi_bool_layout());
     }
 }
-
-
-
 function trace(div_id, data, layout){
     var div = document.getElementById(div_id);
     Plotly.newPlot(div, data, layout);
-
-    // var xsumn = 0;
-    // var xsum = 0;
-    // for (var a in data){
-    //     xsumn = xsumn + data[a].x.length;
-    // }
-    // for (var a in div.data){
-    //     xsum = xsum + div.data[a].x.length;
-    // }
-    // print(xsum);
-    // print(xsumn);
-    //
-    // if (xsum !== xsumn){
-    //
-    //     $(div).empty();
-    //     Plotly.newPlot(div, data, layout);
-    // }
 }
 
 function format_op_det(insp){
     var traces = [];
-    // var chk_str = ['ccp', 'detec1', 'detec2', 'detec3', 'conform_eject'];
-    // var chk_str = ['ccp', 'detec1', 'detec2', 'detec3'];
-    // var chk_str = ['detec1', 'detec2', 'detec3', 'conform_eject'];
-    var chk_str = ['ccp'];
-    var yax = ['y1', 'y2', 'y3', 'y4', 'y5' ];
+    var chk_str = ['detec1', 'detec2', 'detec3', 'conform_eject'];
+    var show_str = ['Ferreux 1.5mm', 'Non-ferreux 1.5mm', 'Stainless 2.0mm', 'Éjection'];
     var sub_arrays = [];
     for (var i in chk_str){
         sub_arrays.push(insp.filter(filter_true, chk_str[i]));
         sub_arrays.push(insp.filter(filter_false, chk_str[i]));
         sub_arrays.push(insp.filter(filter_null, chk_str[i]));
     }
-    print(sub_arrays);
+    var show_legend=[false, false, false];
     for (var u=0;u<sub_arrays.length;u++){
-        traces.push(base_coll(u%3, sub_arrays[u]));
+        var third_index = Math.floor(u/3);
+        var group_index = u%3;
+        traces.push(base_coll(group_index, sub_arrays[u], third_index));
         traces[u].textposition = 'top center';
-        traces[u].yaxis = yax[Math.floor(u/3)];
-        // traces[u].yaxis='y1';
+        if (show_legend[group_index] === false && traces[u].y.length){
+            traces[u].showlegend = true;
+            show_legend[group_index] = true;
+        }
+        else{
+            traces[u].showlegend = false;
+        }
+        traces[u].legendgroup = chk_str[group_index];
+
         for (var v=0;v<sub_arrays[u].length;v++){
             traces[u].x.push(format_time(sub_arrays[u][v].time));
-            // if (text){
-            traces[u].text[v] = chk_str[Math.floor(u/3)] + '\n' + traces[u].text[v];
-            // }
+            traces[u].text[v] = show_str[third_index] + '\n' + traces[u].text[v];
+
         }
     }
-    print(traces);
-    traces[0].legendgroup = 'a';
+    var x_vals = [format_time(insp[0].time), format_time(insp[insp.length-1].time)];
+    for (var w=0; w<4;w++){
+        traces.unshift({
+            x: x_vals,
+            y: Array(2).fill(w),
+            hoverinfo: 'none',
+            mode: 'lines',
+            type: 'scatter',
+            legendgroup: 'l',
+            opacity: 0.4,
+            line: {
+                color: ['#ff3322', '#ffe116', '#ffd3f5', '#789342'][w],
+                opacity: 0.8,
+                dash: 15,
+                width: 4
+            },
+            name: show_str[w],
+            showlegend: true
+
+        });
+    }
     return traces;
 }
 function det_multi_bool_layout(){
     return {
         yaxis: {
-            domain: [0, 0.2],
-            // showticklabels: false,
-            // showgrid: false,
-            // zeroline: false
+            showticklabels: false,
+            showgrid: false,
+            zeroline: false
         },
-        yaxis1: {
-            domain: [0.2, 0.4],
-
-            // showticklabels: false,
-            // showgrid: false,
-            // zeroline: false
-        },
-        yaxis2: {
-            domain: [0.4, 0.6],
-
-            // showticklabels: false,
-            // showgrid: false,
-            // zeroline: false
-        },
-        yaxis3: {
-            domain: [0.6, 0.8],
-
-            // showticklabels: false,
-            // showgrid: false,
-            // zeroline: false
-        },
-        yaxis4: {
-            domain: [0.8, 0.1],
-
-            // showticklabels: false,
-            // showgrid: false,
-            // zeroline: false
-        },
-        showlegend: false,
-        // legend:{
-        //     x: 0,
-        //     y:1.5,
-        //     orientation: 'h',
-        //     font: {
-        //         size:20
-        //     }
-        // }
+        legend:{
+            x: 1.0,
+            y:0.5,
+            yanchor: 'middle',
+            traceorder: 'grouped',
+            // orientation: 'h',
+            font: {
+                size:20
+            }
+        }
     };
 }
 function meas_layout(){
@@ -173,7 +148,7 @@ function format_scatter(insp, text){
         sub_arrays.push(insp.filter(filter_null, 'conform'));
     }
     for (var u=0;u<sub_arrays.length;u++){
-        traces.push(base_coll(u, sub_arrays[u]));
+        traces.push(base_coll(u, sub_arrays[u], 0));
         for (var v=0;v<sub_arrays[u].length;v++){
             traces[u].x.push(format_time(sub_arrays[u][v].time));
             if (text){
@@ -185,10 +160,10 @@ function format_scatter(insp, text){
     traces[0].legendgroup = 'a';
     return traces;
 }
-function base_coll(index, sub_insp){
+function base_coll(index, sub_insp, y_val){
     return {
         x: [],
-        y: Array(sub_insp.length).fill(0),
+        y: Array(sub_insp.length).fill(y_val),
         hoverinfo: 'x+text',
         mode: 'markers',
         type: 'scatter',

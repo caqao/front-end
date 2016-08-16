@@ -93,12 +93,12 @@ PageCtrl.prototype.get_custom_data = function(parametres) {
     );
 };
 PageCtrl.prototype.update_last_data = function(data){
-    this.last_update_time = data.last_update_time;
     this.last_data = data.elements;
     this.sectors = data.elements.sectors || this.sectors;
     this.rounds = data.elements.rounds || this.rounds;
     this.data_types = data.elements.data_types || this.data_types;
     this.other = data.other || this.other;
+    this.last_update_time = data.last_update_time;
 };
 PageCtrl.prototype.cancel_update = function() {
     this.changes_buffer = [];

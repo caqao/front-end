@@ -86,7 +86,6 @@ PanelCtrl.prototype.show_error = function(message) {
 };
 
 PanelCtrl.prototype.update_delay_data = function(i, time, interval_hrs){
-    print(interval_hrs);
     if (interval_hrs == 0){
         this.scope.values[i].panel_class = "panel-default";
     }
@@ -117,10 +116,10 @@ PanelCtrl.prototype.update_delay_data = function(i, time, interval_hrs){
         }
     }
 };
-PanelCtrl.prototype.update_all_delays = function(){
+PanelCtrl.prototype.update_all_delays = function(intervals){
     var d = new Date();
-    for (var i=0;i<$scope.values.length;i++) {
-        this.update_delay_data(i, d);
+    for (var i=0;i<this.scope.values.length;i++) {
+        this.update_delay_data(i, d, intervals[0] || intervals);
     }
 };
 PanelCtrl.prototype.toggle_show_results = function (i) {
