@@ -152,7 +152,7 @@ ng_app.controller('InspectionPanel', ['$scope', '$http', '$interval', '$timeout'
             $scope.g.ongoing = !$scope.g.ongoing;
             if ($scope.g.ongoing === true){
                 $scope.set_ongoing_variables();
-                if ($scope.g.is_prod){$scope.send_batch_data();}
+                $scope.send_inspection_choices();
             }
             else{
                 $scope.set_standby_variables();
@@ -170,35 +170,47 @@ ng_app.controller('InspectionPanel', ['$scope', '$http', '$interval', '$timeout'
         $scope.g.cancel_product = function () {
             $scope.g.product = false;
         };
-        $scope.send_batch_data = function(){
+        $scope.send_inspection_choices = function(){
             $scope.g.get_custom_data({
-                action: 'batch_data',
+                action: 'inspection_data',
                 lot: $scope.g.lot,
                 round: $scope.g.round,
                 product: $scope.g.product || 0
             });
         };
         $scope.g.submit_inspection_data = function () {
-            $scope.g.post_custom_data({
-                action: 'op_inspection_data',
+            var post_dict = {
+                action: 'inspection_data',
                 parametre_data: $scope.values,
-                detector_data: $scope.g.get_detector_data(),
-                batch_id: $scope.batch_id
-            });
-
+                detector_data: $scope.g.get_detector_data()
+            };
+            if ($scope.g.is_prod){
+                post_dict.batch_id = $scope.batch_id;
+            }
+            else{
+                post_dict.sector_id = $scope.g.round;
+                post_dict.lot = $scope.g.lot;
+                post_dict.product_id = $scope.g.product || 0;
+            }
+            $scope.g.post_custom_data(post_dict);
         };
         $scope.g.request_updated_data = function () {
+            var param_dict = {
+                action: 'check_if_foreign_data',
+                last_time: $scope.g.last_update_time
+            };
+            if ($scope.g.is_prod){
+                param_dict.batch_id = $scope.batch_id;
+            }
+            else{
+                param_dict.sector_id = $scope.g.round;
+            }
             $http.get($scope.g.url,
                 {
-                    params: {
-                        action: 'check_if_foreign_data',
-                        last_time: $scope.g.last_update_time,
-                        batch_id: $scope.batch_id
-                    }
+                    params: param_dict
                 }).then(
                 function(response){
                     if (response.data.needs_update === true){
-                        // $scope.g.last_update_time = response.data.last_update_time;
                         $scope.g.update_external_values();
                     }
                 },
@@ -221,7 +233,7 @@ ng_app.controller('InspectionPanel', ['$scope', '$http', '$interval', '$timeout'
 
         $scope.g.update_external_values = function(){
             $scope.g.updating_foreign = true;
-            $scope.send_batch_data();
+            $scope.send_inspection_choices();
             $scope.g.panel_class = 'panel-info';
             $timeout(function (){
                 $scope.g.reset_color();
@@ -237,11 +249,14 @@ ng_app.controller('DetectorInspectionPanel', ['$scope', '$http', '$interval', '$
         $scope.p.loaded = true;
         $scope.g.det_text = 'Détecteur';
         $scope.page_number = 1;
-        $scope.attrs_to_check = ['ccp', 'ferreux', 'nferreux', 'stainless', 'ec'];
-        if ($scope.is_prod === false){
-            $scope.attrs_to_check.push('sens', 'adj')
+        $scope.bool_attrs = ['ccp', 'ec'];
+        if ($scope.g.is_prod === false){
+            $scope.attrs_to_check = ['ferreux', 'nferreux', 'stainless'];
         }
-
+        else{
+            $scope.bool_attrs.push('ferreux', 'nferreux', 'stainless');
+            $scope.attrs_to_check = ['ccp', 'ferreux', 'nferreux', 'stainless', 'ec'];
+        }
         $scope.show_results = [];
 
         $scope.$watch('g.last_update_time', function(){
@@ -258,9 +273,23 @@ ng_app.controller('DetectorInspectionPanel', ['$scope', '$http', '$interval', '$
                         $scope.p.temporary_hide(d);
                     }
                     $scope.show_results[d] = null;
-                    $scope.values[d].product = $scope.g.product || '';
-                    for (var a in $scope.attrs_to_check){
-                        $($scope.values[d]).attr($scope.attrs_to_check[a], 'n/a');
+                    if ($scope.g.is_prod === false) {
+                        $scope.values[d].product = $scope.get_product_string($scope.g.product) || '';
+                        $scope.values[d].ferreux = null;
+                        $scope.values[d].nferreux = null;
+                        $scope.values[d].stainless = null;
+
+                        if ($scope.values[d].prev_data.length) {
+                            $scope.values[d].sens = $scope.values[d].prev_data[$scope.values[d].prev_data.length - 1].sens;
+                            $scope.values[d].adj = $scope.values[d].prev_data[$scope.values[d].prev_data.length - 1].adj;
+                        }
+                        else {
+                            $scope.values[d].sens = null;
+                            $scope.values[d].adj = null;
+                        }
+                    }
+                    for (var a in $scope.bool_attrs){
+                        $($scope.values[d]).attr($scope.bool_attrs[a], 'n/a');
                     }
                     $scope.values[d].to_send = false;
                 }
@@ -278,14 +307,7 @@ ng_app.controller('DetectorInspectionPanel', ['$scope', '$http', '$interval', '$
         $scope.update_attr = function(index, att, val){
             var prev_send = $scope.values[index].to_send;
             $($scope.values[index]).attr(att, val);
-            var to_send = false;
-            for (var a in $scope.attrs_to_check){
-                if ($($scope.values[index]).attr($scope.attrs_to_check[a]) !== 'n/a' &&
-                    $($scope.values[index]).attr($scope.attrs_to_check[a]) !== null){
-                    to_send = true;
-                    break;
-                }
-            }
+            var to_send = $scope.g.is_prod ? $scope.check_if_send_prod(index) : $scope.check_if_send_cq(index);
             if (prev_send !== to_send){
                 if (to_send === true) {
                     $scope.values[index].to_send = true;
@@ -297,11 +319,28 @@ ng_app.controller('DetectorInspectionPanel', ['$scope', '$http', '$interval', '$
                 }
             }
         };
+        $scope.check_if_send_prod = function(value_index){
+            for (var i = 0; i<$scope.attrs_to_check.length;i++){
+                var att_value = $($scope.values[value_index]).attr($scope.attrs_to_check[i]);
+                if (att_value !== 'n/a' && att_value !== null && att_value !== ''){
+                    return true;
+                }
+            }
+            return false;
+        };
+        $scope.check_if_send_cq = function(value_index){
+            for (var z = 0; z<$scope.attrs_to_check.length;z++){
+                var att_value = $($scope.values[value_index]).attr($scope.attrs_to_check[z]);
+                if (att_value === 'n/a' || att_value === null || att_value === ''){
+                    return false;
+                }
+            }
+            return true;
+        };
         $scope.g.update_det_delays = function(){
             $scope.p.update_all_delays($scope.values.map($scope.filter_interval));
         };
         $scope.create_plot = function (i) {
-            print($scope.values[i].prev_data.length);
             create_op_det_plot(
                 'graph_1_'+$scope.values[i].id,
                 $scope.values[i].prev_data
@@ -309,6 +348,29 @@ ng_app.controller('DetectorInspectionPanel', ['$scope', '$http', '$interval', '$
         };
         $scope.filter_interval = function(array){
             return array.op_interval;
+        };
+        $scope.get_product_string = function(prod_id){
+            if (prod_id === false){
+                return null;
+            }
+            else {
+                return $scope.g.product_choices.filter($scope.filter_id, prod_id)[0].product_text;
+            }
+        };
+        $scope.filter_id = function(array){
+            return array.id == this;
+        };
+        $scope.watch_num_change = function(newVal, det_index, att){
+            var sendVal = 0;
+            if (typeof(newVal) === 'number'){
+                sendVal = newVal;
+            }
+            else{
+                if (typeof(newVal) === 'object'){
+                    sendVal = null;
+                }
+            }
+            $scope.update_attr(det_index, att, sendVal);
         };
     }
 ]);
