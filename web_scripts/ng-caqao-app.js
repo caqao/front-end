@@ -47,6 +47,20 @@ ng_app.controller('Page', ['$scope', '$http', '$interval', '$timeout', '$window'
                 $scope.g.watch_unsaved_changes(newVal, oldVal);
             }, true
         );
+        $scope.init = function(conf){
+            print(conf);
+            $scope.g.needs_user_confirmation = conf;
+            if (conf){
+                var r = confirm("Svp confirmez que vous êtes toujours "+conf+
+                    ".\nSi ce n'est pas vous, veuillez cliquer Cancel,\nvous serez redirigé"+
+                    " vers la page de connexion.");
+                if (r == true) {
+                    $scope.g.needs_user_confirmation = 0;
+                } else {
+                    $scope.g.redirect('/');
+                }
+            }
+        };
     }
 ]);
 ng_app.controller('BlankPanel', ['$scope', '$http', '$interval', '$timeout', 'PageData',

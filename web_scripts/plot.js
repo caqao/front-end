@@ -284,7 +284,7 @@ function det_meas_coll(index, insp, time_array, text_array){
     return {
         x: time_array,
         y: attr_array(insp, ['detec1', 'detec2', 'detec3'][index]),
-        hoverinfo: index>0 ? 'y' : 'y+text',
+        hoverinfo: index>0 ? 'x+y' : 'y+text',
         mode: 'markers',
         type: 'scatter',
         marker: {
@@ -300,7 +300,7 @@ function meas_coll(index, sub_insp){
     return {
         x: [],
         y: attr_array(sub_insp, 'insp_value'),
-        hoverinfo: 'y+text',
+        hoverinfo: 'x+y+text',
         mode: 'markers',
         type: 'scatter',
         marker: {
