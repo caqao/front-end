@@ -24,6 +24,11 @@ function create_op_det_plot(div_id, insp_data){
         trace(div_id, format_op_det(insp_data), det_multi_bool_layout());
     }
 }
+function create_cq_det_plot(div_id, insp_data, threshold){
+    if (insp_data.length > 0){
+        trace(div_id, format_cq_det(insp_data, threshold), det_measures_layout());
+    }
+}
 function trace(div_id, data, layout){
     var div = document.getElementById(div_id);
     Plotly.newPlot(div, data, layout);
@@ -73,7 +78,7 @@ function format_op_det(insp){
             legendgroup: 'l',
             opacity: 0.4,
             line: {
-                color: ['#ff3322', '#ffe116', '#ffd3f5', '#789342'][w],
+                color: detection_colors[w],
                 opacity: 0.8,
                 dash: 15,
                 width: 4
@@ -83,6 +88,19 @@ function format_op_det(insp){
 
         });
     }
+    return traces;
+}
+function format_cq_det(insp, threshold){
+    var time_array = format_time_array(insp);
+    var text_array = det_meas_text_array(insp);
+    var traces = [];
+    print(insp);
+    for (var i = 0; i<3; i++){
+        traces.push(det_meas_coll(i, insp, time_array, text_array));
+    }
+    traces.push(limit_line_coll(time_array, limit_array(insp, threshold)));
+    traces.push(det_line_coll(0, insp, time_array));
+    traces.push(det_line_coll(1, insp, time_array));
     return traces;
 }
 function det_multi_bool_layout(){
@@ -97,7 +115,22 @@ function det_multi_bool_layout(){
             y:0.5,
             yanchor: 'middle',
             traceorder: 'grouped',
-            // orientation: 'h',
+            font: {
+                size:20
+            }
+        }
+    };
+}
+function det_measures_layout(){
+    return {
+        yaxis: {
+            zeroline: false
+        },
+        legend:{
+            x: 1.0,
+            y:0.5,
+            yanchor: 'middle',
+            traceorder: 'grouped',
             font: {
                 size:20
             }
@@ -215,6 +248,54 @@ function format_meas_data(insp){
     }
     return traces;
 }
+function limit_line_coll(time_array, y_array){
+    return {
+        x: time_array,
+        y: y_array,
+        hoverinfo: 'y',
+        mode: 'lines',
+        type: 'scatter',
+        fill: 'tozeroy',
+        line: {
+            color: '#f32637',
+            opacity: 0.8,
+            width: 4
+        },
+        name: 'Seuil limite'
+    }
+}
+function det_line_coll(index, insp, time_array){
+    return {
+        x: time_array,
+        y: attr_array(insp, ['adj', 'sens'][index]),
+        hoverinfo: 'y',
+        mode: 'lines',
+        type: 'scatter',
+        line: {
+            color: ['purple', 'chartreuse'][index],
+            opacity: 0.8,
+            dash: 15,
+            width: 4
+        },
+        name: ['Ajustement', 'Sensibilité'][index]
+    }
+}
+function det_meas_coll(index, insp, time_array, text_array){
+    return {
+        x: time_array,
+        y: attr_array(insp, ['detec1', 'detec2', 'detec3'][index]),
+        hoverinfo: index>0 ? 'y' : 'y+text',
+        mode: 'markers',
+        type: 'scatter',
+        marker: {
+            size: 20,
+            color: detection_colors[index],
+            opacity: 0.9
+        },
+        name: ['Ferreux 1.5mm', 'Non-ferreux 1.5mm', 'Stainless 2.0mm'][index],
+        text: text_array
+    }
+}
 function meas_coll(index, sub_insp){
     return {
         x: [],
@@ -246,6 +327,15 @@ function norm_coll(index, sub_insp){
         name: ['Norme min', 'Norme max'][index]
     }
 }
+function det_meas_text_array(insp){
+    return insp.map(det_meas_text);
+}
+function det_meas_text(t){
+    var ccp = t.ccp ? 'CCP: oui\n' : t.ccp === 'CCP: non\n' ? 0 : '';
+    var comment = t.comment ? 'Commentaire: '+t.comment+'\n' : '';
+    var ej = t.conform_eject ? 'Éjection conforme\n' : t.conform_eject === false ? 'Éjection non conforme\n' : '';
+    return ccp+comment+ej+t.user;
+}
 function filter_true(array){
     return $(array).attr(this) === true;
 }
@@ -264,11 +354,13 @@ function filter_norm_max(array) {
 function format_time(t){
     return new Date(t * 1000);
 }
-function attr_array(array, att){
-    var a = [];
-    for (var z=0;z<array.length;z++){
-        a.push($(array[z]).attr(att));
-    }
-    return a;
+function format_time_array(array) {
+    return attr_array(array, 'time').map(format_time)
 }
-
+function attr_array(array, att){
+    return array.map(function(e){return $(e).attr(att);});
+}
+function limit_array(array, threshold){
+    return array.map(function(e){return e.adj+threshold;});
+}
+var detection_colors = ['#ff3322', '#ffe116', '#ffd3f5', '#789342']; //TODO see real colors

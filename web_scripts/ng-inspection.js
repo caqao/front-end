@@ -251,7 +251,7 @@ ng_app.controller('DetectorInspectionPanel', ['$scope', '$http', '$interval', '$
         $scope.page_number = 1;
         $scope.bool_attrs = ['ccp', 'ec'];
         if ($scope.g.is_prod === false){
-            $scope.attrs_to_check = ['ferreux', 'nferreux', 'stainless'];
+            $scope.attrs_to_check = ['adj', 'sens', 'ferreux', 'nferreux', 'stainless'];
         }
         else{
             $scope.bool_attrs.push('ferreux', 'nferreux', 'stainless');
@@ -341,10 +341,20 @@ ng_app.controller('DetectorInspectionPanel', ['$scope', '$http', '$interval', '$
             $scope.p.update_all_delays($scope.values.map($scope.filter_interval));
         };
         $scope.create_plot = function (i) {
-            create_op_det_plot(
-                'graph_1_'+$scope.values[i].id,
-                $scope.values[i].prev_data
-            );
+            if ($scope.g.is_prod === true){
+                create_op_det_plot(
+                    'graph_1_'+$scope.values[i].id,
+                    $scope.values[i].prev_data
+                );
+            }
+            else{
+                create_cq_det_plot(
+                    'graph_1_'+$scope.values[i].id,
+                    $scope.values[i].prev_data,
+                    $scope.values[i].threshold
+                );
+            }
+
         };
         $scope.filter_interval = function(array){
             return array.op_interval;

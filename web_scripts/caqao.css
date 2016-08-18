@@ -216,14 +216,6 @@ td>h4, td>h3{
 .LinkButton{
     width: 100%;
 }
-.inspectionInput{
-    width: 100%;
-    max-width: 1000px;
-
-}
-.inspectionInput>label{
-    width:33.33333%;
-}
 .commentInput{
     padding: 5px 0 0 0;
     width: 100%;
@@ -234,15 +226,15 @@ td>h4, td>h3{
     max-width: 1000px;
     text-align: left;
 }
-.detInput{
+.inspectionInput, .detInput{
     width: 100%;
     max-width: 1000px;
 }
-.detInput>label{
-    width:33%;
+.inspectionInput>label, .detInput>label{
+    width:40%;
 }
-.detInput>label:nth-child(1){
-    width:34%;
+.inspectionInput>label:nth-child(3), .detInput>label:nth-child(3){
+    width:20%;
 }
 textarea{
     font-family: "Lucida Console", Monaco, monospace;
