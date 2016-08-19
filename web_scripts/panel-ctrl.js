@@ -16,7 +16,13 @@ PanelCtrl.prototype.add_collapse = function () {
   this.collapsed.push(true);
 };
 PanelCtrl.prototype.update_panel_data = function (new_values) {
-    this.scope.values = new_values.values_list_list[this.scope.page_number];
+    var tab_values = new_values.values_list_list[this.scope.page_number];
+    if (this.scope.values_index !== undefined){
+        this.scope.values = tab_values[this.scope.values_index]
+    }
+    else{
+        this.scope.values = tab_values;
+    }
     if (new_values.columns_list_list !== undefined) {
         this.scope.columns = new_values.columns_list_list[this.scope.page_number];
     }

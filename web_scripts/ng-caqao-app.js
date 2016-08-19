@@ -48,7 +48,6 @@ ng_app.controller('Page', ['$scope', '$http', '$interval', '$timeout', '$window'
             }, true
         );
         $scope.init = function(conf){
-            print(conf);
             $scope.g.needs_user_confirmation = conf;
             if (conf){
                 var r = confirm("Svp confirmez que vous êtes toujours "+conf+
