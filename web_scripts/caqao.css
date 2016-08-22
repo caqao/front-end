@@ -48,7 +48,13 @@ body {
 }
 .validYetNonConformInput{
     box-shadow: 2px 2px 3px #ff1629;
-
+}
+.detRejectValue{
+    width:33%;
+    color: #ff1629;
+}
+.detRejectValue.valid{
+    color: #43AC6A;
 }
 .fuk>tr>td{
     width:33%
@@ -127,7 +133,7 @@ body {
 }
 .timeAlert:hover:after{
     font-size: small;
-    content: "(Heure prévue de la prochaine inspection)";
+    content: "(Heure prévue)";
 }
 .divider-vertical {
     height: 40px;
