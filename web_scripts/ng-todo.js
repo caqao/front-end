@@ -20,7 +20,6 @@ ng_app.controller('TodoInspectionPanel', ['$scope', '$http', '$interval', '$time
             $scope.update_delay_data();
         };
         $scope.toggle_running = function(){
-            print($scope.values.sector_text);
             $http.put($scope.g.url, {
                 update_list: [{
                     model: 'Sector',
@@ -79,18 +78,53 @@ ng_app.controller('DetectorRejectPanel', ['$scope', '$http', '$interval', '$time
         $scope.p = new PanelCtrl($scope, $interval, $timeout);
         $scope.p.loaded = true;
         $scope.page_number = 1;
+        $scope.sent = false;
         $scope.init = function (val_index) {
             $scope.values_index=val_index;
         };
         $scope.$watch('g.last_update_time', function(newVal, oldVal){
             if (newVal != undefined || newVal != null) {
                 $scope.update_scope_data($scope.g.last_data);
-                $scope.batch_id = $scope.g.other;
             }
         }, true);
         $scope.update_scope_data = function(newVal){
             $scope.p.update_panel_data(newVal);
-            //TODO det delay_message, panel_class
+            //TODO panel_class, form template
+            $scope.fb = '';
+            $scope.sens = null;
+            $scope.adj = null;
+            $scope.eject_trouble = 'n/a';
+            if ($scope.values.conform_eject === true){
+                $scope.conform_ejection_message = 'Conforme';
+            }
+            else{
+                if ($scope.values.conform_eject === false){
+                    $scope.conform_ejection_message = 'Non-conforme';
+                }
+                else{
+                    $scope.conform_ejection_message = 'N/A';
+                }
+            }
+        };
+        $scope.validate = function(){
+            $http.post(this.url,
+                {
+                    action: 'validate_detector_reject',
+                    data_dict: {
+                        fb: $scope.fb,
+                        sens: $scope.sens,
+                        adj: $scope.adj,
+                        eject_trouble: $scope.eject_trouble
+                    }
+                }
+            ).then(
+                function(response){
+                    $scope.sent = true;
+                },
+                function(response){
+                    $scope.g.show_failure();
+                }
+            );
         };
     }
 ]);
