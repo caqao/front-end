@@ -196,7 +196,8 @@ ng_app.controller('InspectionPanel', ['$scope', '$http', '$interval', '$timeout'
         $scope.g.request_updated_data = function () {
             var param_dict = {
                 action: 'check_if_foreign_data',
-                last_time: $scope.g.last_update_time
+                last_time: $scope.g.last_update_time,
+                sector_id: $scope.g.round
             };
             if ($scope.g.is_prod){
                 param_dict.batch_id = $scope.batch_id;
@@ -221,29 +222,13 @@ ng_app.controller('InspectionPanel', ['$scope', '$http', '$interval', '$timeout'
                 }
             );
         };
-        // $scope.g.update_delay = 120000;
-        // // $scope.g.update_delay = 12000;
-        // $scope.g.auto_update = function(){
-        //
-        // };
-        // $interval(function(){
-        //     if($scope.g.ongoing === true){
-        //         $scope.p.update_all_delays($scope.g.interval_hrs);
-        //         $scope.g.update_det_delays();
-        //         if ($scope.g.unsent_changes == 0) {
-        //             $scope.g.request_updated_data();
-        //         }
-        //     }
-        // }, $scope.g.update_delay);
         $interval(function(){
             if($scope.g.ongoing === true){
-                print($scope.g.update_counter);
                 if ($scope.g.unsent_changes == 0) {
                     $scope.g.update_counter++;
                     if ($scope.g.update_counter%3===0){
                         $scope.p.update_all_delays($scope.g.interval_hrs);
                         $scope.g.update_det_delays();
-                        print('update delays');
                     }
                     if ($scope.g.update_counter>11)
                         {
@@ -256,7 +241,6 @@ ng_app.controller('InspectionPanel', ['$scope', '$http', '$interval', '$timeout'
                 }
             }
         }, 10000);
-
         $scope.g.update_external_values = function(){
             $scope.g.updating_foreign = true;
             $scope.send_inspection_choices();

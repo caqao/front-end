@@ -430,6 +430,8 @@ textarea{
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
     display: none !important;
 }
-.tamere{
-    color: #ff3322;
+.detectorRejectTable{
+    margin: 0 auto;
+    width: 100%;
 }
+

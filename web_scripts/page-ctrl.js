@@ -16,6 +16,7 @@ function PageCtrl(http, interval, timeout){
     this.data_types = [];
     this.slim = true;
     this.other = null;
+    this.badges = null;
 }
 PageCtrl.prototype.update_buffer = function(obj_id, col, oldVal, newVal, model) {
     var archive_dict = {
@@ -99,6 +100,7 @@ PageCtrl.prototype.update_last_data = function(data){
     this.data_types = data.elements.data_types || this.data_types;
     this.other = data.other || this.other;
     this.last_update_time = data.last_update_time;
+    this.badges = Array(5).fill(0)
 };
 PageCtrl.prototype.cancel_update = function() {
     this.changes_buffer = [];

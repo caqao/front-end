@@ -94,7 +94,6 @@ function format_num_det(insp, threshold){
     var time_array = format_time_array(insp);
     var text_array = det_meas_text_array(insp);
     var traces = [];
-    print(insp);
     for (var i = 0; i<3; i++){
         traces.push(det_meas_coll(i, insp, time_array, text_array));
     }
