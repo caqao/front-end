@@ -19,14 +19,14 @@ function create_op_plot(div_id, data_type, insp_data){
         trace(div_id, data, layout);
     }
 }
-function create_op_det_plot(div_id, insp_data){
+function create_bool_det_plot(div_id, insp_data){
     if (insp_data.length > 0){
-        trace(div_id, format_op_det(insp_data), det_multi_bool_layout());
+        trace(div_id, format_bool_det(insp_data), det_multi_bool_layout());
     }
 }
-function create_cq_det_plot(div_id, insp_data, threshold){
+function create_num_det_plot(div_id, insp_data, threshold){
     if (insp_data.length > 0){
-        trace(div_id, format_cq_det(insp_data, threshold), det_measures_layout());
+        trace(div_id, format_num_det(insp_data, threshold), det_measures_layout());
     }
 }
 function trace(div_id, data, layout){
@@ -34,7 +34,7 @@ function trace(div_id, data, layout){
     Plotly.newPlot(div, data, layout);
 }
 
-function format_op_det(insp){
+function format_bool_det(insp){
     var traces = [];
     var chk_str = ['detec1', 'detec2', 'detec3', 'conform_eject'];
     var show_str = ['Ferreux 1.5mm', 'Non-ferreux 1.5mm', 'Stainless 2.0mm', 'Éjection'];
@@ -76,7 +76,7 @@ function format_op_det(insp){
             mode: 'lines',
             type: 'scatter',
             legendgroup: 'l',
-            opacity: 0.4,
+            opacity: 0.9,
             line: {
                 color: detection_colors[w],
                 opacity: 0.8,
@@ -90,7 +90,7 @@ function format_op_det(insp){
     }
     return traces;
 }
-function format_cq_det(insp, threshold){
+function format_num_det(insp, threshold){
     var time_array = format_time_array(insp);
     var text_array = det_meas_text_array(insp);
     var traces = [];
@@ -258,7 +258,7 @@ function limit_line_coll(time_array, y_array){
         fill: 'tozeroy',
         line: {
             color: '#f32637',
-            opacity: 0.8,
+            opacity: 0.5,
             width: 4
         },
         name: 'Seuil limite'
@@ -331,10 +331,9 @@ function det_meas_text_array(insp){
     return insp.map(det_meas_text);
 }
 function det_meas_text(t){
-    var ccp = t.ccp ? 'CCP: oui\n' : t.ccp === 'CCP: non\n' ? 0 : '';
     var comment = t.comment ? 'Commentaire: '+t.comment+'\n' : '';
     var ej = t.conform_eject ? 'Éjection conforme\n' : t.conform_eject === false ? 'Éjection non conforme\n' : '';
-    return ccp+comment+ej+t.user;
+    return comment+ej+t.user;
 }
 function filter_true(array){
     return $(array).attr(this) === true;
@@ -363,4 +362,4 @@ function attr_array(array, att){
 function limit_array(array, threshold){
     return array.map(function(e){return e.adj+threshold;});
 }
-var detection_colors = ['#ff3322', '#ffe116', '#ffd3f5', '#789342']; //TODO see real colors
+var detection_colors = ['#ff3322', '#ffe116', '#595959', '#789342'];

@@ -265,7 +265,6 @@ ng_app.controller('InspectionPanel', ['$scope', '$http', '$interval', '$timeout'
                 $scope.g.reset_color();
                 $scope.g.updating_foreign = false;
                 $scope.g.update_counter = 0;
-
             }, 3000);
         };
     }
@@ -277,14 +276,6 @@ ng_app.controller('DetectorInspectionPanel', ['$scope', '$http', '$interval', '$
         $scope.p.loaded = true;
         $scope.g.det_text = 'Détecteur';
         $scope.page_number = 1;
-        $scope.bool_attrs = ['ccp', 'ec'];
-        if ($scope.g.is_prod === false){
-            $scope.attrs_to_check = ['adj', 'sens', 'ferreux', 'nferreux', 'stainless'];
-        }
-        else{
-            $scope.bool_attrs.push('ferreux', 'nferreux', 'stainless');
-            $scope.attrs_to_check = ['ccp', 'ferreux', 'nferreux', 'stainless', 'ec'];
-        }
         $scope.show_results = [];
 
         $scope.$watch('g.last_update_time', function(){
@@ -303,6 +294,11 @@ ng_app.controller('DetectorInspectionPanel', ['$scope', '$http', '$interval', '$
                     if ($scope.g.is_prod === false) {
                         $scope.p.update_delay_data(d, t, $scope.g.interval_hrs);
                         $scope.values[d].product = $scope.get_product_string($scope.g.product) || '';
+                    }
+                    else{
+                        $scope.p.update_delay_data(d, t, $scope.values[d].op_interval);
+                    }
+                    if ($scope.values[d].numeric_inputs){
                         $scope.values[d].ferreux = null;
                         $scope.values[d].nferreux = null;
                         $scope.values[d].stainless = null;
@@ -317,11 +313,11 @@ ng_app.controller('DetectorInspectionPanel', ['$scope', '$http', '$interval', '$
                         }
                     }
                     else{
-                        $scope.p.update_delay_data(d, t, $scope.values[d].op_interval);
+                        $scope.values[d].ferreux = 'n/a';
+                        $scope.values[d].nferreux = 'n/a';
+                        $scope.values[d].stainless = 'n/a';
                     }
-                    for (var a in $scope.bool_attrs){
-                        $($scope.values[d]).attr($scope.bool_attrs[a], 'n/a');
-                    }
+                    $scope.values[d].ec = 'n/a';
                     $scope.values[d].to_send = false;
                 }
             }
@@ -336,10 +332,10 @@ ng_app.controller('DetectorInspectionPanel', ['$scope', '$http', '$interval', '$
             return det_buffer;
         };
         $scope.update_attr = function(index, att, val){
-            var prev_send = $scope.values[index].to_send;
+            // var prev_send = $scope.values[index].to_send;
             $($scope.values[index]).attr(att, val);
-            var to_send = $scope.g.is_prod ? $scope.check_if_send_prod(index) : $scope.check_if_send_cq(index);
-            if (prev_send !== to_send){
+            var to_send = $scope.values[index].numeric_inputs ? $scope.check_if_send_num(index) : $scope.check_if_send_bool(index);
+            if ($scope.values[index].to_send !== to_send){
                 if (to_send === true) {
                     $scope.values[index].to_send = true;
                     $scope.g.unsent_changes++;
@@ -350,39 +346,41 @@ ng_app.controller('DetectorInspectionPanel', ['$scope', '$http', '$interval', '$
                 }
             }
         };
-        $scope.check_if_send_prod = function(value_index){
-            for (var i = 0; i<$scope.attrs_to_check.length;i++){
-                var att_value = $($scope.values[value_index]).attr($scope.attrs_to_check[i]);
-                if (att_value !== 'n/a' && att_value !== null && att_value !== ''){
-                    return true;
-                }
-            }
-            return false;
-        };
-        $scope.check_if_send_cq = function(value_index){
-            for (var z = 0; z<$scope.attrs_to_check.length;z++){
-                var att_value = $($scope.values[value_index]).attr($scope.attrs_to_check[z]);
+        $scope.check_if_send_num = function(value_index){
+            var attrs_to_check = ['adj', 'sens', 'ferreux', 'nferreux', 'stainless'];
+            for (var i = 0; i<attrs_to_check.length;i++){
+                var att_value = $($scope.values[value_index]).attr(attrs_to_check[i]);
                 if (att_value === 'n/a' || att_value === null || att_value === ''){
                     return false;
                 }
             }
             return true;
         };
+        $scope.check_if_send_bool = function(value_index){
+            var attrs_to_check = ['ferreux', 'nferreux', 'stainless', 'ec'];
+            for (var z = 0; z<attrs_to_check.length;z++){
+                var att_value = $($scope.values[value_index]).attr(attrs_to_check[z]);
+                if (att_value !== 'n/a' && att_value !== null && att_value !== ''){
+                    return true;
+                }
+            }
+            return false;
+        };
         $scope.g.update_det_delays = function(){
             $scope.p.update_all_delays($scope.values.map($scope.filter_interval));
         };
         $scope.create_plot = function (i) {
-            if ($scope.g.is_prod === true){
-                create_op_det_plot(
-                    'graph_1_'+$scope.values[i].id,
-                    $scope.values[i].prev_data
-                );
-            }
-            else{
-                create_cq_det_plot(
+            if ($scope.values[i].numeric_inputs === true){
+                create_num_det_plot(
                     'graph_1_'+$scope.values[i].id,
                     $scope.values[i].prev_data,
                     $scope.values[i].threshold
+                );
+            }
+            else{
+                create_bool_det_plot(
+                    'graph_1_'+$scope.values[i].id,
+                    $scope.values[i].prev_data
                 );
             }
 
