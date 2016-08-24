@@ -35,6 +35,7 @@ ng_app.controller('InspectionPanel', ['$scope', '$http', '$interval', '$timeout'
                         empty_array.push({num:i, val:null});
                     }
                     $scope.values[i].results = empty_array;
+
                 }
             }
         };
@@ -53,6 +54,9 @@ ng_app.controller('InspectionPanel', ['$scope', '$http', '$interval', '$timeout'
                 $scope.values[i].data_type,
                 $scope.values[i].prev_data
             );
+        };
+        $scope.toggle_conform = function(param_ind, sub_ind){
+            $scope.values[param_ind].conform[sub_ind] = !$scope.values[param_ind].conform[sub_ind];
         };
         $scope.watch_input_change = function (newV, oldV, type, param_ind, sub_ind) {
             if (type==3) {
@@ -89,12 +93,14 @@ ng_app.controller('InspectionPanel', ['$scope', '$http', '$interval', '$timeout'
                 );
             }
             else{
-                if ($scope.values[param_ind].pattern){
-                    //TODO deal with regex
-                }
-                else{
-                    $scope.update_conformity(param_ind, sub_ind, true);
-                }
+                $scope.update_conformity(param_ind, sub_ind, true);
+                // if ($scope.values[param_ind].pattern){
+                //     print('regex');
+                //     //TODO deal with regex
+                // }
+                // else{
+                //     $scope.update_conformity(param_ind, sub_ind, true);
+                // }
             }
         };
         $scope.$watch('g.rounds', function(newData){
@@ -161,7 +167,6 @@ ng_app.controller('InspectionPanel', ['$scope', '$http', '$interval', '$timeout'
             //     $scope.set_standby_variables();
             // }
         };
-
         $scope.g.cancel_product = function () {
             $scope.g.product = false;
         };
@@ -270,7 +275,7 @@ ng_app.controller('DetectorInspectionPanel', ['$scope', '$http', '$interval', '$
                 var t = new Date();
                 $scope.p.update_panel_data(newVal);
                 $scope.g.det_text = $scope.values.length>1 ? 'Détecteurs' : 'Détecteur';
-                for (var d in $scope.values){
+                for (var d = 0;d<$scope.values.length;d++){
                     if ($scope.show_results[d] === true){
                         $scope.p.temporary_hide(d);
                     }

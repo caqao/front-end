@@ -1,4 +1,4 @@
-function create_op_plot(div_id, data_type, insp_data){
+function create_op_plot(div_id, data_type, insp_data, timestamps){
     if (insp_data.length > 0){
         var data = [];
         var layout = {};
@@ -16,8 +16,45 @@ function create_op_plot(div_id, data_type, insp_data){
                 layout = meas_layout();
                 break;
         }
+        if (timestamps !== undefined){
+            layout.shapes=[];
+            for (var t = 0;t<timestamps.length;t++){
+                layout.shapes.push(create_timestamp_line(timestamps[t]))
+            }
+        }
+        print(layout);
         trace(div_id, data, layout);
     }
+}
+function create_timestamp_line(timestamp){
+    var line_time = format_time(timestamp.time);
+    // var line_time1 = format_time(timestamp.time+1000000);
+    // return {
+    //     type: 'rect',
+    //         xref: 'x',
+    //     yref: 'paper',
+    //     x0: line_time,
+    //     y0: 0,
+    //     x1: line_time1,
+    //     y1: 1,
+    //     fillcolor: '#d3d3d3',
+    //     opacity: 0.2,
+    //     line: {
+    //     width: 0
+    // }
+    // };
+    return {
+        type: 'line',
+        yref: 'paper',
+        x0: line_time,
+        y0: 0,
+        x1: line_time,
+        y1: 1,
+        line: {
+            color: 'pink',
+            width: 3
+        }
+    };
 }
 function create_bool_det_plot(div_id, insp_data){
     if (insp_data.length > 0){

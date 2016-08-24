@@ -242,6 +242,13 @@ td>h4, td>h3{
 .inspectionInput>label:nth-child(3), .detInput>label:nth-child(3){
     width:20%;
 }
+.correctionInput{
+    width: 100%;
+
+}
+.correctionInput>label{
+    width:50%;
+}
 textarea{
     font-family: "Lucida Console", Monaco, monospace;
     width: 100%;
