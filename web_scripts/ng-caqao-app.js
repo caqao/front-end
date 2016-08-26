@@ -22,6 +22,11 @@ ng_app.directive('watchResizeTabs', function(){
         }
     }
 });
+ng_app.filter("trustUrl", ['$sce', function ($sce) {
+    return function (recordingUrl) {
+        return $sce.trustAsResourceUrl(recordingUrl);
+    };
+}]);
 ng_app.controller('Page', ['$scope', '$http', '$interval', '$timeout', '$window', 'PageData',
     function($scope, $http, $interval, $timeout, $window, PageData) {
         $scope.g = PageData.g;

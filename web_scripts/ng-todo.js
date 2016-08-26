@@ -369,16 +369,33 @@ ng_app.controller('TodoSanitPanel', ['$scope', '$http', '$interval', '$timeout',
         $scope.page_number = 5;
         $scope.init = function (val_index) {
             $scope.values_index=val_index;
+            $scope.g.badges[4]++;
+            $scope.sendable = true;
         };
         $scope.$watch('g.last_update_time', function(newVal, oldVal){
             if (newVal != undefined || newVal != null) {
                 $scope.update_scope_data($scope.g.last_data);
-                $scope.batch_id = $scope.g.other;
             }
         }, true);
         $scope.update_scope_data = function(newVal){
             $scope.p.update_panel_data(newVal);
-            //TODO det delay_message, panel_class
+            $scope.panel_class = $scope.values.done ? 'panel-success' : 'panel-warning';
+        };
+        $scope.validate = function(){
+            $http.post($scope.g.url,
+                {
+                    action: 'validate_maintenance',
+                    maintenance_id: $scope.values.id
+                }
+            ).then(
+                function(response){
+                    $scope.sent = true;
+                    $scope.g.badges[4]--;
+                },
+                function(response){
+                    $scope.g.show_failure();
+                }
+            );
         };
     }
 ]);
@@ -412,11 +429,10 @@ ng_app.controller('AutoUpdate', ['$scope', '$http', '$interval', '$timeout', 'Pa
             );
         };
         $interval(function(){
-            print($scope.g.unsent_changes);
             if ($scope.g.unsent_changes == false) {
                 $scope.g.update_counter++;
                 if ($scope.g.update_counter%3===0){
-                    $scope.g.update_todo_delays
+                    $scope.g.update_todo_delays()
                 }
                 if ($scope.g.update_counter>11)
                 {
@@ -440,3 +456,19 @@ ng_app.controller('AutoUpdate', ['$scope', '$http', '$interval', '$timeout', 'Pa
         };
     }
 ]);
+ng_app.controller('TodoCount', ['$scope', 'PageData',
+    function($scope, PageData) {
+        $scope.g = PageData.g;
+        $scope.$watch('g.badges', function(newVal){
+            if(newVal){
+                var newcount = 0;
+                for (var i = 0; i<newVal.length;i++){
+                    newcount = newcount + newVal[i];
+                }
+                $scope.todo_count = newcount;
+            }
+        }, true);
+
+    }
+]);
+

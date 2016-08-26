@@ -176,7 +176,7 @@ td {
     font-size: large;
     /*font-variant: none;*/
 }
-td>h4, td>h3{
+td>h4, td>h3, .panelTitle{
     font-variant: small-caps;
     font-weight: bolder;
 }
@@ -245,7 +245,6 @@ td>h4, td>h3{
 }
 .correctionInput{
     width: 100%;
-
 }
 .correctionInput>label{
     width:50%;
@@ -331,6 +330,21 @@ textarea{
     width: 12%;
 }
 .InspPanelHeader td:nth-child(1), .InspPanelHeader td:nth-child(4){
+    width: 6%;
+}
+.MaintPanelHeader{
+    width: 100%;
+}
+.MaintPanelHeader td{
+    width:72%;
+}
+.MaintPanelHeader td>h3{
+    text-align: left;
+}
+.MaintPanelHeader td:nth-child(3){
+    width: 16%;
+}
+.MaintPanelHeader td:nth-child(1), .MaintPanelHeader td:nth-child(4){
     width: 6%;
 }
 .DetPanelHeader{
