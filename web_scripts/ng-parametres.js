@@ -83,3 +83,17 @@ ng_app.controller('SectorNotesPanel', ['$scope', '$http', '$interval', '$timeout
         }, true);
     }
 ]);
+ng_app.controller('TaskPanel', ['$scope', '$http', '$interval', '$timeout', 'PageData',
+    function($scope, $http, $interval, $timeout, PageData) {
+        $scope.g = PageData.g;
+        $scope.p = new PanelCtrl($scope, $interval, $timeout);
+        $scope.page_number = 0;
+        $scope.object_type = 'Task';
+
+        $scope.$watch('g.last_update_time', function(){
+            if ($scope.g.last_data !== null) {
+                $scope.p.update_panel_data($scope.g.last_data);
+            }
+        }, true);
+    }
+]);

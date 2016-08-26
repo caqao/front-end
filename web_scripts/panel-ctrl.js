@@ -32,7 +32,7 @@ PanelCtrl.prototype.add_element = function(){
     this.scope.g.post_add_element(this.scope.object_type);
 };
 PanelCtrl.prototype.valid_change = function(oldVal, newVal, object, col){
-    if (newVal==undefined || (typeof newVal === 'number' && newVal < 0 && col == 'nb_meas')){
+    if (newVal==undefined || (typeof newVal === 'number' && newVal < 0 && (col == 'nb_meas' || col == 'interval_days' ))){
         $(object).attr(col, oldVal);
     }
     else{

@@ -120,7 +120,6 @@ ng_app.controller('DetectorRejectPanel', ['$scope', '$http', '$interval', '$time
         }, true);
         $scope.update_scope_data = function(newVal){
             $scope.p.update_panel_data(newVal);
-            //TODO panel_class, form template
             $scope.values.fb = '';
             $scope.values.reject_comment = '';
             $scope.conform_ejection_message = $scope.translate_bool($scope.values.conform_eject);

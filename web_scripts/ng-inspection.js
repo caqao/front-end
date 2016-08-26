@@ -94,13 +94,6 @@ ng_app.controller('InspectionPanel', ['$scope', '$http', '$interval', '$timeout'
             }
             else{
                 $scope.update_conformity(param_ind, sub_ind, true);
-                // if ($scope.values[param_ind].pattern){
-                //     print('regex');
-                //     //TODO deal with regex
-                // }
-                // else{
-                //     $scope.update_conformity(param_ind, sub_ind, true);
-                // }
             }
         };
         $scope.$watch('g.rounds', function(newData){
@@ -402,4 +395,3 @@ ng_app.controller('DetectorInspectionPanel', ['$scope', '$http', '$interval', '$
         };
     }
 ]);
-

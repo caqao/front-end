@@ -17,6 +17,7 @@ function PageCtrl(http, interval, timeout){
     this.slim = true;
     this.other = null;
     this.badges = null;
+    this.users = [];
 }
 PageCtrl.prototype.update_buffer = function(obj_id, col, oldVal, newVal, model) {
     var archive_dict = {
@@ -97,6 +98,7 @@ PageCtrl.prototype.update_last_data = function(data){
     this.last_data = data.elements;
     this.sectors = data.elements.sectors || this.sectors;
     this.rounds = data.elements.rounds || this.rounds;
+    this.users = data.elements.users || this.users;
     this.data_types = data.elements.data_types || this.data_types;
     this.other = data.other || this.other;
     this.last_update_time = data.last_update_time;
