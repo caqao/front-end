@@ -24,9 +24,7 @@ ng_app.controller('MaintenancePanel', ['$scope', '$http', '$interval', '$timeout
                         }
                     }
                 }
-
             }
-
         }, true);
 
         $scope.init = function (page_index, val_index) {

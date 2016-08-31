@@ -7,7 +7,7 @@ ng_app.controller('InspectionPanel', ['$scope', '$http', '$interval', '$timeout'
         $scope.g.product = false;
         $scope.g.product_choices = [];
         $scope.p.loaded = true;
-        $scope.g.is_prod = ($scope.g.url.split('/').indexOf("prod") > -1);
+        // $scope.g.is_prod = ($scope.g.url.split('/').indexOf("prod") > -1);
         $scope.g.ongoing = false;
         $scope.page_number = 0;
         $scope.g.unsent_changes = 0;
@@ -16,6 +16,12 @@ ng_app.controller('InspectionPanel', ['$scope', '$http', '$interval', '$timeout'
         $scope.show_results = [];
         $scope.g.update_counter = 0;
 
+        $scope.init = function (initial_id) {
+            $scope.g.is_prod = ($scope.g.url.split('/').indexOf("prod") > -1);
+            $scope.g.pick_label = $scope.g.is_prod ? 'Ronde' : 'Secteur';
+            $scope.first_round = initial_id || null;
+
+        };
         $scope.setup_values_array = function () {
             $scope.g.buffed_arrays = true;
             $scope.g.unsent_changes = 0;
@@ -68,6 +74,7 @@ ng_app.controller('InspectionPanel', ['$scope', '$http', '$interval', '$timeout'
                     $scope.values[param_ind].results[sub_ind].val = null;
                 }else {
                     if (newV === undefined) {
+
                         $scope.values[param_ind].results[sub_ind].val = 0;
                     }
                     $scope.check_conformity(newV, oldV, type, param_ind, sub_ind)
@@ -96,9 +103,6 @@ ng_app.controller('InspectionPanel', ['$scope', '$http', '$interval', '$timeout'
                 $scope.update_conformity(param_ind, sub_ind, true);
             }
         };
-        $scope.$watch('g.rounds', function(newData){
-            if(newData !== undefined){$scope.set_round_pick_data();}
-        }, true);
         $scope.$watch('g.last_update_time', function(newVal, oldVal){
             if (newVal != undefined || newVal != null) {
                 $scope.update_scope_data($scope.g.last_data);
@@ -118,6 +122,7 @@ ng_app.controller('InspectionPanel', ['$scope', '$http', '$interval', '$timeout'
             }
         };
         $scope.$watch('g.round', function(newRound){
+            print(newRound)
             if (newRound !== null) {
                 $scope.g.get_products_from_round(newRound);
                 $scope.g.interval_hrs = $scope.g.pick_iter.filter($scope.filter_id, newRound)[0].interval;
@@ -134,13 +139,12 @@ ng_app.controller('InspectionPanel', ['$scope', '$http', '$interval', '$timeout'
         }, true);
         $scope.set_round_pick_data = function () {
             if ($scope.g.is_prod === true){
-                $scope.g.pick_label = 'Ronde';
                 $scope.g.pick_iter = $scope.g.rounds;
 
             }else{
-                $scope.g.pick_label = 'Secteur';
                 $scope.g.pick_iter = $scope.g.sectors;
             }
+
             if ($scope.g.last_data !== null) {
                 if ($scope.g.lot === '') {
                     $scope.g.lot = $scope.g.last_data.lot;
@@ -149,16 +153,18 @@ ng_app.controller('InspectionPanel', ['$scope', '$http', '$interval', '$timeout'
                     $scope.g.product_choices = $scope.g.last_data.product_choices;
                 }
             }
+            if ($scope.first_round !== null){
+                print('update');
+                $scope.g.round = $scope.first_round;
+                $scope.first_round = null;
+
+            }
         };
         $scope.g.toggle_ongoing = function () {
             $scope.g.ongoing = !$scope.g.ongoing;
             if ($scope.g.ongoing === true){
-                // $scope.set_ongoing_variables();
                 $scope.send_inspection_choices();
             }
-            // else{
-            //     $scope.set_standby_variables();
-            // }
         };
         $scope.g.cancel_product = function () {
             $scope.g.product = false;

@@ -41,13 +41,19 @@ PanelCtrl.prototype.valid_change = function(oldVal, newVal, object, col){
 };
 PanelCtrl.prototype.valid_min_change = function(oldVal, newVal, object, col){
     if (newVal>$(object).attr(col.replace('in', 'ax'))){
-        newVal = undefined;
+        $(object).attr(col.replace('in', 'ax'), newVal);
+        this.valid_change(oldVal, newVal, object, col.replace('in', 'ax'));
+
+        // newVal = undefined;
     }
     this.valid_change(oldVal, newVal, object, col);
 };
 PanelCtrl.prototype.valid_max_change = function(oldVal, newVal, object, col){
     if (newVal<$(object).attr(col.replace('ax', 'in'))){
-        newVal = undefined;
+        $(object).attr(col.replace('ax', 'in'), newVal);
+        this.valid_change(oldVal, newVal, object, col.replace('ax', 'in'));
+
+        // newVal = undefined;
     }
         this.valid_change(oldVal, newVal, object, col);
 };
