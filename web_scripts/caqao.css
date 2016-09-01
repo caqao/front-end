@@ -292,9 +292,6 @@ textarea{
 #reload_cp_pick td:nth-child(2){
     width:25%;
 }
-/*#reload_cp_pick td:nth-child(3){*/
-    /*width: 60%;*/
-/*}*/
 #pick_insp_cp{
     margin: 0 0 8px 0;
 }
@@ -307,6 +304,22 @@ textarea{
 }
 #pick_insp_cp td:nth-child(4){
     width: 20%;
+}
+#pick_archive td{
+    width: 25%;
+}
+#pick_specific div{
+    padding: 5px 0 0 0;
+    height: 400px;
+}
+#pick_specific select{
+    height: 400px;
+}
+#pick_specific .half_wid{
+    width: 50%;
+}
+#pick_specific .full_wid{
+    width: 100%;
 }
 .PanelHeader{
     width: 100%;
@@ -351,15 +364,12 @@ textarea{
     width: 100%;
 }
 .DetPanelHeader td{
-    width:88%;
-}
-.DetPanelHeader td>h3{
-    text-align: left;
+    width:20%;
 }
 .DetPanelHeader td:nth-child(2){
-    width: 12%;
+    width: 60%;
 }
-@media (max-width: 1080px){
+@media (max-width: 1300px){
     .BigScreenLi{
         display: none!important;
     }
@@ -374,7 +384,7 @@ textarea{
     }
 
 }
-@media (min-width: 1080px){
+@media (min-width: 1300px){
     .LilScreenLi{
         display: none!important;
     }
@@ -399,9 +409,9 @@ textarea{
         display: none!important;
 
     }
-    .LilScreenLi{
-        display: none!important;
-    }
+    /*.LilScreenLi{*/
+        /*display: none!important;*/
+    /*}*/
     .plotDiv{
         width: 400px;
     }
