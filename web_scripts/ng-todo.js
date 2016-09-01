@@ -29,6 +29,8 @@ ng_app.controller('TodoInspectionPanel', ['$scope', '$http', '$interval', '$time
         $scope.init = function (val_index) {
             $scope.values_index=val_index;
             $scope.panel_class = null;
+            $scope.redirect_wrapper = ['/insp_cq/inspection/', '/']
+
         };
 
         $scope.$watch('g.last_update_time', function(newVal, oldVal){
@@ -40,7 +42,7 @@ ng_app.controller('TodoInspectionPanel', ['$scope', '$http', '$interval', '$time
         $scope.update_scope_data = function(newVal){
             $scope.p.update_panel_data(newVal);
             $scope.update_delay_data();
-            
+
         };
         $scope.toggle_running = function(){
             $http.put($scope.g.url, {
