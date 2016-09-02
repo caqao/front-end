@@ -18,6 +18,7 @@ ng_app.directive('watchResizeTabs', function(){
             angular.element(window).on('resize', function(){
                 scope.$apply(function(){
                     var off = document.getElementById('top_affix').offsetHeight+30;
+                    off = off > 200 ? 200 : off;
                     scope.content_style = {"padding": off+"px 0 0 0"};
                 });
             });
@@ -65,6 +66,7 @@ ng_app.controller('Page', ['$scope', '$http', '$interval', '$timeout', '$window'
         $scope.show_tabs = $scope.g.count_if_show_tabs();
         $scope.loaded_page=true;
         var off = document.getElementById('top_affix').offsetHeight;
+        off = off > 200 ? 200 : off;
         $scope.content_style = {"padding": off+"px 0 0 0"};
 
         // $scope.update_scope_data = function(newVal){

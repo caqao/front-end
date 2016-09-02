@@ -15,7 +15,6 @@ ng_app.controller('ArchivePicker', ['$scope', '$http', '$interval', '$timeout', 
             $scope.end_date.setHours(23);
             $scope.end_date.setMinutes(59);
             $scope.end_date.setSeconds(59);
-            // $scope.end_date.setMilliseconds(999);
         };
         $scope.$watch('begin_date', function(newValue){
             if (newValue===undefined){
@@ -37,6 +36,16 @@ ng_app.controller('ArchivePicker', ['$scope', '$http', '$interval', '$timeout', 
                     $scope.end_date = new Date();
                 }
                 $scope.valid_end = $scope.end_date > $scope.begin_date;
+            }
+        }, true);
+        $scope.$watch('chosen_sector', function(newValue){
+            if (newValue!==undefined){
+                $scope.parametre_choices=$($scope.cq_parametres).attr('p_'+newValue);
+            }
+        }, true);
+        $scope.$watch('chosen_round', function(newValue){
+            if (newValue!==undefined){
+                $scope.parametre_choices=$($scope.op_parametres).attr('p_'+newValue);
             }
         }, true);
         $scope.get_all_choices = function(){
@@ -71,29 +80,25 @@ ng_app.controller('ArchivePicker', ['$scope', '$http', '$interval', '$timeout', 
                         params: choice_data
                     }).then(
                     function(response){
-                        print(response.data.results);
-                        // $scope.results = response.data.results;
                         $scope.g.results=response.data.results;
-                        // print($scope.g.results);
                     },
                     function(response){
                         $scope.g.show_failure();
                     }
                 );
             }
-            // $scope.g.results = $scope.results;
             $scope.g.shown = ! $scope.g.shown;
         };
         $scope.make_choice_data = function(){
             switch ($scope.chosen_element){
                 case 1:
                     return {
-                        parametres: $scope.chosen_cq_parametres
+                        parametres: $scope.chosen_parametres
                     };
                     break;
                 case 2:
                     return {
-                        parametres: $scope.chosen_op_parametres
+                        parametres: $scope.chosen_parametres
                     };
                     break;
                 case 3:
@@ -117,10 +122,76 @@ ng_app.controller('ArchivePanel', ['$scope', '$http', '$interval', '$timeout', '
     function($scope, $http, $interval, $timeout, PageData) {
         $scope.g = PageData.g;
         $scope.init = function(index){
+            $scope.plot_id= 'plot-'+index;
+            $scope.clicked_archive = null;
             $scope.values = $scope.g.results[index];
-            print($scope.values);
+            $scope.show_graph = null;
+            $scope.panel_class = 'panel-default';
+            $scope.graph_class = $scope.values.data_type === 3 ? 'measDiv' : 'scatterDiv';
+            $scope.changetraker = 0;
+        };
+        $scope.$watch('clicked_archive', function(newValue){
+            if (newValue!==undefined && newValue!==null){
+                print('change');
+                $scope.clicked_archive.translated_conformity = $scope.translate_bool(newValue.conform);
+            }
+        }, true);
+        $scope.translate_bool = function(boolean){
+            return boolean === true ? 'Conforme' : boolean === false ? 'Non-conforme' : 'N/A';
+        };
+        $scope.show_results = function () {
+            if ($scope.show_graph === null){
+                $scope.create_plot();
+            }
+            $scope.show_graph = !$scope.show_graph;
+        };
+        $scope.create_plot = function(){
+            $scope.graph_div = document.getElementById($scope.plot_id);
+            switch ($scope.g.chosen_element){
+                case 1:
+                case 2:
+                    archive_op_plot(
+                        $scope.plot_id,
+                        $scope.values.data_type,
+                        $scope.values.prev_data
+                    );
+                    break;
+                case 3:
+                    if ($scope.values.numeric_inputs === true){
+                        create_num_det_plot(
+                            $scope.plot_id,
+                            $scope.values.prev_data,
+                            $scope.values.threshold
+                        );
+                    }
+                    else{
+                        create_bool_det_plot(
+                            $scope.plot_id,
+                            $scope.values.prev_data
+                        );
+                    }
+                    break;
+                default:
+                    archive_plot(
+                        $scope.plot_id,
+                        $scope.values.prev_data
+                    );
+                    break;
+            }
+            $scope.graph_div.on('plotly_click', function(data){$scope.show_clicked_data(data)});
 
         };
-
+        $scope.show_clicked_data = function(data){
+            var prev_data_id = data.points[0].data.text[0];
+            for (var i = 0; i<$scope.values.prev_data.length;i++){
+                if ($scope.values.prev_data[i].id === prev_data_id){
+                    $scope.set_clicked_data($scope.values.prev_data[i]);
+                }
+            }
+        };
+        $scope.set_clicked_data = function(clicked_data){
+            $scope.clicked_archive = clicked_data;
+            $scope.$apply();
+        };
     }
 ]);

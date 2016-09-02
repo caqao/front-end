@@ -22,7 +22,6 @@ function create_op_plot(div_id, data_type, insp_data, timestamps){
                 layout.shapes.push(create_timestamp_line(timestamps[t]))
             }
         }
-        print(layout);
         trace(div_id, data, layout);
     }
 }
@@ -195,7 +194,8 @@ function scatter_layout() {
         yaxis: {
             showticklabels: false,
             showgrid: false,
-            zeroline: false
+            zeroline: false,
+            fixedrange: true
         },
         showlegend: true,
         legend:{
@@ -380,6 +380,9 @@ function filter_false(array){
 function filter_null(array){
     return $(array).attr(this) === null;
 }
+function filter_not_false(array){
+    return $(array).attr(this) !== false;
+}
 function filter_norm_min(array) {
     return array.insp_min;
 }
@@ -399,3 +402,145 @@ function limit_array(array, threshold){
     return array.map(function(e){return e.adj+threshold;});
 }
 var detection_colors = ['#ff3322', '#ffe116', '#595959', '#789342'];
+
+function archive_plot(div_id, prev_data){
+    print('Not Implemented Yet')
+}
+function archive_op_plot(div_id, data_type, insp_data){
+    if (insp_data.length > 0){
+        var data = [];
+        var layout = {};
+        if (data_type === 3){
+            data = archive_meas_data(insp_data);
+            layout = meas_layout();
+        }
+        else{
+            data = format_timeline(insp_data);
+            layout = scatter_layout();
+        }
+        layout.xaxis = {
+            rangeselector: get_selector_options()
+            // rangeslider: {}
+        };
+        trace(div_id, data, layout);
+    }
+}
+function get_selector_options(){
+    return {
+        buttons: [{
+            step: 'day',
+            stepmode: 'todate',
+            count: 1,
+            label: "aujourd'hui"
+        }, {
+            step: 'month',
+            stepmode: 'backward',
+            count: 1,
+            label: '1 mois'
+        }, {
+            step: 'year',
+            stepmode: 'backward',
+            count: 1,
+            label: '1an'
+        }, {
+            step: 'all',
+            label: "Tout"
+
+        }]
+    };
+}
+function format_timeline(insp){
+    var traces = [];
+    var corrected_array = insp.filter(filter_not_false, 'correction');
+    var non_corrected_array = insp.filter(filter_false, 'correction');
+    var sub_arrays = [
+        non_corrected_array.filter(filter_true, 'conform'),
+        non_corrected_array.filter(filter_false, 'conform'),
+        non_corrected_array.filter(filter_null, 'conform'),
+        corrected_array.filter(filter_true, 'conform'),
+        corrected_array.filter(filter_null, 'conform')
+    ];
+    for (var u=0;u<sub_arrays.length;u++){
+        traces.push(archive_timeline_coll(u, sub_arrays[u], 0));
+        for (var v=0;v<sub_arrays[u].length;v++){
+            traces[u].x.push(format_time(sub_arrays[u][v].time));
+            traces[u].text.push(sub_arrays[u][v].id);
+
+        }
+    }
+    traces[0].legendgroup = 'a';
+    return traces;
+}
+function archive_timeline_coll(index, sub_insp, y_val){
+    return {
+        x: [],
+        y: Array(sub_insp.length).fill(y_val),
+        hoverinfo: 'x',
+        mode: 'markers',
+        type: 'scatter',
+        marker: {
+            size: 40,
+            color: ['#43AC6A', '#FF1629', '#5BC0DE', '#43AC6A', '#5BC0DE'][index],
+            opacity: 0.8,
+            symbol: index > 2 ? 'diamond' : 'circle'
+        },
+        name: ['Conforme', 'Non-Conforme', 'N/A', 'Corrigé -> Conforme', 'Corrigé -> N/A'][index],
+        text: []
+    }
+}
+function archive_meas_data(insp){
+    var traces = [];
+    var corrected_array = insp.filter(filter_not_false, 'correction');
+    var non_corrected_array = insp.filter(filter_false, 'correction');
+    var sub_arrays = [
+        non_corrected_array.filter(filter_true, 'conform'),
+        non_corrected_array.filter(filter_false, 'conform'),
+        corrected_array.filter(filter_true, 'conform'),
+        corrected_array.filter(filter_null, 'conform')
+    ];
+    for (var u=0;u<sub_arrays.length;u++){
+        traces.push(archive_meas_coll(u, sub_arrays[u]));
+        for (var v=0;v<sub_arrays[u].length;v++){
+            traces[u].x.push(format_time(sub_arrays[u][v].time));
+            traces[u].text.push(sub_arrays[u][v].id);
+        }
+    }
+    traces[0].legendgroup = 'a';
+    var norm_array = [
+        insp.filter(filter_norm_min),
+        insp.filter(filter_norm_max)
+    ];
+    if (norm_array[0].length>0){
+        traces.push(norm_coll(0, norm_array[0]));
+        for (var w=0;w<norm_array[0].length;w++){
+            traces[traces.length-1].x.push(format_time(norm_array[0][w].time));
+        }
+    }
+    if (norm_array[1].length>0){
+        traces.push(norm_coll(1, norm_array[1]));
+        for (var w=0;w<norm_array[0].length;w++){
+            traces[traces.length-1].x.push(format_time(norm_array[1][w].time));
+        }
+    }
+    return traces;
+}
+function archive_meas_coll(index, sub_insp){
+    return {
+        x: [],
+        y: attr_array(sub_insp, 'insp_value'),
+        hoverinfo: 'x',
+        mode: 'markers',
+        type: 'scatter',
+        marker: {
+            size: 30,
+            color: ['#43AC6A', '#FF1629', '#43AC6A', '#5BC0DE'][index],
+            opacity: 0.8,
+            symbol: index > 1 ? 'diamond' : 'circle'
+
+        },
+        name: ['Conforme', 'Non-Conforme', 'Corrigé -> Conforme', 'Corrigé -> N/A'][index],
+        text: []
+    }
+}
+
+

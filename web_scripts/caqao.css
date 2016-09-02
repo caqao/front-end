@@ -168,7 +168,16 @@ body {
 .ResultsHeaderTable td{
     text-align: center;
 }
-
+.ArchiveHeader {
+    width: 100%;
+}
+.ArchiveHeader td{
+    text-align: left;
+    width: 90%;
+}
+.ArchiveHeader td:nth-child(2){
+    width: 10%;
+}
 th {
     font-size: Large;
 }
