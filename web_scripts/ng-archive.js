@@ -127,17 +127,47 @@ ng_app.controller('ArchivePanel', ['$scope', '$http', '$interval', '$timeout', '
             $scope.values = $scope.g.results[index];
             $scope.show_graph = null;
             $scope.panel_class = 'panel-default';
-            $scope.graph_class = $scope.values.data_type === 3 ? 'measDiv' : 'scatterDiv';
+            $scope.graph_class = ($scope.values.data_type === 3 || $scope.g.chosen_element===3) ? 'measDiv' : 'scatterDiv';
             $scope.changetraker = 0;
         };
         $scope.$watch('clicked_archive', function(newValue){
             if (newValue!==undefined && newValue!==null){
-                print('change');
-                $scope.clicked_archive.translated_conformity = $scope.translate_bool(newValue.conform);
+                if ($scope.g.chosen_element === 3){
+                    $scope.clicked_archive.translated_conformity = $scope.translate_bool(newValue.conform_eject);
+                    if(typeof(newValue.detec1) === "boolean"){
+                        $scope.clicked_archive.d1=$scope.translate_bool(newValue.detec1);
+                        $scope.clicked_archive.d2=$scope.translate_bool(newValue.detec2);
+                        $scope.clicked_archive.d3=$scope.translate_bool(newValue.detec3);
+
+                    }
+                    else{
+                        $scope.clicked_archive.d1=newValue.detec1;
+                        $scope.clicked_archive.d2=newValue.detec2;
+                        $scope.clicked_archive.d3=newValue.detec3;
+                    }
+                    if (newValue.reject !== false){
+                        if (newValue.reject.user.length && newValue.reject.user !== null  && newValue.reject.user !== undefined ){
+                            $scope.clicked_archive.show_reject = true;
+                            $scope.clicked_archive.validation_str = 'validé par '+newValue.reject.user || 'N/A';
+                        }
+                        else{
+                            $scope.clicked_archive.show_reject = false;
+                            $scope.clicked_archive.validation_str = 'jamais validé';
+                        }
+                    }
+
+
+                }
+                else{
+                    $scope.clicked_archive.translated_conformity = $scope.translate_bool(newValue.conform);
+                }
             }
         }, true);
         $scope.translate_bool = function(boolean){
             return boolean === true ? 'Conforme' : boolean === false ? 'Non-conforme' : 'N/A';
+        };
+        $scope.format_numeric_detector_correction = function (new_bool, new_value) {
+            return $scope.translate_bool(new_bool)+": "+new_value
         };
         $scope.show_results = function () {
             if ($scope.show_graph === null){
@@ -158,18 +188,24 @@ ng_app.controller('ArchivePanel', ['$scope', '$http', '$interval', '$timeout', '
                     break;
                 case 3:
                     if ($scope.values.numeric_inputs === true){
-                        create_num_det_plot(
+                        archive_num_det_plot(
                             $scope.plot_id,
                             $scope.values.prev_data,
                             $scope.values.threshold
                         );
                     }
                     else{
-                        create_bool_det_plot(
+                        archive_bool_det_plot(
                             $scope.plot_id,
                             $scope.values.prev_data
                         );
                     }
+                    break;
+                case 4:
+                    sanit_archive_plot(
+                        $scope.plot_id,
+                        $scope.values.prev_data
+                    );
                     break;
                 default:
                     archive_plot(
@@ -179,10 +215,9 @@ ng_app.controller('ArchivePanel', ['$scope', '$http', '$interval', '$timeout', '
                     break;
             }
             $scope.graph_div.on('plotly_click', function(data){$scope.show_clicked_data(data)});
-
         };
         $scope.show_clicked_data = function(data){
-            var prev_data_id = data.points[0].data.text[0];
+            var prev_data_id = data.points[0].fullData.text[data.points[0].pointNumber];
             for (var i = 0; i<$scope.values.prev_data.length;i++){
                 if ($scope.values.prev_data[i].id === prev_data_id){
                     $scope.set_clicked_data($scope.values.prev_data[i]);

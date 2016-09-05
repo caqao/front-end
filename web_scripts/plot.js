@@ -75,7 +75,7 @@ function format_bool_det(insp){
     var chk_str = ['detec1', 'detec2', 'detec3', 'conform_eject'];
     var show_str = ['Ferreux 1.5mm', 'Non-ferreux 1.5mm', 'Stainless 2.0mm', 'Éjection'];
     var sub_arrays = [];
-    for (var i in chk_str){
+    for (var i = 0;i<chk_str.length;i++){
         sub_arrays.push(insp.filter(filter_true, chk_str[i]));
         sub_arrays.push(insp.filter(filter_false, chk_str[i]));
         sub_arrays.push(insp.filter(filter_null, chk_str[i]));
@@ -131,7 +131,7 @@ function format_num_det(insp, threshold){
     var text_array = det_meas_text_array(insp);
     var traces = [];
     for (var i = 0; i<3; i++){
-        traces.push(det_meas_coll(i, insp, time_array, text_array));
+        traces.push(archive_det_meas_coll(i, insp, time_array, text_array));
     }
     traces.push(limit_line_coll(time_array, limit_array(insp, threshold)));
     traces.push(det_line_coll(0, insp, time_array));
@@ -383,6 +383,12 @@ function filter_null(array){
 function filter_not_false(array){
     return $(array).attr(this) !== false;
 }
+function filter_validated(array){
+    return $(array).attr('validated_by') !== 'Personne';
+}
+function filter_non_validated(array){
+    return $(array).attr('validated_by') === 'Personne';
+}
 function filter_norm_min(array) {
     return array.insp_min;
 }
@@ -418,10 +424,13 @@ function archive_op_plot(div_id, data_type, insp_data){
             data = format_timeline(insp_data);
             layout = scatter_layout();
         }
+        layout.hovermode = 'closest';
+
         layout.xaxis = {
             rangeselector: get_selector_options()
             // rangeslider: {}
         };
+
         trace(div_id, data, layout);
     }
 }
@@ -441,7 +450,7 @@ function get_selector_options(){
             step: 'year',
             stepmode: 'backward',
             count: 1,
-            label: '1an'
+            label: '1 an'
         }, {
             step: 'all',
             label: "Tout"
@@ -511,13 +520,13 @@ function archive_meas_data(insp){
         insp.filter(filter_norm_max)
     ];
     if (norm_array[0].length>0){
-        traces.push(norm_coll(0, norm_array[0]));
+        traces.push(archive_norm_coll(0, norm_array[0]));
         for (var w=0;w<norm_array[0].length;w++){
             traces[traces.length-1].x.push(format_time(norm_array[0][w].time));
         }
     }
     if (norm_array[1].length>0){
-        traces.push(norm_coll(1, norm_array[1]));
+        traces.push(archive_norm_coll(1, norm_array[1]));
         for (var w=0;w<norm_array[0].length;w++){
             traces[traces.length-1].x.push(format_time(norm_array[1][w].time));
         }
@@ -528,7 +537,7 @@ function archive_meas_coll(index, sub_insp){
     return {
         x: [],
         y: attr_array(sub_insp, 'insp_value'),
-        hoverinfo: 'x',
+        hoverinfo: 'none',
         mode: 'markers',
         type: 'scatter',
         marker: {
@@ -542,5 +551,214 @@ function archive_meas_coll(index, sub_insp){
         text: []
     }
 }
+function archive_bool_det_plot(div_id, insp_data){
+    if (insp_data.length > 0){
+        var layout = det_multi_bool_layout();
+        layout.xaxis = {
+            rangeselector: get_selector_options()
+        };
+        trace(div_id, archive_bool_det(insp_data), layout);
+    }
+}
+function archive_num_det_plot(div_id, insp_data, threshold){
+    if (insp_data.length > 0){
+        var layout = det_measures_layout();
+        layout.xaxis = {
+            rangeselector: get_selector_options()
+        };
+        trace(div_id, archive_num_det(insp_data), layout);
+    }
+}
+function archive_num_det(insp, threshold){
+    var time_array = format_time_array(insp);
+    var id_array = attr_array(insp, 'id');
+    var traces = [];
+    for (var i = 0; i<3; i++){
+        traces.push(archive_det_meas_coll(i, insp, time_array, id_array));
+    }
+    traces.push(archive_limit_line_coll(time_array, limit_array(insp, threshold)));
+    traces.push(archive_det_line_coll(0, insp, time_array,  id_array));
+    traces.push(archive_det_line_coll(1, insp, time_array,  id_array));
+    return traces;
+}
+function archive_bool_det(insp){
+    var traces = [];
+    var chk_str = ['detec1', 'detec2', 'detec3', 'conform_eject'];
+    var show_str = ['Ferreux 1.5mm', 'Non-ferreux 1.5mm', 'Stainless 2.0mm', 'Éjection'];
+    var sub_arrays = [];
+    for (var i = 0;i<chk_str.length;i++){
+        sub_arrays.push(insp.filter(filter_true, chk_str[i]));
+        sub_arrays.push(insp.filter(filter_false, chk_str[i]));
+        sub_arrays.push(insp.filter(filter_null, chk_str[i]));
+    }
+    var show_legend=[false, false, false];
+    for (var u=0;u<sub_arrays.length;u++){
+        var third_index = Math.floor(u/3);
+        var group_index = u%3;
+        traces.push(archive_base_coll(group_index, sub_arrays[u], third_index));
+        traces[u].textposition = 'top center';
+        if (show_legend[group_index] === false && traces[u].y.length){
+            traces[u].showlegend = true;
+            show_legend[group_index] = true;
+        }
+        else{
+            traces[u].showlegend = false;
+        }
+        traces[u].legendgroup = chk_str[group_index];
 
+        for (var v=0;v<sub_arrays[u].length;v++){
+            traces[u].x.push(format_time(sub_arrays[u][v].time));
+            traces[u].text[v] = sub_arrays[u][v].id;
+        }
+    }
+    var x_vals = [format_time(insp[0].time), format_time(insp[insp.length-1].time)];
+    for (var w=0; w<4;w++){
+        traces.unshift({
+            x: x_vals,
+            y: Array(2).fill(w),
+            hoverinfo: 'none',
+            mode: 'lines',
+            type: 'scatter',
+            legendgroup: 'l',
+            opacity: 0.9,
+            line: {
+                color: detection_colors[w],
+                opacity: 0.8,
+                dash: 15,
+                width: 4
+            },
+            name: show_str[w],
+            showlegend: true
 
+        });
+    }
+    return traces;
+}
+function archive_det_line_coll(index, insp, time_array, id_list){
+    return {
+        x: time_array,
+        y: attr_array(insp, ['adj', 'sens'][index]),
+        hoverinfo: 'none',
+        mode: 'lines',
+        type: 'scatter',
+        line: {
+            color: ['purple', 'chartreuse'][index],
+            opacity: 0.8,
+            dash: 15,
+            width: 4
+        },
+        name: ['Ajustement', 'Sensibilité'][index],
+        text: id_list
+    }
+}
+function archive_det_meas_coll(index, insp, time_array, text_array){
+    return {
+        x: time_array,
+        y: attr_array(insp, ['detec1', 'detec2', 'detec3'][index]),
+        hoverinfo: 'none',
+        mode: 'markers',
+        type: 'scatter',
+        marker: {
+            size: 20,
+            color: detection_colors[index],
+            opacity: 0.9
+        },
+        name: ['Ferreux 1.5mm', 'Non-ferreux 1.5mm', 'Stainless 2.0mm'][index],
+        text: text_array
+    }
+}
+function archive_base_coll(index, sub_insp, y_val){
+    return {
+        x: [],
+        y: Array(sub_insp.length).fill(y_val),
+        hoverinfo: 'none',
+        mode: 'markers',
+        type: 'scatter',
+        marker: {
+            size: 40,
+            color: ['#43AC6A', '#FF1629', '#5BC0DE'][index],
+            opacity: 0.8
+        },
+        name: ['Conforme', 'Non-Conforme', 'N/A'][index],
+        text: []
+    }
+}
+function archive_limit_line_coll(time_array, y_array){
+    return {
+        x: time_array,
+        y: y_array,
+        hoverinfo: 'none',
+        mode: 'lines',
+        type: 'scatter',
+        fill: 'tozeroy',
+        line: {
+            color: '#f32637',
+            opacity: 0.5,
+            width: 4
+        },
+        name: 'Seuil limite'
+    }
+}
+function archive_norm_coll(index, sub_insp){
+    return {
+        x: [],
+        y: attr_array(sub_insp, ['insp_min', 'insp_max'][index]),
+        hoverinfo: 'none',
+        mode: 'lines',
+        type: 'scatter',
+        marker: {
+            size: 10,
+            color: '#5BC0DE',
+            opacity: 0.4
+        },
+        name: ['Norme min', 'Norme max'][index]
+    }
+}
+function sanit_archive_plot(div_id, insp_data){
+    if (insp_data.length > 0){
+        var layout = scatter_layout();
+        layout.xaxis = {
+            rangeselector: get_selector_options()
+        };
+        trace(div_id, format_sanit_data(insp_data), layout);
+    }
+}
+function format_sanit_date(insp, threshold){
+    var time_array = format_time_array(insp);
+    var id_array = attr_array(insp, 'id');
+    var validated_array = insp.filter(filter_validated);
+    var non_validated_array = insp.filter(filter_non_validated);
+    var sub_arrays = [
+        validated_array.filter(filter_true, 'done'),
+        validated_array.filter(filter_null, 'done'),
+        non_validated_array.filter(filter_true, 'done'),
+        non_validated_array.filter(filter_null, 'done')
+
+    ];
+    var traces = [];
+    for (var u=0;u<sub_arrays.length;u++){
+        traces.push(sanit_base_coll(i, insp, time_array, id_array));
+        for (var v=0;v<sub_arrays[u].length;v++){
+            traces[u].x.push(format_time(sub_arrays[u][v].time));
+            traces[u].text.push(sub_arrays[u][v].id);
+        }
+    }
+
+    return traces;
+}
+function sanit_base_coll(index, sub_insp, time_array, id_array){
+    return {
+        x: time_array,
+        y: Array(sub_insp.length).fill(0),
+        hoverinfo: 'none',
+        mode: 'markers',
+        type: 'scatter',
+        marker: {
+            size: 40,
+            color: ['#43AC6A', '#43AC6A', '#5BC0DE', '#5BC0DE'][index],
+            opacity: 0.8
+        },
+        name: ['Fait, validé', 'Non fait, validé', 'Fait, non validé', 'Non fait, non validé'][index],
+        text: id_array
+    }
+}
