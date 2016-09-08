@@ -132,35 +132,69 @@ ng_app.controller('ArchivePanel', ['$scope', '$http', '$interval', '$timeout', '
         };
         $scope.$watch('clicked_archive', function(newValue){
             if (newValue!==undefined && newValue!==null){
-                if ($scope.g.chosen_element === 3){
-                    $scope.clicked_archive.translated_conformity = $scope.translate_bool(newValue.conform_eject);
-                    if(typeof(newValue.detec1) === "boolean"){
-                        $scope.clicked_archive.d1=$scope.translate_bool(newValue.detec1);
-                        $scope.clicked_archive.d2=$scope.translate_bool(newValue.detec2);
-                        $scope.clicked_archive.d3=$scope.translate_bool(newValue.detec3);
+                switch ($scope.g.chosen_element){
+                    case 3:
+                        $scope.clicked_archive.translated_conformity = $scope.translate_bool(newValue.conform_eject);
+                        if(typeof(newValue.detec1) === "boolean"){
+                            $scope.clicked_archive.d1=$scope.translate_bool(newValue.detec1);
+                            $scope.clicked_archive.d2=$scope.translate_bool(newValue.detec2);
+                            $scope.clicked_archive.d3=$scope.translate_bool(newValue.detec3);
 
-                    }
-                    else{
-                        $scope.clicked_archive.d1=newValue.detec1;
-                        $scope.clicked_archive.d2=newValue.detec2;
-                        $scope.clicked_archive.d3=newValue.detec3;
-                    }
-                    if (newValue.reject !== false){
-                        if (newValue.reject.user.length && newValue.reject.user !== null  && newValue.reject.user !== undefined ){
-                            $scope.clicked_archive.show_reject = true;
-                            $scope.clicked_archive.validation_str = 'validé par '+newValue.reject.user || 'N/A';
                         }
                         else{
-                            $scope.clicked_archive.show_reject = false;
-                            $scope.clicked_archive.validation_str = 'jamais validé';
+                            $scope.clicked_archive.d1=newValue.detec1;
+                            $scope.clicked_archive.d2=newValue.detec2;
+                            $scope.clicked_archive.d3=newValue.detec3;
                         }
-                    }
+                        if (newValue.reject !== false){
+                            if (newValue.reject.user.length && newValue.reject.user !== null  && newValue.reject.user !== undefined ){
+                                $scope.clicked_archive.show_reject = true;
+                                $scope.clicked_archive.validation_str = 'validé par '+newValue.reject.user || 'N/A';
+                            }
+                            else{
+                                $scope.clicked_archive.show_reject = false;
+                                $scope.clicked_archive.validation_str = 'jamais validé';
+                            }
+                        }
+                        break;
+                    case 4:
+                        $scope.clicked_archive.user = newValue.validated_by;
+                        $scope.clicked_archive.translated_conformity = newValue.done ? 'Fait' : 'Non-fait';
+                        break;
 
-
+                    default:
+                        $scope.clicked_archive.translated_conformity = $scope.translate_bool(newValue.conform);
+                        break;
                 }
-                else{
-                    $scope.clicked_archive.translated_conformity = $scope.translate_bool(newValue.conform);
-                }
+                // if ($scope.g.chosen_element === 3){
+                //     $scope.clicked_archive.translated_conformity = $scope.translate_bool(newValue.conform_eject);
+                //     if(typeof(newValue.detec1) === "boolean"){
+                //         $scope.clicked_archive.d1=$scope.translate_bool(newValue.detec1);
+                //         $scope.clicked_archive.d2=$scope.translate_bool(newValue.detec2);
+                //         $scope.clicked_archive.d3=$scope.translate_bool(newValue.detec3);
+                //
+                //     }
+                //     else{
+                //         $scope.clicked_archive.d1=newValue.detec1;
+                //         $scope.clicked_archive.d2=newValue.detec2;
+                //         $scope.clicked_archive.d3=newValue.detec3;
+                //     }
+                //     if (newValue.reject !== false){
+                //         if (newValue.reject.user.length && newValue.reject.user !== null  && newValue.reject.user !== undefined ){
+                //             $scope.clicked_archive.show_reject = true;
+                //             $scope.clicked_archive.validation_str = 'validé par '+newValue.reject.user || 'N/A';
+                //         }
+                //         else{
+                //             $scope.clicked_archive.show_reject = false;
+                //             $scope.clicked_archive.validation_str = 'jamais validé';
+                //         }
+                //     }
+                //
+                //
+                // }
+                // else{
+                //     $scope.clicked_archive.translated_conformity = $scope.translate_bool(newValue.conform);
+                // }
             }
         }, true);
         $scope.translate_bool = function(boolean){
@@ -208,7 +242,7 @@ ng_app.controller('ArchivePanel', ['$scope', '$http', '$interval', '$timeout', '
                     );
                     break;
                 default:
-                    archive_plot(
+                    reject_archive_plot(
                         $scope.plot_id,
                         $scope.values.prev_data
                     );

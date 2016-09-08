@@ -720,24 +720,33 @@ function sanit_archive_plot(div_id, insp_data){
         layout.xaxis = {
             rangeselector: get_selector_options()
         };
+        layout.legend = {
+            x: 1.0,
+            y: 0.5,
+            yanchor: 'middle',
+            traceorder: 'grouped',
+            font: {
+                size: 20
+            }
+        };
         trace(div_id, format_sanit_data(insp_data), layout);
     }
 }
-function format_sanit_date(insp, threshold){
+function format_sanit_data(insp){
     var time_array = format_time_array(insp);
     var id_array = attr_array(insp, 'id');
     var validated_array = insp.filter(filter_validated);
     var non_validated_array = insp.filter(filter_non_validated);
     var sub_arrays = [
         validated_array.filter(filter_true, 'done'),
-        validated_array.filter(filter_null, 'done'),
+        validated_array.filter(filter_false, 'done'),
         non_validated_array.filter(filter_true, 'done'),
-        non_validated_array.filter(filter_null, 'done')
+        non_validated_array.filter(filter_false, 'done')
 
     ];
     var traces = [];
     for (var u=0;u<sub_arrays.length;u++){
-        traces.push(sanit_base_coll(i, insp, time_array, id_array));
+        traces.push(sanit_base_coll(u, sub_arrays[u], time_array, id_array));
         for (var v=0;v<sub_arrays[u].length;v++){
             traces[u].x.push(format_time(sub_arrays[u][v].time));
             traces[u].text.push(sub_arrays[u][v].id);
@@ -756,9 +765,57 @@ function sanit_base_coll(index, sub_insp, time_array, id_array){
         marker: {
             size: 40,
             color: ['#43AC6A', '#43AC6A', '#5BC0DE', '#5BC0DE'][index],
-            opacity: 0.8
+            opacity: 0.8,
+            symbol: index % 2 == 0 ? 'diamond' : 'circle'
+
         },
         name: ['Fait, validé', 'Non fait, validé', 'Fait, non validé', 'Non fait, non validé'][index],
+        text: id_array
+    }
+}
+function reject_archive_plot(div_id, insp_data){
+    if (insp_data.length > 0){
+        var layout = scatter_layout();
+        layout.xaxis = {
+            rangeselector: get_selector_options()
+        };
+        trace(div_id, format_reject_data(insp_data), layout);
+    }
+}
+function format_reject_data(insp){
+    var time_array = format_time_array(insp);
+    var id_array = attr_array(insp, 'id');
+    var corrected = insp.filter(filter_not_false, 'correction');
+
+    var sub_arrays = [
+        corrected.filter(filter_true, 'conform'),
+        corrected.filter(filter_null, 'conform'),
+        insp.filter(filter_false, 'correction')
+    ];
+    var traces = [];
+    for (var u=0;u<sub_arrays.length;u++){
+        traces.push(reject_base_coll(u, sub_arrays[u], time_array, id_array));
+        for (var v=0;v<sub_arrays[u].length;v++){
+            traces[u].x.push(format_time(sub_arrays[u][v].time));
+            traces[u].text.push(sub_arrays[u][v].id);
+        }
+    }
+    return traces;
+}
+function reject_base_coll(index, sub_insp, time_array, id_array){
+    return {
+        x: time_array,
+        y: Array(sub_insp.length).fill(0),
+        hoverinfo: 'none',
+        mode: 'markers',
+        type: 'scatter',
+        marker: {
+            size: 40,
+            color: ['#43AC6A', '#5BC0DE', '#FF1629'][index],
+            opacity: 0.8,
+            symbol: index < 2 ? 'diamond' : 'circle'
+        },
+        name: ['Corrigé -> Conforme', 'Corrigé -> N/A', 'Pas corrigé'][index],
         text: id_array
     }
 }

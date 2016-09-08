@@ -38,8 +38,8 @@
       <file leaf-file-name="ng-archive.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ng-archive.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="523">
-              <caret line="204" column="38" selection-start-line="204" selection-start-column="20" selection-end-line="204" selection-end-column="38" />
+            <state relative-caret-position="432">
+              <caret line="244" column="39" selection-start-line="244" selection-start-column="20" selection-end-line="244" selection-end-column="39" />
               <folding>
                 <element signature="e#794#1126#0" expanded="false" />
                 <element signature="e#1187#1504#0" expanded="false" />
@@ -51,8 +51,8 @@
       <file leaf-file-name="plot.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/plot.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="329">
-              <caret line="737" column="20" selection-start-line="737" selection-start-column="20" selection-end-line="737" selection-end-column="20" />
+            <state relative-caret-position="172">
+              <caret line="784" column="34" selection-start-line="784" selection-start-column="34" selection-end-line="784" selection-end-column="34" />
               <folding />
             </state>
           </provider>
@@ -61,7 +61,7 @@
       <file leaf-file-name="ng-todo.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ng-todo.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2430">
+            <state relative-caret-position="-607">
               <caret line="135" column="0" selection-start-line="135" selection-start-column="0" selection-end-line="137" selection-end-column="10" />
               <folding />
             </state>
@@ -176,9 +176,9 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-1" />
+    <option name="x" value="1919" />
     <option name="width" value="1922" />
-    <option name="height" value="1080" />
+    <option name="height" value="1055" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -344,14 +344,7 @@
       <workItem from="1472762583675" duration="4528000" />
       <workItem from="1472825902084" duration="18533000" />
       <workItem from="1472915963908" duration="4512000" />
-      <workItem from="1473020723774" duration="18527000" />
-    </task>
-    <task id="LOCAL-00011" summary="added bootstrap files">
-      <created>1468360813356</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1468360813356</updated>
+      <workItem from="1473020723774" duration="24661000" />
     </task>
     <task id="LOCAL-00012" summary="relocated bootstrap files, navbar functions">
       <created>1468438954366</created>
@@ -689,14 +682,21 @@
       <option name="project" value="LOCAL" />
       <updated>1472849218541</updated>
     </task>
-    <option name="localTasksCounter" value="60" />
+    <task id="LOCAL-00060" summary="archive plots half done again">
+      <created>1473107655460</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1473107655481</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="781030000" />
+    <option name="totallyTimeSpent" value="787164000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="0" width="1922" height="1080" extended-state="6" />
+    <frame x="1919" y="0" width="1922" height="1055" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19765739" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -749,7 +749,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="inspection controller" />
     <MESSAGE value="inspection controller new functions" />
     <MESSAGE value="inspection controller refractoring" />
     <MESSAGE value="time management" />
@@ -774,7 +773,8 @@
     <MESSAGE value="added links to inspection" />
     <MESSAGE value="need to show archive panel" />
     <MESSAGE value="archive plots half done" />
-    <option name="LAST_COMMIT_MESSAGE" value="archive plots half done" />
+    <MESSAGE value="archive plots half done again" />
+    <option name="LAST_COMMIT_MESSAGE" value="archive plots half done again" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -933,14 +933,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ng-todo.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2430">
-          <caret line="135" column="0" selection-start-line="135" selection-start-column="0" selection-end-line="137" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ng-parametres.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -994,10 +986,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/ng-todo.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-607">
+          <caret line="135" column="0" selection-start-line="135" selection-start-column="0" selection-end-line="137" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ng-archive.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="523">
-          <caret line="204" column="38" selection-start-line="204" selection-start-column="20" selection-end-line="204" selection-end-column="38" />
+        <state relative-caret-position="432">
+          <caret line="244" column="39" selection-start-line="244" selection-start-column="20" selection-end-line="244" selection-end-column="39" />
           <folding>
             <element signature="e#794#1126#0" expanded="false" />
             <element signature="e#1187#1504#0" expanded="false" />
@@ -1007,8 +1007,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/plot.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="329">
-          <caret line="737" column="20" selection-start-line="737" selection-start-column="20" selection-end-line="737" selection-end-column="20" />
+        <state relative-caret-position="172">
+          <caret line="784" column="34" selection-start-line="784" selection-start-column="34" selection-end-line="784" selection-end-column="34" />
           <folding />
         </state>
       </provider>
