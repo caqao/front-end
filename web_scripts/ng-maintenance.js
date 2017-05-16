@@ -119,6 +119,50 @@ ng_app.controller('MaintenancePanel', ['$scope', '$http', '$interval', '$timeout
             delete $scope.comment;
             $scope.g.unsent_changes--;
 
-        }
+        };
+    }
+]);
+ng_app.controller('NewTaskPanel', ['$scope', '$http', '$interval', '$timeout', 'PageData',
+    function($scope, $http, $interval, $timeout, PageData) {
+        $scope.g = PageData.g;
+        $scope.p = new PanelCtrl($scope, $interval, $timeout);
+        $scope.page_number = 2;
+        $scope.p.loaded = true; //hotfix qui permet d'afficher le panneau même si aucune info à loader
+        // $scope.object_type = 'Task';
+
+
+        $scope.post_task = function(){
+            $http.post($scope.g.url,
+                {
+                    action: 'new_task',
+                    task_name: $scope.task_name,
+                    resp_id: $scope.resp_id,
+                    dept_id: $scope.dept_id,
+                    interval: $scope.interval,
+                    procedure: $scope.procedure,
+                    embed: $scope.embed,
+                    // active: $scope.active
+                }
+            ).then(
+                function(response){
+                    $scope.panel_class = "panel-success";
+                    $scope.delay_message = null;
+                    $scope.clear_form();
+                },
+                function(response){
+                    $scope.g.show_failure();
+                }
+            );
+        };
+        $scope.clear_form = function () {
+            $scope.task_name = '';
+            $scope.resp_id = null;
+            $scope.dept_id = null;
+            $scope.interval = 0;
+            $scope.procedure = '';
+            $scope.embed = '';
+            // $scope.active = true;
+        };
+        $scope.clear_form();
     }
 ]);

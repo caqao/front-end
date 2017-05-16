@@ -473,4 +473,27 @@ ng_app.controller('TodoCount', ['$scope', 'PageData',
 
     }
 ]);
-
+// ng_app.controller('ChangePage', ['$scope', 'PageData',
+//     function($scope, PageData) {
+//         $scope.g = PageData.g;
+//         $scope.current_index = 0;
+//         $scope.items_per_page = $scope.g.items_per_page || 10;
+//         $scope.next_page = function(){
+//                 $http.post($scope.g.url,
+//                     {
+//                         action: 'validate_maintenance',
+//                         maintenance_id: $scope.values.id
+//                     }
+//                 ).then(
+//                     function(response){
+//                         $scope.sent = true;
+//                         $scope.g.badges[4]--;
+//                     },
+//                     function(response){
+//                         $scope.g.show_failure();
+//                     }
+//                 );
+//             };
+//     }
+// ]);
+//
