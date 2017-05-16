@@ -97,3 +97,25 @@ ng_app.controller('TaskPanel', ['$scope', '$http', '$interval', '$timeout', 'Pag
         }, true);
     }
 ]);
+ng_app.controller('DepartmentsPanel', ['$scope', '$http', '$interval', '$timeout', 'PageData',
+    function($scope, $http, $interval, $timeout, PageData) {
+        $scope.g = PageData.g;
+        $scope.p = new PanelCtrl($scope, $interval, $timeout);
+        $scope.object_type = 'Department';
+        $scope.page_number = 0;
+
+        $scope.update_scope_data = function(newVal){
+            if (newVal !== null) {
+                $scope.p.update_panel_data(newVal);
+                $scope.sectors = newVal.sectors;
+                $scope.rounds = newVal.rounds;
+                print($scope.p);
+                print($scope.g);
+
+            }
+        };
+        $scope.$watch('g.last_update_time', function(){
+            $scope.update_scope_data($scope.g.last_data);
+        }, true);
+    }
+]);
