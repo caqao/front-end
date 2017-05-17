@@ -1,7 +1,6 @@
-var ng_app = angular.module('caqao_app', []);
-// angular.element(document).ready(function() {
-//     angular.bootstrap(document, ["caqao_app"]);
-// });
+var ng_app = angular.module('caqao_app', [
+
+]);
 ng_app.config(['$httpProvider', function($httpProvider) {
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -11,7 +10,7 @@ ng_app.service('PageData', function($http, $interval, $timeout){
     this.g.get_data();
 
 });
-ng_app.directive('watchResizeTabs', function(){
+ng_app.directive('watchResizeTabs', function(){ //depreciated
     return {
         restrict: 'A',
         link: function(scope, elem, attr) {
@@ -25,35 +24,6 @@ ng_app.directive('watchResizeTabs', function(){
         }
     }
 });
-// ng_app.directive('onlyNumber', function() {
-//     var FLOAT_REGEXP = /^-?\d*(\.\d+)?$/;
-//     // var FLOAT_REGEXP_VIRGULE = /^-?\d*(\,\d+)?$/;
-//     return {
-//         require: 'ngModel',
-//         link: function(scope, elm, attrs, ctrl) {
-//             ctrl.$validators.integer = function(modelValue, viewValue) {
-//                 print('model:');
-//                 print(modelValue);
-//                 print('view:');
-//                 print(viewValue);
-//                 if (ctrl.$isEmpty(modelValue)) {
-//                     // consider empty models to be valid
-//                     return true;
-//                 }
-//
-//                 if (FLOAT_REGEXP.test(viewValue)) {
-//                     // it is valid
-//
-//                     return true;
-//                 }
-//                 // it is invalid
-//                 print('bad');
-//                 modelValue= '';
-//                 return false;
-//             };
-//         }
-//     };
-// });
 ng_app.filter("trustUrl", ['$sce', function ($sce) {
     return function (recordingUrl) {
         return $sce.trustAsResourceUrl(recordingUrl);
@@ -68,16 +38,6 @@ ng_app.controller('Page', ['$scope', '$http', '$interval', '$timeout', '$window'
         var off = document.getElementById('top_affix').offsetHeight;
         off = off > 200 ? 200 : off;
         $scope.content_style = {"padding": off+"px 0 0 0"};
-
-        // $scope.update_scope_data = function(newVal){
-        //     if (newVal !== null) {
-        //         $scope.sectors = newVal.sectors;
-        //         $scope.rounds = newVal.rounds;
-        //     }
-        // };
-        // $scope.$watch('g.last_update_time', function(){
-        //     $scope.update_scope_data($scope.g.last_data);
-        // }, true);
         $scope.$watch('g.changes_buffer', function(newVal, oldVal){
             $scope.g.watch_changes_buffer(newVal, oldVal);
         }, true);
