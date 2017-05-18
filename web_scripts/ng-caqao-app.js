@@ -4,6 +4,8 @@ var ng_app = angular.module('caqao_app', [
 ng_app.config(['$httpProvider', function($httpProvider) {
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+    $httpProvider.defaults.headers.post['Content-Type'] = ''
+        + 'application/x-www-form-urlencoded; charset=UTF-8';
 }]);
 ng_app.service('PageData', function($http, $interval, $timeout){
     this.g = new PageCtrl($http, $interval, $timeout);

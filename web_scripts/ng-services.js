@@ -51,12 +51,10 @@ JsonDataHandler.prototype.post_edited_element = function (data_dict) {
     var t = this;
     this.http.post(window.location.href,
         {
-            params: {
-                action: 'edit_element',
-                data: data_dict
-            }
-
-        }).then(
+            action: 'edit_element',
+            data: data_dict
+        }
+        ).then(
         function(response){
             t.set_data(response.data);
             t.update_callback(response.data);
@@ -68,14 +66,11 @@ JsonDataHandler.prototype.post_edited_element = function (data_dict) {
 };
 JsonDataHandler.prototype.post_new_element = function (data_dict) {
     var t = this;
-    this.http.post(window.location.href,
-        {
-            params: {
-                action: 'new_element',
-                data: data_dict
-            }
-
-        }).then(
+    this.http.post(window.location.href, {
+            action: 'new_element',
+            data: data_dict
+        }
+        ).then(
         function(response){
             t.set_data(response.data);
             t.update_callback(response.data);
